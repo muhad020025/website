@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Esqyre - The Team</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+   <style>
+       body {
+           font-family: 'Inter', sans-serif;
+           background-color: #ffffff;
+       }
+       .dropdown {
+           display: none;
+           position: absolute;
+           top: 100%;
+           padding-top: 1.5rem;
+           z-index: 50;
+           opacity: 0;
+           transform: translateY(10px);
+           transition: opacity 0.3s ease, transform 0.3s ease;
+       }
+       .group:hover .dropdown {
+           display: block;
+           opacity: 1;
+           transform: translateY(0);
+       }
+       .dropdown-menu {
+           background-color: rgba(255, 255, 255, 0.98);
+           backdrop-filter: blur(8px);
+           border-radius: 0.75rem;
+           box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+           min-width: 220px;
+           padding: 0.5rem;
+           border: 1px solid #f3f4f6;
+       }
+       .dropdown-menu a {
+           display: block;
+           padding: 0.75rem 1rem;
+           color: #374151;
+           transition: background-color 0.2s ease, color 0.2s ease;
+           border-radius: 0.5rem;
+           font-weight: 500;
+       }
+       .dropdown-menu a:hover {
+           background-color: #f3f4f6;
+           color: #111827;
+       }
+       .mega-menu {
+           background-color: rgba(255, 255, 255, 0.98);
+           backdrop-filter: blur(8px);
+           border-radius: 0.75rem;
+           box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+           padding: 1.5rem;
+            border: 1px solid #f3f4f6;
+       }
+       .fade-in {
+           opacity: 0;
+           transform: translateY(20px);
+           transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+       }
+       .fade-in.visible {
+           opacity: 1;
+           transform: translateY(0);
+       }
+       .team-card {
+           background-color: #f9fafb;
+           border: 1px solid #f3f4f6;
+           border-radius: 1rem;
+           transition: transform 0.3s ease, box-shadow 0.3s ease;
+       }
+       .team-card:hover {
+           transform: translateY(-5px);
+           box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+       }
+   </style>
+</head>
+<body class="antialiased">
+   <!-- Header -->
+   <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-40 border-b border-gray-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center text-gray-800">
+            <a href="index.html" class="block w-36">
+                <img src="Esqyre_logo.png" alt="Esqyre Logo" class="w-full h-auto">
+            </a>
+           <div class="hidden lg:flex items-center space-x-8 font-medium">
+               <div class="relative group">
+                    <button class="flex items-center text-gray-600 hover:text-gray-900">
+                       Explore Luxury
+                       <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="dropdown group-hover:block left-1/2 -translate-x-1/2">
+                       <div class="mega-menu grid grid-cols-2 gap-6 w-[400px]">
+                           <a href="/cars" class="block group p-4 rounded-lg hover:bg-gray-100">
+                               <h4 class="font-bold">Cars</h4>
+                               <p class="text-sm text-gray-500">Exotic & Prestige Fleet</p>
+                           </a>
+                            <a href="/jets" class="block group p-4 rounded-lg hover:bg-gray-100">
+                               <h4 class="font-bold">Jets</h4>
+                               <p class="text-sm text-gray-500">Global Private Aviation</p>
+                           </a>
+                            <a href="/yachts" class="block group p-4 rounded-lg hover:bg-gray-100">
+                               <h4 class="font-bold">Yachts</h4>
+                               <p class="text-sm text-gray-500">Exclusive Sea Voyages</p>
+                           </a>
+                            <a href="/villas" class="block group p-4 rounded-lg hover:bg-gray-100">
+                               <h4 class="font-bold">Villas</h4>
+                               <p class="text-sm text-gray-500">Private Luxury Estates</p>
+                           </a>
+                       </div>
+                    </div>
+               </div>
+               <a href="/corporate" class="text-gray-600 hover:text-gray-900">Corporate Suite</a>
+               <a href="/partner" class="text-gray-600 hover:text-gray-900">Partner With Us</a>
+               <div class="relative group">
+                    <button class="flex items-center text-gray-900 font-semibold">
+                       About
+                       <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="dropdown group-hover:block">
+                       <div class="dropdown-menu">
+                           <a href="/about">Our Story</a>
+                           <a href="/about/team" class="bg-gray-100">Team</a>
+                           <a href="/legal">Legal & Privacy</a>
+                       </div>
+                    </div>
+               </div>
+           </div>
+            <div class="flex items-center gap-4">
+               <button class="px-5 py-2 text-sm font-semibold rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-300">
+                   Login
+               </button>
+               <a href="/app" class="px-5 py-2 text-sm font-semibold rounded-lg bg-gray-800 text-white shadow-lg hover:bg-black transition-all duration-300">
+                   Download App
+               </a>
+           </div>
+       </nav>
+   </header>
+
+
+   <main>
+       <!-- Page Hero -->
+       <section class="py-20 md:py-32 bg-gray-50 border-b border-gray-200">
+           <div class="container mx-auto px-4 text-center">
+               <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight">The Leadership Defining Luxury's Future</h1>
+               <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">Meet the founder, leadership team, and advisors dedicated to setting a new standard in curated service and technological innovation.</p>
+           </div>
+       </section>
+
+
+       <!-- Founder Section -->
+       <section class="py-20 md:py-24 bg-white">
+           <div class="container mx-auto px-4">
+               <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12 fade-in">
+                   <img src="IMG_8747.jpg" class="w-56 h-56 rounded-full object-cover flex-shrink-0 shadow-2xl" alt="Mahmoud Abusway">
+                   <div class="text-center md:text-left">
+                       <h3 class="text-3xl font-bold">Mahmoud Abusway</h3>
+                       <p class="text-gray-500 font-semibold text-lg mt-1">Founder & CEO</p>
+                       <p class="mt-4 text-gray-600 text-lg leading-relaxed">With a vision to disrupt the traditional luxury market, Mahmoud leads Esqyre's mission to deliver an unparalleled service experience, grounded in a deep commitment to trust and client satisfaction.</p>
+                       <div class="mt-6 flex justify-center md:justify-start space-x-4">
+                           <a href="#" class="text-gray-400 hover:text-gray-800 transition-colors">
+                               <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                           </a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </section>
+
+
+       <!-- Leadership Team Section -->
+       <section class="py-20 md:py-24 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center max-w-3xl mx-auto fade-in">
+                   <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Leadership Team</h2>
+                   <p class="mt-4 text-lg text-gray-600">The executive team driving Esqyre's operational excellence and technological innovation.</p>
+               </div>
+               <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                   <!-- COO -->
+                   <div class="team-card bg-white p-8 text-center fade-in">
+                       <img src="https://placehold.co/150x150/d1d5db/4b5563?text=COO" class="w-32 h-32 rounded-full mx-auto" alt="COO">
+                       <h3 class="text-xl font-bold mt-6">Muhad Musthafa</h3>
+                       <p class="text-gray-500">Chief Operating Officer</p>
+                   </div>
+                    <!-- CTO -->
+                   <div class="team-card bg-white p-8 text-center fade-in" style="transition-delay: 100ms;">
+                       <img src="https://placehold.co/150x150/d1d5db/4b5563?text=CTO" class="w-32 h-32 rounded-full mx-auto" alt="CTO">
+                       <h3 class="text-xl font-bold mt-6">Vaibhav</h3>
+                       <p class="text-gray-500">Chief Technology Officer</p>
+                   </div>
+                    <!-- CMO -->
+                   <div class="team-card bg-white p-8 text-center fade-in" style="transition-delay: 200ms;">
+                       <img src="https://placehold.co/150x150/d1d5db/4b5563?text=CMO" class="w-32 h-32 rounded-full mx-auto" alt="CMO">
+                       <h3 class="text-xl font-bold mt-6">Sobin Daniel</h3>
+                       <p class="text-gray-500">Chief Marketing Officer</p>
+                   </div>
+               </div>
+            </div>
+       </section>
+
+
+       <!-- Board of Advisors Section -->
+       <section class="py-20 md:py-24 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center max-w-3xl mx-auto fade-in">
+                   <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Board of Advisors</h2>
+                   <p class="mt-4 text-lg text-gray-600">Our leadership is guided by a board of distinguished advisors with deep expertise across technology, luxury markets, and corporate strategy.</p>
+               </div>
+               <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                   <!-- Advisor 1 -->
+                   <div class="text-center fade-in">
+                       <img src="https://placehold.co/150x150/d1d5db/4b5563?text=A1" class="w-32 h-32 rounded-full mx-auto" alt="Advisor 1">
+                       <h3 class="text-xl font-bold mt-4">Advisor Name</h3>
+                       <p class="text-gray-500">Luxury Hospitality Advisor</p>
+                   </div>
+                    <!-- Advisor 2 -->
+                   <div class="text-center fade-in" style="transition-delay: 100ms;">
+                       <img src="https://placehold.co/150x150/d1d5db/4b5563?text=A2" class="w-32 h-32 rounded-full mx-auto" alt="Advisor 2">
+                       <h3 class="text-xl font-bold mt-4">Advisor Name</h3>
+                       <p class="text-gray-500">Financial Technology Advisor</p>
+                   </div>
+                    <!-- Advisor 3 -->
+                   <div class="text-center fade-in" style="transition-delay: 200ms;">
+                       <img src="https://placehold.co/150x150/d1d5db/4b5563?text=A3" class="w-32 h-32 rounded-full mx-auto" alt="Advisor 3">
+                       <h3 class="text-xl font-bold mt-4">Advisor Name</h3>
+                       <p class="text-gray-500">Corporate Strategy Advisor</p>
+                   </div>
+                    <!-- Advisor 4 -->
+                   <div class="text-center fade-in" style="transition-delay: 300ms;">
+                       <img src="https://placehold.co/150x150/d1d5db/4b5563?text=A4" class="w-32 h-32 rounded-full mx-auto" alt="Advisor 4">
+                       <h3 class="text-xl font-bold mt-4">Advisor Name</h3>
+                       <p class="text-gray-500">Aviation & Logistics Expert</p>
+                   </div>
+               </div>
+            </div>
+       </section>
+   </main>
+  
+   <!-- Footer -->
+   <footer class="bg-gray-900 text-white">
+       <div class="container mx-auto px-8 py-16">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+                <div class="col-span-2 md:col-span-1">
+                    <h2 class="text-2xl font-bold tracking-wider">ESQYRE</h2>
+                    <p class="mt-4 text-sm text-gray-400">Curated Luxury, <br>Seamlessly Delivered.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold tracking-wider uppercase text-sm text-gray-400">Company</h3>
+                    <ul class="mt-4 space-y-3 text-gray-300">
+                        <li><a href="/about" class="hover:text-white">About Us</a></li>
+                        <li><a href="/legal" class="hover:text-white">Legal</a></li>
+                        <li><a href="#" class="hover:text-white">Careers</a></li>
+                    </ul>
+                </div>
+                 <div>
+                    <h3 class="font-bold tracking-wider uppercase text-sm text-gray-400">Explore</h3>
+                    <ul class="mt-4 space-y-3 text-gray-300">
+                        <li><a href="/cars" class="hover:text-white">Cars</a></li>
+                        <li><a href="/jets" class="hover:text-white">Jets</a></li>
+                        <li><a href="/yachts" class="hover:text-white">Yachts</a></li>
+                        <li><a href="/villas" class="hover:text-white">Villas</a></li>
+                    </ul>
+                </div>
+                 <div>
+                    <h3 class="font-bold tracking-wider uppercase text-sm text-gray-400">Business</h3>
+                    <ul class="mt-4 space-y-3 text-gray-300">
+                        <li><a href="/corporate" class="hover:text-white">Corporate Suite</a></li>
+                        <li><a href="/partner" class="hover:text-white">Partner Overview</a></li>
+                        <li><a href="/partner/login" class="hover:text-white">Vendor Login</a></li>
+                    </ul>
+                </div>
+                 <div>
+                    <h3 class="font-bold tracking-wider uppercase text-sm text-gray-400">Support</h3>
+                    <ul class="mt-4 space-y-3 text-gray-300">
+                        <li><a href="/support/faqs" class="hover:text-white">FAQs</a></li>
+                        <li><a href="/contact" class="hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white">WhatsApp</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-16 border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+                <p>&copy; 2025 Esqyre. All Rights Reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                   <p>Built in Dubai. Powered by Trust.</p>
+                </div>
+            </div>
+       </div>
+   </footer>
+
+
+   <script>
+       // Simple fade-in animation on scroll
+       const observer = new IntersectionObserver((entries) => {
+           entries.forEach(entry => {
+               if (entry.isIntersecting) {
+                   entry.target.classList.add('visible');
+               }
+           });
+       }, {
+           threshold: 0.1
+       });
+
+
+       document.querySelectorAll('.fade-in').forEach(el => {
+           observer.observe(el);
+       });
+   </script>
+</body>
+</html>
+
+
+

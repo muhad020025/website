@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Esqyre | Partners</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              black: "#000000",
+              subtle: "#0B0B0B",
+              white: "#FFFFFF",
+              gray: {
+                350: "#B1B1B1",
+                400: "#A3A3A3",
+                500: "#737373",
+                600: "#525252",
+                800: "#262626",
+                900: "#171717",
+              },
+            },
+            fontFamily: { sans: ['"Inter"', "sans-serif"] },
+            letterSpacing: { ultra: ".32em" },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        background: #000;
+        color: #fff;
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: geometricPrecision;
+      }
+
+      #overview,
+      #how,
+      #apply {
+        scroll-margin-top: 110px;
+      }
+
+      .film-grain {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        opacity: 0.06;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+      }
+      .vignette {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: radial-gradient(
+          1200px 800px at 50% 40%,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.38) 55%,
+          rgba(0, 0, 0, 0.75) 100%
+        );
+      }
+
+      .section-divider {
+        position: absolute;
+        left: 50%;
+        top: 32px;
+        transform: translateX(-50%);
+        width: min(1100px, 92%);
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0)
+        );
+        z-index: 5;
+        opacity: 0.9;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(34px);
+        filter: blur(6px);
+        transition: opacity 1.05s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 1.05s cubic-bezier(0.16, 1, 0.3, 1),
+          filter 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity, filter;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+
+      nav.nav-scrolled {
+        background: rgba(0, 0, 0, 0.78);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .nav-link {
+        font-size: 11px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: white;
+        opacity: 0.85;
+        transition: opacity 0.3s ease;
+      }
+      .nav-link:hover {
+        opacity: 1;
+      }
+
+      .cta-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          background 0.5s ease,
+          border-color 0.5s ease;
+      }
+      .cta-pill:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.28);
+      }
+
+      .cta-link {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding-bottom: 3px;
+        text-shadow: 0 6px 18px rgba(0, 0, 0, 0.65);
+        opacity: 0.9;
+        transition: opacity 0.3s ease;
+      }
+      .cta-link:hover {
+        opacity: 1;
+      }
+      .cta-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 1),
+          rgba(255, 255, 255, 0.2)
+        );
+        transform: scaleX(0.22);
+        transform-origin: left;
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .group:hover .cta-link::after {
+        transform: scaleX(1);
+      }
+
+      .bg-zoom-container {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .bg-zoom-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.02);
+        transition: transform 2.2s cubic-bezier(0.19, 1, 0.22, 1),
+          opacity 1.2s ease;
+      }
+      .group:hover .bg-zoom-img {
+        transform: scale(1.055);
+      }
+
+      .overlay-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.32;
+      }
+
+      .overlay-item-dynamic {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0;
+        font-size: clamp(1.8rem, 3.3vw, 3.5rem);
+        font-weight: 500;
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        transition: opacity 0.35s ease, transform 0.35s ease;
+      }
+      .overlay-item-dynamic:last-child {
+        border-bottom: none;
+      }
+      .overlay-item-dynamic:hover {
+        opacity: 1;
+        transform: translateX(6px);
+      }
+
+      .editorial {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(16px);
+        border-radius: 26px;
+        overflow: hidden;
+      }
+      .editorial-img {
+        width: 100%;
+        height: 520px;
+        object-fit: cover;
+        opacity: 0.8;
+        transform: scale(1.02);
+        transition: opacity 0.5s ease,
+          transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .editorial:hover .editorial-img {
+        opacity: 0.92;
+        transform: scale(1.05);
+      }
+      .editorial-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.06) 0%,
+          rgba(0, 0, 0, 0.22) 40%,
+          rgba(0, 0, 0, 0.82) 100%
+        );
+      }
+      .editorial-kicker {
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .editorial-title {
+        font-size: 28px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+      }
+
+      .page-progress {
+        position: fixed;
+        right: 22px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 60;
+        display: none;
+        gap: 14px;
+        padding: 14px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        background: rgba(0, 0, 0, 0.28);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 16px 50px rgba(0, 0, 0, 0.55);
+        transition: opacity 0.4s ease;
+        opacity: 0;
+        pointer-events: none;
+      }
+      @media (min-width: 768px) {
+        .page-progress {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+      .page-dot {
+        position: relative;
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.06);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+          background 0.35s ease,
+          border-color 0.35s ease;
+        cursor: pointer;
+        outline: none;
+      }
+      .page-dot:hover {
+        transform: scale(1.15);
+        border-color: rgba(255, 255, 255, 0.55);
+      }
+      .page-dot.active {
+        background: rgba(255, 255, 255, 0.92);
+        border-color: rgba(255, 255, 255, 0.92);
+        transform: scale(1.18);
+      }
+      .page-dot .page-label {
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+      .page-dot:hover .page-label,
+      .page-dot:focus-visible .page-label {
+        opacity: 1;
+        transform: translateY(-50%) translateX(-2px);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .reveal,
+        .page-progress,
+        .page-dot,
+        .bg-zoom-img {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+
+   <body class="antialiased overflow-x-hidden selection:bg-white selection:text-black">
+    <!-- Navbar -->
+    <nav
+      id="mainNav"
+      class="fixed top-0 left-0 right-0 z-50 h-24 flex items-center border-b border-white/0 transition-all duration-500"
+    >
+      <div class="absolute inset-0 bg-gradient-to-b from-black/80 to-transparent"></div>
+
+      <div class="relative z-10 container mx-auto px-7 md:px-14 flex justify-between items-center w-full">
+        <a href="index.html" class="w-32">
+          <img
+            src="https://superadmin.esqyre.com/assets/images/esqyre_logo.svg"
+            class="invert brightness-0"
+            alt="Esqyre"
+          />
+        </a>
+
+        <div class="hidden lg:flex items-center gap-12">
+          <button onclick="openOverlay('exploreOverlay')" class="nav-link">Explore</button>
+          <a href="corporate.html" class="nav-link">For Business</a>
+          <a href="partners.html" class="nav-link">Partners</a>
+        </div>
+
+        <div class="flex items-center gap-6">
+          <a href="login.html" class="hidden sm:block nav-link">Login</a>
+          <button id="mobile-menu-button" class="lg:hidden">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- EXPLORE OVERLAY -->
+    <div id="exploreOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
+      <div class="absolute inset-0">
+        <video autoplay muted loop playsinline class="overlay-video">
+          <source
+            src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="absolute inset-0 bg-black/75"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+      </div>
+
+      <div class="relative z-10 h-full container mx-auto px-6 md:px-12 flex flex-col">
+        <div class="flex justify-between items-center h-24">
+          <span class="text-xs tracking-[.32em] uppercase opacity-60">Explore</span>
+          <button onclick="closeOverlay('exploreOverlay')">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-12">
+          <div class="lg:col-span-6">
+            <a
+              href="chauffeurs.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Chauffeur"
+              data-kicker="First Class"
+              data-image="https://cd.wheely.com/2x_webp_Artwork_4_3_1_f658d25402.webp"
+              data-action="View Chauffeur"
+              data-href="chauffeurs.html"
+              >Chauffeur</a
+            >
+
+            <a
+              href="cars.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Supercars"
+              data-kicker="Fleet"
+              data-image="https://i.pinimg.com/736x/f6/30/6f/f6306fd83483c23e4cef2d55462444fe.jpg"
+              data-action="View Supercars"
+              data-href="cars.html"
+              >Supercars</a
+            >
+
+            <a
+              href="jets.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Private Aviation"
+              data-kicker="Access"
+              data-image="https://i.pinimg.com/1200x/04/6f/c6/046fc640ad4739d024639501b330dac0.jpg"
+              data-action="Request Charter"
+              data-href="jets.html"
+              >Private Aviation</a
+            >
+
+            <a
+              href="villas.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Villas & Hotels"
+              data-kicker="Stays"
+              data-image="https://i.pinimg.com/736x/ba/28/2e/ba282e6465d684da2cee26b17dc466f0.jpg"
+              data-action="Explore Stays"
+              data-href="villas.html"
+              >Stays</a
+            >
+
+            <a
+              href="yachts.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Yachts"
+              data-kicker="Marine"
+              data-image="https://i.pinimg.com/736x/33/7b/10/337b1006a9ca27aa1bf0d7212df6fa3c.jpg"
+              data-action="Explore Yachts"
+              data-href="yachts.html"
+              >Yachts</a
+            >
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="editorial">
+              <div class="relative">
+                <img id="exploreEditorialImg" class="editorial-img" alt="Explore Preview" />
+                <div class="editorial-overlay"></div>
+
+                <div class="absolute bottom-0 left-0 right-0 p-10">
+                  <p id="exploreEditorialKicker" class="editorial-kicker"></p>
+                  <h3 id="exploreEditorialTitle" class="editorial-title mt-3"></h3>
+
+                  <div class="mt-8">
+                    <a
+                      id="exploreEditorialBtn"
+                      href="#"
+                      class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex"
+                    >
+                      <span id="exploreEditorialBtnText">Explore</span>
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pb-10 text-xs tracking-[.32em] uppercase opacity-50">Time Redefined</div>
+      </div>
+    </div>
+
+    <!-- PARTNERS OVERLAY -->
+    <div id="partnersOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
+      <div class="absolute inset-0">
+        <video autoplay muted loop playsinline class="overlay-video">
+          <source
+            src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="absolute inset-0 bg-black/75"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+      </div>
+
+      <div class="relative z-10 h-full container mx-auto px-6 md:px-12 flex flex-col">
+        <div class="flex justify-between items-center h-24">
+          <span class="text-xs tracking-[.32em] uppercase opacity-60">Partners</span>
+          <button onclick="closeOverlay('partnersOverlay')">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-12">
+          <div class="lg:col-span-6">
+            <a
+              href="partner-overview.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Partner Overview"
+              data-kicker="Network"
+              data-image="https://i.pinimg.com/1200x/ec/11/92/ec1192e63f0ed3b136a426096c54f470.jpg"
+              data-action="View Overview"
+              data-href="partner-overview.html"
+              >Partner Overview</a
+            >
+
+            <a
+              href="partner-apply.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Apply to List"
+              data-kicker="Curated"
+              data-image="https://esqyre.com/assets/images/assets.png"
+              data-action="Apply Now"
+              data-href="partner-apply.html"
+              >Apply to List</a
+            >
+
+            <a
+              href="partner-login.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Vendor Portal"
+              data-kicker="Operations"
+              data-image="https://esqyre.com/assets/images/help.png"
+              data-action="Open Portal"
+              data-href="partner-login.html"
+              >Vendor Portal</a
+            >
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="editorial">
+              <div class="relative">
+                <img id="partnersEditorialImg" class="editorial-img" alt="Partners Preview" />
+                <div class="editorial-overlay"></div>
+
+                <div class="absolute bottom-0 left-0 right-0 p-10">
+                  <p id="partnersEditorialKicker" class="editorial-kicker"></p>
+                  <h3 id="partnersEditorialTitle" class="editorial-title mt-3"></h3>
+
+                  <div class="mt-8">
+                    <a
+                      id="partnersEditorialBtn"
+                      href="#"
+                      class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex"
+                    >
+                      <span id="partnersEditorialBtnText">Explore</span>
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pb-10 text-xs tracking-[.32em] uppercase opacity-50">Time Redefined</div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden fixed inset-0 z-[60] hidden">
+      <div
+        id="mobile-menu-overlay"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm opacity-0"
+        onclick="closeMenu()"
+      ></div>
+      <div
+        id="mobile-menu-content"
+        class="relative z-[70] bg-black border-l border-white/10 text-white w-4/5 max-w-sm ml-auto h-full p-8 transform translate-x-full transition-transform duration-300"
+      >
+        <div class="flex justify-between items-center mb-12">
+          <span class="text-lg font-bold tracking-[.32em]">MENU</span>
+          <button id="mobile-close-button" onclick="closeMenu()" class="p-2 -m-2">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex flex-col space-y-8">
+          <button
+            onclick="openOverlay('exploreOverlay'); closeMenu();"
+            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
+          >
+            Explore
+          </button>
+
+          <a href="corporate.html" class="text-xl font-medium hover:text-gray-350 transition-colors">
+  For Business
+</a>
+
+          <button
+            onclick="openOverlay('partnersOverlay'); closeMenu();"
+            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
+          >
+            Partners
+          </button>
+
+          <div class="h-px bg-white/10 my-4"></div>
+
+          <a
+            href="login.html"
+            class="text-sm uppercase tracking-[.32em] text-gray-500 hover:text-white transition-colors"
+            >Login</a
+          >
+
+          <div class="mt-auto pt-8">
+            <a
+              href="app-download.html"
+              class="block w-full text-center bg-white text-black py-4 text-xs font-bold tracking-[.32em] uppercase"
+            >
+              Get The App
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <div id="pageProgress" class="page-progress" aria-label="Page navigation"></div>
+
+      <!-- Hero -->
+      <header class="relative h-screen w-full overflow-hidden bg-black flex items-end pb-24 group" data-panel="Hero">
+        <div class="absolute inset-0 z-0">
+          <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-85">
+            <source
+              src="corporate page/partnershero.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 md:px-12 w-full">
+          <div class="max-w-4xl reveal active">
+            <p class="text-[11px] tracking-[.32em] uppercase text-white/70 mb-5">Partners</p>
+
+            <h1 class="font-medium text-5xl md:text-7xl lg:text-8xl text-white tracking-tight leading-[1.05] mb-10 drop-shadow-lg">
+              SUPPLY.<br />CURATED.
+            </h1>
+
+            <div class="flex items-center gap-6 flex-wrap">
+              <a href="partner-apply.html" class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white">
+                Apply to List <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+
+              <a href="#how" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/90 hover:text-white transition-colors">
+                How it works <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Overview -->
+      <section id="overview" class="group relative w-full h-screen overflow-hidden flex items-end pb-24 bg-black" data-panel="Overview">
+        <div class="bg-zoom-container">
+          <img
+            src="https://cd.wheely.com/3200w_webp_2024_Dec_Wheely_SUV_Main_Image_Desktop_b9ee3e5a4b.webp"
+            class="bg-zoom-img opacity-60"
+            alt="Overview"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-r from-black/86 via-transparent to-transparent"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 md:px-12 w-full">
+          <div class="max-w-xl reveal">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/55 mb-6">Overview</p>
+
+            <h2 class="text-5xl md:text-7xl font-medium tracking-tight mb-6 uppercase text-white drop-shadow-xl leading-[1.03]">
+              One<br />Standard
+            </h2>
+
+            <p class="text-gray-200 text-lg leading-relaxed mb-8 font-light drop-shadow-md max-w-[44ch]">
+              We work with suppliers that can operate quietly, deliver consistently, and scale with demand.
+            </p>
+
+            <div class="mt-8">
+              <a href="partner-apply.html" class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white">
+                Apply to List <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section id="how" class="relative w-full bg-black pt-16 pb-24 md:pt-20 md:pb-28" data-panel="How">
+        <div class="absolute inset-0">
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 md:px-12">
+          <div class="max-w-4xl reveal">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">How it works</p>
+
+            <h2 class="text-4xl md:text-6xl font-medium tracking-tight leading-[1.05]">
+              List once.<br />Operate through one system.
+            </h2>
+
+            <p class="mt-6 text-white/55 text-base md:text-lg leading-relaxed max-w-2xl">
+              Submit your details. We verify supply, service history, and operational readiness. Once approved, you receive access for requests, confirmations, and reporting.
+            </p>
+          </div>
+
+          <div class="mt-14 max-w-5xl">
+            <div class="reveal flex flex-col md:flex-row md:items-baseline gap-6 py-10 border-t border-white/10">
+              <span class="text-[10px] tracking-[.32em] uppercase text-white/40 md:w-44">Step 01</span>
+              <p class="text-2xl md:text-3xl font-medium tracking-tight leading-snug">
+                Apply with fleet / inventory and coverage.
+              </p>
+            </div>
+
+            <div class="reveal flex flex-col md:flex-row md:items-baseline gap-6 py-10 border-t border-white/10">
+              <span class="text-[10px] tracking-[.32em] uppercase text-white/40 md:w-44">Step 02</span>
+              <p class="text-2xl md:text-3xl font-medium tracking-tight leading-snug">
+                Verification and standard alignment.
+              </p>
+            </div>
+
+            <div class="reveal flex flex-col md:flex-row md:items-baseline gap-6 py-10 border-t border-white/10 border-b">
+              <span class="text-[10px] tracking-[.32em] uppercase text-white/40 md:w-44">Step 03</span>
+              <p class="text-2xl md:text-3xl font-medium tracking-tight leading-snug">
+                Portal access. Requests routed to you.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Partner CTA (replaces “Standards”) -->
+      <section
+        class="relative py-24 md:py-28 bg-black overflow-hidden border-t border-white/10"
+        data-panel="Access"
+      >
+        <div class="absolute inset-0">
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 md:px-12">
+          <div class="max-w-3xl mx-auto text-center reveal">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">Access</p>
+
+            <h3 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">
+              Join the supply layer.
+            </h3>
+
+            <p class="text-white/52 mt-5 text-base md:text-lg leading-relaxed">
+              If you can meet the standard, we’ll route demand to you.
+            </p>
+
+            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+              <a
+                href="partner-apply.html"
+                class="inline-flex items-center justify-center gap-3 rounded-full bg-white text-black px-8 py-3.5
+                       text-xs font-bold tracking-[.32em] uppercase hover:bg-white/90 transition-colors"
+              >
+                Apply to List
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+
+              <a
+                href="partner-login.html"
+                class="inline-flex items-center justify-center gap-3 rounded-full border border-white/18
+                       bg-black/30 px-8 py-3.5 text-xs font-bold tracking-[.32em] uppercase text-white
+                       hover:border-white/30 hover:bg-white/[0.06] transition-all"
+              >
+                Vendor Portal
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+     <!-- Footer -->
+      <footer class="bg-black border-t border-white/10 relative z-20" data-panel="Footer">
+        <div class="container mx-auto px-6 md:px-12 pt-20 pb-12">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+              <img src="https://superadmin.esqyre.com/assets/images/esqyre_logo.svg" class="h-7 w-auto invert brightness-0 filter" alt="Esqyre" />
+
+              <p class="text-xs text-white/50 mt-6 leading-relaxed max-w-sm">
+                A curated system for movement built on discretion,
+                precision, and standards that remain invisible.
+              </p>
+
+              <div class="mt-10 flex items-center gap-4">
+                <a href="#" class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors">Instagram</a>
+                <span class="text-white/20">/</span>
+                <a href="#" class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors">LinkedIn</a>
+                <span class="text-white/20">/</span>
+                <a href="contact.html" class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors">Contact</a>
+              </div>
+            </div>
+
+            <div class="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-10">
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Company</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="#" class="hover:text-white transition-colors">Our Story</a></li>
+                  <li><a href="#" class="hover:text-white transition-colors">Safety</a></li>
+                  <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                  <li><a href="#" class="hover:text-white transition-colors">Newsroom</a></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Services</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="chauffeurs.html#standards" class="hover:text-white transition-colors">Chauffeur</a></li>
+                  <li><a href="cars.html#reserve" class="hover:text-white transition-colors">Supercars</a></li>
+                  <li><a href="jets.html" class="hover:text-white transition-colors">Private Aviation</a></li>
+                  <li><a href="villas.html" class="hover:text-white transition-colors">Villas</a></li>
+                  <li><a href="yachts.html" class="hover:text-white transition-colors">Yachts</a></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Legal</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="#" class="hover:text-white transition-colors">Terms of Use</a></li>
+                  <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                  <li><a href="#" class="hover:text-white transition-colors">Cookies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-16 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[11px] tracking-[.32em] uppercase text-white/40">
+            <p>TIME REDEFINED</p>
+            <p class="mt-4 md:mt-0">© 2025 ESQYRE TECHNOLOGIES INC.</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+
+    <script>
+      lucide.createIcons();
+
+      // Nav state
+      const nav = document.getElementById("mainNav");
+      const setNavState = () => {
+        if (!nav) return;
+        if (window.scrollY > 20) nav.classList.add("nav-scrolled");
+        else nav.classList.remove("nav-scrolled");
+      };
+      window.addEventListener("scroll", setNavState, { passive: true });
+      setNavState();
+
+      // Scroll lock helpers
+      function anyLayerOpen() {
+        const overlayOpen =
+          (document.getElementById("exploreOverlay") &&
+            !document.getElementById("exploreOverlay").classList.contains("hidden")) ||
+          false;
+
+        const menuOpen =
+          document.getElementById("mobile-menu") &&
+          !document.getElementById("mobile-menu").classList.contains("hidden");
+
+        return overlayOpen || menuOpen;
+      }
+      function lockScroll() {
+        document.body.style.overflow = "hidden";
+      }
+      function unlockScroll() {
+        document.body.style.overflow = anyLayerOpen() ? "hidden" : "";
+      }
+
+      // Explore overlay
+      function openOverlay(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.remove("hidden");
+        lockScroll();
+        lucide.createIcons();
+      }
+      function closeOverlay(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.add("hidden");
+        unlockScroll();
+      }
+
+      // Mobile menu
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
+      const mobileMenuContent = document.getElementById("mobile-menu-content");
+
+      function openMenu() {
+        if (!mobileMenu) return;
+        mobileMenu.classList.remove("hidden");
+        lockScroll();
+        setTimeout(() => {
+          mobileMenuOverlay?.classList.remove("opacity-0");
+          mobileMenuContent?.classList.remove("translate-x-full");
+        }, 10);
+      }
+      function closeMenu() {
+        if (!mobileMenu) return;
+        mobileMenuOverlay?.classList.add("opacity-0");
+        mobileMenuContent?.classList.add("translate-x-full");
+        setTimeout(() => {
+          mobileMenu.classList.add("hidden");
+          unlockScroll();
+        }, 300);
+      }
+      mobileMenuButton?.addEventListener("click", openMenu);
+      document.getElementById("mobile-close-button")?.addEventListener("click", closeMenu);
+
+      // Esc closes layers
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape") return;
+
+        const explore = document.getElementById("exploreOverlay");
+        if (explore && !explore.classList.contains("hidden")) closeOverlay("exploreOverlay");
+
+        if (mobileMenu && !mobileMenu.classList.contains("hidden")) closeMenu();
+      });
+
+      // Explore editorial hover
+      const exploreImg = document.getElementById("exploreEditorialImg");
+      const exploreTitle = document.getElementById("exploreEditorialTitle");
+      const exploreKicker = document.getElementById("exploreEditorialKicker");
+      const exploreBtn = document.getElementById("exploreEditorialBtn");
+      const exploreBtnText = document.getElementById("exploreEditorialBtnText");
+
+      function setExploreCardFrom(el) {
+        if (!el) return;
+        if (exploreImg) exploreImg.src = el.dataset.image || "";
+        if (exploreTitle) exploreTitle.textContent = el.dataset.title || "";
+        if (exploreKicker) exploreKicker.textContent = el.dataset.kicker || "";
+        if (exploreBtn) exploreBtn.href = el.dataset.href || "#";
+        if (exploreBtnText) exploreBtnText.textContent = el.dataset.action || "Explore";
+        lucide.createIcons();
+      }
+
+      const exploreLinks = document.querySelectorAll(".explore-link");
+      if (exploreLinks.length) {
+        setExploreCardFrom(exploreLinks[0]);
+        exploreLinks.forEach((link) => {
+          link.addEventListener("mouseenter", () => setExploreCardFrom(link));
+          link.addEventListener("focus", () => setExploreCardFrom(link));
+        });
+      }
+
+      // Reveal
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const revealEls = Array.from(document.querySelectorAll(".reveal"));
+
+      if (!prefersReduced && "IntersectionObserver" in window) {
+        const ro = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("active");
+                ro.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.18, rootMargin: "0px 0px -12% 0px" }
+        );
+        revealEls.forEach((el) => ro.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add("active"));
+      }
+
+      // Page progress
+      const progress = document.getElementById("pageProgress");
+      const panels = Array.from(document.querySelectorAll("[data-panel]"));
+
+      function buildProgress() {
+        if (!progress || !panels.length) return;
+        progress.innerHTML = "";
+
+        panels.forEach((panel, idx) => {
+          const label = panel.getAttribute("data-panel") || `Section ${idx + 1}`;
+
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "page-dot";
+          btn.setAttribute("aria-label", `Go to ${label}`);
+          btn.dataset.index = String(idx);
+
+          const pill = document.createElement("span");
+          pill.className = "page-label";
+          pill.textContent = label;
+
+          btn.appendChild(pill);
+          btn.addEventListener("click", () => {
+            const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            panel.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+          });
+
+          progress.appendChild(btn);
+        });
+      }
+
+      function setActiveDot(index) {
+        const dots = Array.from(progress.querySelectorAll(".page-dot"));
+        dots.forEach((d, i) => d.classList.toggle("active", i === index));
+      }
+
+      function shouldShowProgress() {
+        const hero = document.querySelector('header[data-panel="Hero"]');
+        if (!hero || !progress) return;
+        const r = hero.getBoundingClientRect();
+        const show = r.bottom < window.innerHeight * 0.92;
+        progress.style.opacity = show ? "1" : "0";
+        progress.style.pointerEvents = show ? "auto" : "none";
+      }
+
+      buildProgress();
+      shouldShowProgress();
+      window.addEventListener("scroll", shouldShowProgress, { passive: true });
+
+      if (panels.length && "IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            let best = null;
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
+              }
+            }
+            if (best) setActiveDot(panels.indexOf(best.target));
+          },
+          { threshold: [0.35, 0.5, 0.65, 0.8] }
+        );
+        panels.forEach((p) => io.observe(p));
+      } else {
+        setActiveDot(0);
+      }
+    </script>
+  </body>
+</html>

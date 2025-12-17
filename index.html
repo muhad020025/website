@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Esqyre | Time Redefined</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              black: "#000000",
+              subtle: "#0B0B0B",
+              white: "#FFFFFF",
+              gray: {
+                350: "#B1B1B1",
+                400: "#A3A3A3",
+                500: "#737373",
+                600: "#525252",
+                800: "#262626",
+                900: "#171717",
+              },
+            },
+            fontFamily: { sans: ['"Inter"', "sans-serif"] },
+            letterSpacing: { ultra: ".32em" },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        background: #000;
+        color: #fff;
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: geometricPrecision;
+      }
+
+      /* Cinematic Grain + Vignette */
+      .film-grain {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        opacity: 0.06;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+      }
+      .vignette {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: radial-gradient(
+          1200px 800px at 50% 40%,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.38) 55%,
+          rgba(0, 0, 0, 0.75) 100%
+        );
+      }
+
+      /* Reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px) scale(0.985);
+        filter: blur(2px);
+        transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+          filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity, filter;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+      .reveal[data-delay] {
+        transition-delay: var(--d, 0ms);
+      }
+
+      /* Hairline divider line */
+      .section-divider {
+        position: absolute;
+        left: 50%;
+        top: 32px;
+        transform: translateX(-50%);
+        width: min(1100px, 92%);
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0)
+        );
+        z-index: 5;
+        opacity: 0.9;
+      }
+
+      /* Primary pill CTA */
+      .cta-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          background 0.5s ease, border-color 0.5s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-pill:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.28);
+      }
+      .cta-pill::before {
+        content: "";
+        position: absolute;
+        inset: -40% -60%;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.16) 45%,
+          rgba(255, 255, 255, 0) 70%
+        );
+        transform: translateX(-60%) rotate(12deg);
+        transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: none;
+      }
+      .cta-pill:hover::before {
+        transform: translateX(60%) rotate(12deg);
+      }
+
+      /* Underline CTA link */
+      .cta-link {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding-bottom: 3px;
+        opacity: 0.9;
+        transition: opacity 0.3s ease;
+      }
+      .cta-link:hover {
+        opacity: 1;
+      }
+      .cta-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 1),
+          rgba(255, 255, 255, 0.2)
+        );
+        transform: scaleX(0.22);
+        transform-origin: left;
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .cta-link:hover::after,
+      .group:hover .cta-link::after {
+        transform: scaleX(1);
+      }
+
+      /* Navbar */
+      nav.nav-scrolled {
+        background: rgba(0, 0, 0, 0.78);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .nav-link {
+        font-size: 11px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: white;
+        opacity: 0.85;
+        transition: opacity 0.3s ease;
+      }
+      .nav-link:hover {
+        opacity: 1;
+      }
+
+      /* Overlay video */
+      .overlay-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.32;
+      }
+
+      /* Overlay list */
+      .overlay-item-dynamic {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0;
+        font-size: clamp(1.8rem, 3.3vw, 3.5rem);
+        font-weight: 500;
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        transition: opacity 0.35s ease, transform 0.35s ease;
+      }
+      .overlay-item-dynamic:last-child {
+        border-bottom: none;
+      }
+      .overlay-item-dynamic:hover {
+        opacity: 1;
+        transform: translateX(6px);
+      }
+
+      /* Editorial card */
+      .editorial {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(16px);
+        border-radius: 26px;
+        overflow: hidden;
+        transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+          border-color 0.6s ease, background 0.6s ease;
+      }
+      .editorial:hover {
+        transform: translateY(-4px);
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+      .editorial-img {
+        width: 100%;
+        height: 520px;
+        object-fit: cover;
+        opacity: 0.8;
+        transform: scale(1.02);
+        transition: opacity 0.5s ease,
+          transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .editorial:hover .editorial-img {
+        opacity: 0.92;
+        transform: scale(1.05);
+      }
+      .editorial-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.06) 0%,
+          rgba(0, 0, 0, 0.22) 40%,
+          rgba(0, 0, 0, 0.82) 100%
+        );
+      }
+      .editorial-kicker {
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .editorial-title {
+        font-size: 28px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+      }
+
+      /* COLLECTION SNAP */
+      .collection-snap {
+        scroll-snap-type: y mandatory;
+        scroll-padding-top: 96px;
+      }
+      .collection-panel {
+        position: relative;
+        min-height: 100vh;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        overflow: hidden;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        scroll-margin-top: 96px;
+      }
+      .collection-media {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.78;
+        transform: translateY(0px) scale(1.03);
+        transition: opacity 0.6s ease, filter 0.8s ease;
+        will-change: transform;
+      }
+      .collection-panel:hover .collection-media {
+        opacity: 0.9;
+      }
+      .collection-overlay {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            1200px 900px at 55% 25%,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 0.35) 55%,
+            rgba(0, 0, 0, 0.78) 100%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.05) 0%,
+            rgba(0, 0, 0, 0.35) 55%,
+            rgba(0, 0, 0, 0.92) 100%
+          );
+      }
+      .collection-inner {
+        position: relative;
+        z-index: 10;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        padding: 96px 0;
+      }
+      .collection-kicker {
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .collection-title {
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        line-height: 1.03;
+        font-size: clamp(2.4rem, 5vw, 4.8rem);
+      }
+      .collection-desc {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 1.05rem;
+        line-height: 1.75;
+        max-width: 56ch;
+      }
+      .collection-rule {
+        margin-top: 22px;
+        height: 1px;
+        width: min(560px, 92%);
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.2),
+          rgba(255, 255, 255, 0.05),
+          rgba(255, 255, 255, 0)
+        );
+        opacity: 0.85;
+      }
+
+      /* Chapter badge (reused) */
+      .chapter-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+      }
+
+      /* Progress markers */
+      .collection-progress {
+        position: fixed;
+        right: 22px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 60;
+        display: none;
+        gap: 14px;
+        padding: 14px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        background: rgba(0, 0, 0, 0.28);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 16px 50px rgba(0, 0, 0, 0.55);
+        transition: opacity 0.4s ease, background 0.55s ease, border-color 0.55s ease,
+          box-shadow 0.55s ease;
+      }
+      @media (min-width: 768px) {
+        .collection-progress {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      .collection-progress.mode-business {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.16);
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.62);
+      }
+
+      .progress-dot {
+        position: relative;
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.06);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+          background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        cursor: pointer;
+        outline: none;
+      }
+      .progress-dot::after {
+        content: "";
+        position: absolute;
+        inset: -10px;
+        border-radius: 999px;
+      }
+      .progress-dot:hover {
+        transform: scale(1.15);
+        border-color: rgba(255, 255, 255, 0.55);
+      }
+      .progress-dot.active {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: rgba(255, 255, 255, 0.9);
+        transform: scale(1.18);
+      }
+
+      .collection-progress.mode-business .progress-dot {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.48);
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+      }
+      .collection-progress.mode-business .progress-dot:hover {
+        border-color: rgba(255, 255, 255, 0.7);
+      }
+      .collection-progress.mode-business .progress-dot.active {
+        background: rgba(255, 255, 255, 0.96);
+        border-color: rgba(255, 255, 255, 0.96);
+      }
+
+      .progress-dot .progress-label {
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease, transform 0.25s ease, background 0.55s ease,
+          border-color 0.55s ease;
+      }
+      .progress-dot:hover .progress-label,
+      .progress-dot:focus-visible .progress-label {
+        opacity: 1;
+        transform: translateY(-50%) translateX(-2px);
+      }
+      .collection-progress.mode-business .progress-dot .progress-label {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.16);
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      /* =========================
+         ✅ PREMIUM SCROLL ANIMATION
+         ========================= */
+
+      /* 1) Panel focus states: blur + dim non-active panels a touch */
+      .collection-panel.is-active .collection-media {
+        filter: blur(0px) saturate(1.02) contrast(1.02);
+        opacity: 0.9;
+      }
+      .collection-panel.is-idle .collection-media {
+        filter: blur(1.25px) saturate(0.95) contrast(0.98);
+        opacity: 0.74;
+      }
+
+      /* 2) Cinematic copy motion (only for collection panels) */
+      .collection-panel .collection-kicker,
+      .collection-panel .collection-title,
+      .collection-panel .collection-desc,
+      .collection-panel .collection-rule,
+      .collection-panel .cta-link {
+        transform: translateY(12px);
+        opacity: 0.0;
+        transition:
+          transform 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity;
+      }
+      .collection-panel.is-active .collection-kicker,
+      .collection-panel.is-active .collection-title,
+      .collection-panel.is-active .collection-desc,
+      .collection-panel.is-active .collection-rule,
+      .collection-panel.is-active .cta-link {
+        transform: translateY(0px);
+        opacity: 1;
+      }
+      /* Stagger */
+      .collection-panel.is-active .collection-kicker { transition-delay: 40ms; }
+      .collection-panel.is-active .collection-title { transition-delay: 90ms; }
+      .collection-panel.is-active .collection-desc  { transition-delay: 140ms; }
+      .collection-panel.is-active .collection-rule  { transition-delay: 190ms; }
+      .collection-panel.is-active .cta-link         { transition-delay: 240ms; }
+
+      /* 3) Active panel subtle “push-in” */
+      .collection-panel .collection-inner {
+        transform: translateY(0px);
+        transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform;
+      }
+      .collection-panel.is-active .collection-inner {
+        transform: translateY(-6px);
+      }
+
+      /* 4) Optional: make snapping feel less “hard” on touchpads */
+      html, body {
+        overscroll-behavior-y: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .collection-snap { scroll-snap-type: none; }
+        .progress-dot,
+        .collection-media,
+        .reveal,
+        .collection-progress,
+        .collection-panel .collection-kicker,
+        .collection-panel .collection-title,
+        .collection-panel .collection-desc,
+        .collection-panel .collection-rule,
+        .collection-panel .cta-link,
+        .collection-panel .collection-inner {
+          transition: none !important;
+          transform: none !important;
+          filter: none !important;
+          opacity: 1 !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="antialiased overflow-x-hidden selection:bg-white selection:text-black">
+    <!-- Navbar -->
+    <nav
+      id="mainNav"
+      class="fixed top-0 left-0 right-0 z-50 h-24 flex items-center border-b border-white/0 transition-all duration-500"
+    >
+      <div class="absolute inset-0 bg-gradient-to-b from-black/80 to-transparent"></div>
+
+      <div class="relative z-10 container mx-auto px-7 md:px-14 flex justify-between items-center w-full">
+        <a href="index.html" class="w-32">
+          <img
+            src="https://superadmin.esqyre.com/assets/images/esqyre_logo.svg"
+            class="invert brightness-0"
+            alt="Esqyre"
+          />
+        </a>
+
+        <div class="hidden lg:flex items-center gap-12">
+          <button onclick="openOverlay('exploreOverlay')" class="nav-link">Explore</button>
+          <a href="corporate.html" class="nav-link">For Business</a>
+          <a href="partners.html" class="nav-link">Partners</a>
+        </div>
+
+        <div class="flex items-center gap-6">
+          <a href="login.html" class="hidden sm:block nav-link">Login</a>
+          <button id="mobile-menu-button" class="lg:hidden">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- EXPLORE OVERLAY -->
+    <div id="exploreOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
+      <div class="absolute inset-0">
+        <video autoplay muted loop playsinline class="overlay-video">
+          <source
+            src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="absolute inset-0 bg-black/75"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+      </div>
+
+      <div class="relative z-10 h-full container mx-auto px-6 md:px-12 flex flex-col">
+        <div class="flex justify-between items-center h-24">
+          <span class="text-xs tracking-[.32em] uppercase opacity-60">Explore</span>
+          <button onclick="closeOverlay('exploreOverlay')">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-12">
+          <div class="lg:col-span-6">
+            <a
+              href="chauffeurs.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Chauffeur"
+              data-kicker="First Class"
+              data-image="https://cd.wheely.com/2x_webp_Artwork_4_3_1_f658d25402.webp"
+              data-action="View Chauffeur"
+              data-href="chauffeurs.html"
+              >Chauffeur</a
+            >
+
+            <a
+              href="cars.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Supercars"
+              data-kicker="Fleet"
+              data-image="https://i.pinimg.com/736x/f6/30/6f/f6306fd83483c23e4cef2d55462444fe.jpg"
+              data-action="View Supercars"
+              data-href="cars.html"
+              >Supercars</a
+            >
+
+            <a
+              href="jets.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Private Aviation"
+              data-kicker="Access"
+              data-image="https://i.pinimg.com/1200x/04/6f/c6/046fc640ad4739d024639501b330dac0.jpg"
+              data-action="Request Charter"
+              data-href="jets.html"
+              >Private Aviation</a
+            >
+
+            <a
+              href="villas.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Villas & Hotels"
+              data-kicker="Stays"
+              data-image="https://i.pinimg.com/736x/ba/28/2e/ba282e6465d684da2cee26b17dc466f0.jpg"
+              data-action="Explore Stays"
+              data-href="villas.html"
+              >Stays</a
+            >
+
+            <a
+              href="yachts.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Yachts"
+              data-kicker="Marine"
+              data-image="https://i.pinimg.com/736x/33/7b/10/337b1006a9ca27aa1bf0d7212df6fa3c.jpg"
+              data-action="Explore Yachts"
+              data-href="yachts.html"
+              >Yachts</a
+            >
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="editorial">
+              <div class="relative">
+                <img id="exploreEditorialImg" class="editorial-img" alt="Explore Preview" />
+                <div class="editorial-overlay"></div>
+
+                <div class="absolute bottom-0 left-0 right-0 p-10">
+                  <p id="exploreEditorialKicker" class="editorial-kicker"></p>
+                  <h3 id="exploreEditorialTitle" class="editorial-title mt-3"></h3>
+
+                  <div class="mt-8">
+                    <a
+                      id="exploreEditorialBtn"
+                      href="#"
+                      class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex"
+                    >
+                      <span id="exploreEditorialBtnText">Explore</span>
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pb-10 text-xs tracking-[.32em] uppercase opacity-50">Time Redefined</div>
+      </div>
+    </div>
+
+    <!-- PARTNERS OVERLAY -->
+    <div id="partnersOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
+      <div class="absolute inset-0">
+        <video autoplay muted loop playsinline class="overlay-video">
+          <source
+            src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="absolute inset-0 bg-black/75"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+      </div>
+
+      <div class="relative z-10 h-full container mx-auto px-6 md:px-12 flex flex-col">
+        <div class="flex justify-between items-center h-24">
+          <span class="text-xs tracking-[.32em] uppercase opacity-60">Partners</span>
+          <button onclick="closeOverlay('partnersOverlay')">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-12">
+          <div class="lg:col-span-6">
+            <a
+              href="partner-overview.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Partner Overview"
+              data-kicker="Network"
+              data-image="https://i.pinimg.com/1200x/ec/11/92/ec1192e63f0ed3b136a426096c54f470.jpg"
+              data-action="View Overview"
+              data-href="partner-overview.html"
+              >Partner Overview</a
+            >
+
+            <a
+              href="partner-apply.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Apply to List"
+              data-kicker="Curated"
+              data-image="https://esqyre.com/assets/images/assets.png"
+              data-action="Apply Now"
+              data-href="partner-apply.html"
+              >Apply to List</a
+            >
+
+            <a
+              href="partner-login.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Vendor Portal"
+              data-kicker="Operations"
+              data-image="https://esqyre.com/assets/images/help.png"
+              data-action="Open Portal"
+              data-href="partner-login.html"
+              >Vendor Portal</a
+            >
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="editorial">
+              <div class="relative">
+                <img id="partnersEditorialImg" class="editorial-img" alt="Partners Preview" />
+                <div class="editorial-overlay"></div>
+
+                <div class="absolute bottom-0 left-0 right-0 p-10">
+                  <p id="partnersEditorialKicker" class="editorial-kicker"></p>
+                  <h3 id="partnersEditorialTitle" class="editorial-title mt-3"></h3>
+
+                  <div class="mt-8">
+                    <a
+                      id="partnersEditorialBtn"
+                      href="#"
+                      class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex"
+                    >
+                      <span id="partnersEditorialBtnText">Explore</span>
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pb-10 text-xs tracking-[.32em] uppercase opacity-50">Time Redefined</div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden fixed inset-0 z-[60] hidden">
+      <div
+        id="mobile-menu-overlay"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm opacity-0"
+        onclick="closeMenu()"
+      ></div>
+      <div
+        id="mobile-menu-content"
+        class="relative z-[70] bg-black border-l border-white/10 text-white w-4/5 max-w-sm ml-auto h-full p-8 transform translate-x-full transition-transform duration-300"
+      >
+        <div class="flex justify-between items-center mb-12">
+          <span class="text-lg font-bold tracking-[.32em]">MENU</span>
+          <button id="mobile-close-button" onclick="closeMenu()" class="p-2 -m-2">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex flex-col space-y-8">
+          <button
+            onclick="openOverlay('exploreOverlay'); closeMenu();"
+            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
+          >
+            Explore
+          </button>
+
+          <a href="corporate.html" class="text-xl font-medium hover:text-gray-350 transition-colors"
+            >Corporate</a
+          >
+
+          <button
+            onclick="openOverlay('partnersOverlay'); closeMenu();"
+            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
+          >
+            Partners
+          </button>
+
+          <div class="h-px bg-white/10 my-4"></div>
+
+          <a
+            href="login.html"
+            class="text-sm uppercase tracking-[.32em] text-gray-500 hover:text-white transition-colors"
+            >Login</a
+          >
+
+          <div class="mt-auto pt-8">
+            <a
+              href="app-download.html"
+              class="block w-full text-center bg-white text-black py-4 text-xs font-bold tracking-[.32em] uppercase"
+            >
+              Get The App
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <header class="relative h-screen w-full overflow-hidden bg-black flex items-end pb-24 group">
+      <div class="absolute inset-0 z-0">
+        <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-85">
+          <source src="Velocity Black.mp4" type="video/mp4" />
+        </video>
+
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="relative z-10 container mx-auto px-6 md:px-12 w-full">
+        <div class="max-w-4xl reveal active" data-delay="0ms">
+          <p class="text-[11px] tracking-[.32em] uppercase text-white/70 mb-5">Time Redefined</p>
+
+          <h1
+            class="font-medium text-5xl md:text-7xl lg:text-8xl text-white tracking-tight leading-[1.05] mb-10 drop-shadow-lg"
+          >
+            CURATED<br />ACCESS.
+          </h1>
+
+          <p class="text-white/62 text-base md:text-lg leading-relaxed max-w-[58ch] mb-10">
+            Chauffeur, supercars, aviation, yachts, stays.
+          </p>
+
+          <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+            <a href="app-download.html" class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white">
+              Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+
+            <a
+              href="#collection"
+              class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/90 hover:text-white transition-colors"
+            >
+              View Collection <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Progress Markers -->
+      <div id="collectionProgress" class="collection-progress" aria-label="Collection navigation"></div>
+
+      <!-- ✅ COLLECTION + BUSINESS -->
+      <section id="collection" class="relative bg-black collection-snap">
+        <!-- Intro -->
+        <div class="container mx-auto px-6 md:px-12 pt-24 pb-10">
+          <div class="max-w-3xl reveal" data-delay="0ms">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">Collection</p>
+           <h2 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">
+  One platform. Five categories.
+</h2>
+            <p class="text-white/55 mt-5 text-base md:text-lg leading-relaxed max-w-[62ch]">
+              Scroll. Choose. Move.
+            </p>
+          </div>
+        </div>
+
+        <!-- Chauffeur -->
+        <section class="collection-panel group" data-panel="Chauffeur">
+          <img
+            src="https://i.pinimg.com/1200x/ec/11/92/ec1192e63f0ed3b136a426096c54f470.jpg"
+            class="collection-media"
+            alt="Chauffeur"
+          />
+          <div class="collection-overlay"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+
+          <div class="collection-inner">
+            <div class="container mx-auto px-6 md:px-12">
+              <div class="max-w-3xl reveal">
+                <div class="collection-kicker">First Class</div>
+                <h3 class="collection-title mt-4">Chauffeur</h3>
+                <p class="collection-desc mt-5">Quiet arrivals. Executive pace. Always composed.</p>
+
+                <div class="collection-rule"></div>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                  <a href="chauffeurs.html" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
+                    View Chauffeur <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                  <a
+                    href="app-download.html"
+                    class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/75 hover:text-white"
+                  >
+                    Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Supercars -->
+        <section class="collection-panel group" data-panel="Supercars">
+          <img
+            src="homepagecar.png"
+            class="collection-media"
+            alt="Supercars"
+          />
+          <div class="collection-overlay"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+
+          <div class="collection-inner">
+            <div class="container mx-auto px-6 md:px-12">
+              <div class="max-w-3xl reveal">
+                <div class="collection-kicker">Fleet</div>
+                <h3 class="collection-title mt-4">Supercars</h3>
+                <p class="collection-desc mt-5">Iconic forms. Clean spec. Immediate presence.</p>
+
+                <div class="collection-rule"></div>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                  <a href="cars.html" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
+                    View Supercars <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                  <a
+                    href="app-download.html"
+                    class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/75 hover:text-white"
+                  >
+                    Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Aviation -->
+        <section class="collection-panel group" data-panel="Aviation">
+          <img
+            src="https://i.pinimg.com/1200x/6e/25/02/6e250203e1f4dab0ec3c4454159ea2ec.jpg"
+            class="collection-media"
+            alt="Private Aviation"
+          />
+          <div class="collection-overlay"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+
+          <div class="collection-inner">
+            <div class="container mx-auto px-6 md:px-12">
+              <div class="max-w-3xl reveal">
+                <div class="collection-kicker">Access</div>
+                <h3 class="collection-title mt-4">Private Aviation</h3>
+                <p class="collection-desc mt-5">Depart quietly. Land ready. Time stays yours.</p>
+
+                <div class="collection-rule"></div>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                  <a href="jets.html" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
+                    Request Charter <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                  <a
+                    href="app-download.html"
+                    class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/75 hover:text-white"
+                  >
+                    Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Yachts -->
+        <section class="collection-panel group" data-panel="Yachts">
+          <img
+            src="homepageyacht.png"
+            class="collection-media"
+            alt="Yachts"
+          />
+          <div class="collection-overlay"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+
+          <div class="collection-inner">
+            <div class="container mx-auto px-6 md:px-12">
+              <div class="max-w-3xl reveal">
+                <div class="collection-kicker">Marine</div>
+                <h3 class="collection-title mt-4">Yachts</h3>
+                <p class="collection-desc mt-5">Open water. Private deck. Slow luxury.</p>
+
+                <div class="collection-rule"></div>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                  <a href="yachts.html" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
+                    Explore Yachts <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                  <a
+                    href="app-download.html"
+                    class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/75 hover:text-white"
+                  >
+                    Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Stays -->
+        <section class="collection-panel group" data-panel="Stays">
+          <img
+            src="https://i.pinimg.com/1200x/b2/19/30/b2193008d8b8025f86873d5b08035275.jpg"
+            class="collection-media"
+            alt="Stays"
+          />
+          <div class="collection-overlay"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+
+          <div class="collection-inner">
+            <div class="container mx-auto px-6 md:px-12">
+              <div class="max-w-3xl reveal">
+                <div class="collection-kicker">Stays</div>
+                <h3 class="collection-title mt-4">Villas & Hotels</h3>
+                <p class="collection-desc mt-5">Private space. Calm design. Full privacy.</p>
+
+                <div class="collection-rule"></div>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                  <a href="villas.html" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
+                    Explore Stays <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                  <a
+                    href="app-download.html"
+                    class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/75 hover:text-white"
+                  >
+                    Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ✅ CORPORATE (SNAP PANEL) -->
+        <section class="collection-panel group" data-panel="Corporate" data-mode="business">
+          <img
+            src="corporate page/heropagebusiness.png"
+            class="collection-media"
+            alt="Corporate Suite"
+          />
+          <div class="collection-overlay"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+
+          <div class="collection-inner">
+            <div class="container mx-auto px-6 md:px-12">
+              <div class="max-w-3xl reveal">
+                <div class="collection-kicker">Business</div>
+                <h3 class="collection-title mt-4">Esqyre For Business</h3>
+                <p class="collection-desc mt-5">
+                  Centralized mobility for teams with billing control and reporting built-in.
+                </p>
+
+                <div class="collection-rule"></div>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                  <a href="corporate.html" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
+                    Open Corporate <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                  <a
+                    href="app-download.html"
+                    class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/75 hover:text-white"
+                  >
+                    Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ✅ PARTNERS (SNAP PANEL) -->
+        <section class="collection-panel group" data-panel="Partners" data-mode="business">
+          <img
+            src="partner home.png"
+            class="collection-media"
+            alt="Partners"
+          />
+          <div class="collection-overlay"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+
+          <div class="collection-inner">
+            <div class="container mx-auto px-6 md:px-12">
+              <div class="max-w-3xl reveal">
+                <div class="collection-kicker">Operators</div>
+                <h3 class="collection-title mt-4">Partner with Esqyre</h3>
+                <p class="collection-desc mt-5">
+                  A curated network for operators who deliver consistently every time.
+                </p>
+
+                <div class="collection-rule"></div>
+
+                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                  <a
+                    href="partners.html"
+                    class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white"
+                  >
+                    Apply to List <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                  <a
+                    href="partner-login.html"
+                    class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/75 hover:text-white"
+                  >
+                    Vendor Portal <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Pre-footer CTA -->
+      <section class="relative py-24 md:py-28 bg-black overflow-hidden border-t border-white/10">
+        <div class="absolute inset-0">
+          <div class="absolute inset-0"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 md:px-12">
+          <div class="max-w-3xl mx-auto text-center reveal">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">Access</p>
+
+            <h3 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">
+              Move with time on your side.
+            </h3>
+
+            <p class="text-white/52 mt-5 text-base md:text-lg leading-relaxed">
+              Chauffeur. Fleet. Access.
+            </p>
+
+            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+              <a
+                href="app-download.html"
+                class="inline-flex items-center justify-center gap-3 rounded-full bg-white text-black px-8 py-3.5
+                       text-xs font-bold tracking-[.32em] uppercase hover:bg-white/90 transition-colors"
+              >
+                Get The App
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+
+              <a
+                href="corporate.html"
+                class="inline-flex items-center justify-center gap-3 rounded-full border border-white/18
+                       bg-black/30 px-8 py-3.5 text-xs font-bold tracking-[.32em] uppercase text-white
+                       hover:border-white/30 hover:bg-white/[0.06] transition-all"
+              >
+                Corporate Suite
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-black border-t border-white/10 relative z-20">
+        <div class="container mx-auto px-6 md:px-12 pt-20 pb-12">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+              <img
+                src="https://superadmin.esqyre.com/assets/images/esqyre_logo.svg"
+                class="h-7 w-auto invert brightness-0 filter"
+                alt="Esqyre"
+              />
+
+              <p class="text-xs text-white/50 mt-6 leading-relaxed max-w-sm">
+                A system for movement. Built on discretion.
+              </p>
+
+              <div class="mt-10 flex items-center gap-4">
+                <a
+                  href="#"
+                  class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors"
+                >
+                  Instagram
+                </a>
+                <span class="text-white/20">/</span>
+                <a
+                  href="#"
+                  class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors"
+                >
+                  LinkedIn
+                </a>
+                <span class="text-white/20">/</span>
+                <a
+                  href="contact.html"
+                  class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors"
+                >
+                  Contact
+                </a>
+              </div>
+            </div>
+
+            <div class="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-10">
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Company</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="#" class="hover:text-white transition-colors">Our Story</a></li>
+                  <li><a href="#" class="hover:text-white transition-colors">Safety</a></li>
+                  <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                  <li><a href="#" class="hover:text-white transition-colors">Newsroom</a></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Services</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="chauffeurs.html" class="hover:text-white transition-colors">Chauffeur</a></li>
+                  <li><a href="cars.html" class="hover:text-white transition-colors">Supercars</a></li>
+                  <li><a href="jets.html" class="hover:text-white transition-colors">Private Aviation</a></li>
+                  <li><a href="villas.html" class="hover:text-white transition-colors">Villas</a></li>
+                  <li><a href="yachts.html" class="hover:text-white transition-colors">Yachts</a></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Legal</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="#" class="hover:text-white transition-colors">Terms of Use</a></li>
+                  <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                  <li><a href="#" class="hover:text-white transition-colors">Cookies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="mt-16 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center
+                      text-[11px] tracking-[.32em] uppercase text-white/40"
+          >
+            <p>TIME REDEFINED</p>
+            <p class="mt-4 md:mt-0">© 2025 ESQYRE TECHNOLOGIES INC.</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      lucide.createIcons();
+
+      // Navbar scrolled
+      const nav = document.getElementById("mainNav");
+      const setNavState = () => {
+        if (!nav) return;
+        if (window.scrollY > 20) nav.classList.add("nav-scrolled");
+        else nav.classList.remove("nav-scrolled");
+      };
+      window.addEventListener("scroll", setNavState, { passive: true });
+      setNavState();
+
+      // Overlay open/close
+      function openOverlay(id) {
+        document.getElementById(id).classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+        lucide.createIcons();
+      }
+      function closeOverlay(id) {
+        document.getElementById(id).classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          ["exploreOverlay", "partnersOverlay"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el && !el.classList.contains("hidden")) closeOverlay(id);
+          });
+        }
+      });
+
+      // Mobile menu
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
+      const mobileMenuContent = document.getElementById("mobile-menu-content");
+      const mobileCloseButton = document.getElementById("mobile-close-button");
+
+      function openMenu() {
+        if (!mobileMenu) return;
+        mobileMenu.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => {
+          mobileMenuOverlay?.classList.remove("opacity-0");
+          mobileMenuContent?.classList.remove("translate-x-full");
+        }, 10);
+      }
+      function closeMenu() {
+        if (!mobileMenu) return;
+        mobileMenuOverlay?.classList.add("opacity-0");
+        mobileMenuContent?.classList.add("translate-x-full");
+        setTimeout(() => {
+          mobileMenu.classList.add("hidden");
+          document.body.style.overflow = "";
+        }, 300);
+      }
+      mobileMenuButton?.addEventListener("click", openMenu);
+      mobileCloseButton?.addEventListener("click", closeMenu);
+
+      // Smooth anchor scroll with navbar offset
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          const id = a.getAttribute("href");
+          if (!id || id === "#") return;
+          const target = document.querySelector(id);
+          if (!target) return;
+
+          e.preventDefault();
+          const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          const navH = document.getElementById("mainNav")?.offsetHeight || 96;
+          const y = target.getBoundingClientRect().top + window.scrollY - navH;
+
+          window.scrollTo({ top: y, behavior: prefersReduced ? "auto" : "smooth" });
+        });
+      });
+
+      // Reveal (IO + stagger)
+      const revealEls = Array.from(document.querySelectorAll(".reveal"));
+      revealEls.forEach((el, i) => {
+        const d = el.getAttribute("data-delay");
+        if (d) el.style.setProperty("--d", d);
+        else el.style.setProperty("--d", `${Math.min(i * 70, 420)}ms`);
+      });
+
+      if ("IntersectionObserver" in window) {
+        const ro = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("active");
+                ro.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.18, rootMargin: "0px 0px -12% 0px" }
+        );
+        revealEls.forEach((el) => ro.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add("active"));
+      }
+
+      // Dynamic editorial swapping (Explore)
+      const exploreImg = document.getElementById("exploreEditorialImg");
+      const exploreTitle = document.getElementById("exploreEditorialTitle");
+      const exploreKicker = document.getElementById("exploreEditorialKicker");
+      const exploreBtn = document.getElementById("exploreEditorialBtn");
+      const exploreBtnText = document.getElementById("exploreEditorialBtnText");
+
+      function setExploreCardFrom(el) {
+        if (!el) return;
+        exploreImg.src = el.dataset.image;
+        exploreTitle.textContent = el.dataset.title;
+        exploreKicker.textContent = el.dataset.kicker;
+        exploreBtn.href = el.dataset.href;
+        exploreBtnText.textContent = el.dataset.action;
+        lucide.createIcons();
+      }
+      const exploreLinks = document.querySelectorAll(".explore-link");
+      if (exploreLinks.length) {
+        setExploreCardFrom(exploreLinks[0]);
+        exploreLinks.forEach((link) => {
+          link.addEventListener("mouseenter", () => setExploreCardFrom(link));
+          link.addEventListener("focus", () => setExploreCardFrom(link));
+        });
+      }
+
+      // Dynamic editorial swapping (Partners)
+      const partnersImg = document.getElementById("partnersEditorialImg");
+      const partnersTitle = document.getElementById("partnersEditorialTitle");
+      const partnersKicker = document.getElementById("partnersEditorialKicker");
+      const partnersBtn = document.getElementById("partnersEditorialBtn");
+      const partnersBtnText = document.getElementById("partnersEditorialBtnText");
+
+      function setPartnersCardFrom(el) {
+        if (!el) return;
+        partnersImg.src = el.dataset.image;
+        partnersTitle.textContent = el.dataset.title;
+        partnersKicker.textContent = el.dataset.kicker;
+        partnersBtn.href = el.dataset.href;
+        partnersBtnText.textContent = el.dataset.action;
+        lucide.createIcons();
+      }
+      const partnerLinks = document.querySelectorAll(".partner-link");
+      if (partnerLinks.length) {
+        setPartnersCardFrom(partnerLinks[0]);
+        partnerLinks.forEach((link) => {
+          link.addEventListener("mouseenter", () => setPartnersCardFrom(link));
+          link.addEventListener("focus", () => setPartnersCardFrom(link));
+        });
+      }
+
+      // ✅ Collection progress markers (ONLY panels, not divider)
+      const collectionSection = document.getElementById("collection");
+      const progress = document.getElementById("collectionProgress");
+      const businessDivider = document.getElementById("businessDivider");
+
+      const allPanels = Array.from(document.querySelectorAll("#collection .collection-panel"));
+      const panels = allPanels.filter((p) => p.dataset.progress !== "false");
+
+      function buildProgress() {
+        if (!progress || !panels.length) return;
+        progress.innerHTML = "";
+
+        panels.forEach((panel, idx) => {
+          const label = panel.getAttribute("data-panel") || `Panel ${idx + 1}`;
+
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "progress-dot";
+          btn.setAttribute("aria-label", `Go to ${label}`);
+          btn.dataset.index = String(idx);
+
+          const pill = document.createElement("span");
+          pill.className = "progress-label";
+          pill.textContent = label;
+
+          btn.appendChild(pill);
+
+          btn.addEventListener("click", () => {
+            const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            panel.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
+          });
+
+          progress.appendChild(btn);
+        });
+      }
+
+      function setActiveDot(index) {
+        const dots = Array.from(progress.querySelectorAll(".progress-dot"));
+        dots.forEach((d, i) => {
+          const active = i === index;
+          d.classList.toggle("active", active);
+          if (active) d.setAttribute("aria-current", "true");
+          else d.removeAttribute("aria-current");
+        });
+      }
+
+      function setProgressMode(isBusiness) {
+        if (!progress) return;
+        progress.classList.toggle("mode-business", !!isBusiness);
+      }
+
+      function setProgressModeForPanel(panel) {
+        const isBusiness = panel?.dataset?.mode === "business";
+        setProgressMode(isBusiness);
+      }
+
+      function shouldShowProgress() {
+        if (!collectionSection || !progress) return;
+        const rect = collectionSection.getBoundingClientRect();
+        const inView =
+          rect.top < window.innerHeight * 0.25 &&
+          rect.bottom > window.innerHeight * 0.35;
+
+        progress.style.opacity = inView ? "1" : "0";
+        progress.style.pointerEvents = inView ? "auto" : "none";
+      }
+
+      buildProgress();
+      shouldShowProgress();
+      window.addEventListener("scroll", shouldShowProgress, { passive: true });
+
+      // ✅ PANEL FOCUS STATES (premium feel)
+      function setPanelFocus(activePanel) {
+        panels.forEach((p) => {
+          const isActive = p === activePanel;
+          p.classList.toggle("is-active", isActive);
+          p.classList.toggle("is-idle", !isActive);
+        });
+      }
+
+      // ✅ Dot activation (panels only) + focus + mode
+      if (panels.length && "IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            let best = null;
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
+              }
+            }
+            if (best) {
+              const idx = panels.indexOf(best.target);
+              if (idx >= 0) {
+                setActiveDot(idx);
+                setProgressModeForPanel(best.target);
+                setPanelFocus(best.target);
+              }
+            }
+          },
+          { root: null, threshold: [0.35, 0.5, 0.65, 0.8] }
+        );
+        panels.forEach((p) => io.observe(p));
+
+        // initial focus
+        setActiveDot(0);
+        setProgressModeForPanel(panels[0]);
+        setPanelFocus(panels[0]);
+      } else {
+        setActiveDot(0);
+        setProgressModeForPanel(panels[0]);
+        setPanelFocus(panels[0]);
+      }
+
+      // ✅ THE "COLLECTION DOT THINGY" divider logic stays as-is
+      if (businessDivider && "IntersectionObserver" in window) {
+        const dio = new IntersectionObserver(
+          (entries) => {
+            const e = entries[0];
+            if (!e) return;
+
+            if (e.isIntersecting && e.intersectionRatio >= 0.35) {
+              setProgressMode(true);
+            } else {
+              const activeIdx = Math.max(
+                0,
+                Array.from(progress.querySelectorAll(".progress-dot")).findIndex((d) =>
+                  d.classList.contains("active")
+                )
+              );
+              setProgressModeForPanel(panels[activeIdx] || panels[0]);
+            }
+          },
+          { root: null, threshold: [0.2, 0.35, 0.5, 0.65] }
+        );
+        dio.observe(businessDivider);
+      }
+
+      // ✅ Parallax-lite on collection media (kept but made smoother)
+      const medias = Array.from(document.querySelectorAll(".collection-media"));
+      let ticking = false;
+
+      function parallaxTick() {
+        const vh = window.innerHeight;
+        medias.forEach((img) => {
+          const panel = img.closest(".collection-panel");
+          if (!panel) return;
+
+          const r = panel.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > vh) return;
+
+          // smoother curve than linear
+          const t = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+          const eased = 0.5 - Math.cos(Math.PI * t) / 2; // cosine ease-in-out
+          const y = (eased - 0.5) * 20; // -10..+10 approx
+          img.style.transform = `translateY(${y}px) scale(1.045)`;
+        });
+        ticking = false;
+      }
+
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(parallaxTick);
+        },
+        { passive: true }
+      );
+
+      parallaxTick();
+
+  /* ==============================
+   ✅ Mac Trackpad “Guided Snap”
+   - intent accumulation
+   - momentum-safe
+   - 1 gesture = 1 snap
+   ============================== */
+(function guidedSnapMac() {
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReduced) return;
+
+  const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+  if (!isDesktop) return;
+
+  let isInCollection = false;
+
+  // Gesture model
+  let lock = false;
+  let cooldownUntil = 0;
+
+  // Trackpad intent accumulation
+  let acc = 0;
+  let lastT = 0;
+
+  // Tune these for “premium”
+  const SNAP_THRESHOLD = 160;     // higher = harder to trigger (trackpad-safe)
+  const DECAY_PER_MS = 0.55;      // how fast intent decays when user stops
+  const COOLDOWN_MS = 700;        // one swipe -> one snap, prevents double jumps
+  const MOMENTUM_CUTOFF = 10;     // tiny deltas are usually momentum tail
+
+  function updateInCollection() {
+    if (!collectionSection) return;
+    const rect = collectionSection.getBoundingClientRect();
+    isInCollection =
+      rect.top < window.innerHeight * 0.15 &&
+      rect.bottom > window.innerHeight * 0.25;
+  }
+  updateInCollection();
+  window.addEventListener("scroll", updateInCollection, { passive: true });
+
+  function getActivePanelIndex() {
+    const dots = Array.from(progress.querySelectorAll(".progress-dot"));
+    return Math.max(
+      0,
+      dots.findIndex((d) => d.classList.contains("active"))
+    );
+  }
+
+  function snapTo(index) {
+    const panel = panels[index];
+    if (!panel) return;
+
+    lock = true;
+    panel.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    // release lock after snap settles
+    setTimeout(() => (lock = false), 650);
+  }
+
+  window.addEventListener(
+    "wheel",
+    (e) => {
+      if (!isInCollection) return;
+      if (lock) return;
+
+      const now = performance.now();
+      if (now < cooldownUntil) return;
+
+      // Trackpad: many events, often small deltas. Decay intent over time.
+      const dt = lastT ? now - lastT : 16;
+      lastT = now;
+      acc *= Math.max(0, 1 - (dt * DECAY_PER_MS) / 1000);
+
+      // Normalize delta (trackpad vs wheel)
+      // deltaMode 0 = pixels, 1 = lines (mouse wheel), 2 = pages
+      let dy = e.deltaY;
+      if (e.deltaMode === 1) dy *= 16;
+      if (e.deltaMode === 2) dy *= window.innerHeight;
+
+      // Ignore tiny momentum tail (prevents accidental snap after gesture)
+      if (Math.abs(dy) < MOMENTUM_CUTOFF) return;
+
+      acc += dy;
+
+      // Don’t let the browser do partial scroll if we're about to snap.
+      // Only prevent default when intent is building.
+      if (Math.abs(acc) > MOMENTUM_CUTOFF) e.preventDefault();
+
+      if (Math.abs(acc) >= SNAP_THRESHOLD) {
+        const dir = acc > 0 ? 1 : -1;
+        const idx = getActivePanelIndex();
+        const next = Math.max(0, Math.min(panels.length - 1, idx + dir));
+
+        if (next !== idx) {
+          snapTo(next);
+          cooldownUntil = now + COOLDOWN_MS;
+        }
+
+        // reset intent so one gesture doesn’t chain multiple snaps
+        acc = 0;
+      }
+    },
+    { passive: false }
+  );
+})();
+    </script>
+  </body>
+</html>

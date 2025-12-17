@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Esqyre Corporate Onboarding</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+   <style>
+       body {
+           font-family: 'Inter', sans-serif;
+           background-color: #f4f5f7;
+       }
+       .card {
+           border-radius: 24px;
+           box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+           border: 1px solid #f0f0f0;
+       }
+       .btn-primary {
+           background-color: #111827;
+           color: white;
+           transition: all 0.3s ease;
+           border-radius: 0.5rem;
+       }
+       .btn-primary:hover {
+           background-color: #000;
+           box-shadow: 0 4px 15px rgba(17, 24, 39, 0.2);
+           transform: translateY(-2px);
+       }
+       .btn-secondary {
+           background-color: #f9fafb;
+           color: #374151;
+           border: 1px solid #e5e7eb;
+           transition: all 0.3s ease;
+            border-radius: 0.5rem;
+       }
+       .btn-secondary:hover {
+            background-color: #f3f4f6;
+            transform: translateY(-2px);
+       }
+       .upload-area {
+           border: 2px dashed #d1d5db;
+           transition: all 0.3s ease;
+           background-color: #f9fafb;
+           border-radius: 0.75rem;
+       }
+       .upload-area:hover {
+           border-color: #111827;
+           background-color: white;
+       }
+       .upload-area.is-success {
+           border-color: #10B981;
+           background-color: #D1FAE5;
+       }
+       .input-group {
+           position: relative;
+           background-color: #f9fafb;
+           border: 1px solid #e5e7eb;
+           border-radius: 0.5rem;
+           padding: 0.5rem 0.75rem;
+           transition: all 0.2s ease;
+       }
+       .input-group:focus-within {
+           border-color: #111827;
+           box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.1);
+       }
+       .input-group label {
+           position: absolute;
+           top: 0.25rem;
+           left: 0.75rem;
+           font-size: 0.65rem;
+           font-weight: 500;
+           color: #6b7280;
+       }
+       .input-group input, .input-group select {
+           background: transparent;
+           border: none;
+           outline: none;
+           width: 100%;
+           padding-top: 1rem;
+           font-size: 0.875rem;
+       }
+       .otp-input {
+           width: 3rem;
+           height: 3.5rem;
+           font-size: 1.5rem;
+           text-align: center;
+           border-radius: 0.5rem;
+           border: 1px solid #e2e8f0;
+           background-color: #f7fafc;
+           transition: all 0.2s ease;
+       }
+       .otp-input:focus {
+           border-color: #1f2937;
+           box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.2);
+           outline: none;
+       }
+       .view-container {
+           transition: opacity 0.4s ease-in-out;
+           width: 100%;
+       }
+       .onboarding-step {
+            transition: opacity 0.3s ease-in-out;
+       }
+       .modal-overlay {
+           position: fixed;
+           top: 0;
+           left: 0;
+           right: 0;
+           bottom: 0;
+           background-color: rgba(17, 24, 39, 0.5);
+           backdrop-filter: blur(4px);
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           z-index: 50;
+           opacity: 0;
+           transition: opacity 0.3s ease;
+           pointer-events: none;
+       }
+       .modal-overlay.visible {
+           opacity: 1;
+           pointer-events: auto;
+       }
+       .modal-content {
+           background: white;
+           border-radius: 16px;
+           box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+           transition: transform 0.3s ease, opacity 0.3s ease;
+           transform: scale(0.95);
+           opacity: 0;
+       }
+       .modal-overlay.visible .modal-content {
+            transform: scale(1);
+            opacity: 1;
+       }
+       .success-checkmark__circle {
+           stroke-dasharray: 166;
+           stroke-dashoffset: 166;
+           stroke-width: 2;
+           stroke-miterlimit: 10;
+           stroke: #1f2937; /* Charcoal Blue */
+           fill: none;
+           animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+       }
+       .success-checkmark {
+           width: 80px;
+           height: 80px;
+           border-radius: 50%;
+           display: block;
+           stroke-width: 3;
+           stroke: #fff;
+           stroke-miterlimit: 10;
+           margin: 0 auto;
+           box-shadow: inset 0px 0px 0px #1f2937;
+           animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+       }
+       .success-checkmark__check {
+           transform-origin: 50% 50%;
+           stroke-dasharray: 48;
+           stroke-dashoffset: 48;
+           animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+       }
+       @keyframes stroke {
+           100% { stroke-dashoffset: 0; }
+       }
+       @keyframes scale {
+           0%, 100% { transform: none; }
+           50% { transform: scale3d(1.1, 1.1, 1); }
+       }
+       @keyframes fill {
+           100% { box-shadow: inset 0px 0px 0px 40px #1f2937; }
+       }
+       .success-card {
+            background-image: radial-gradient(#f9fafb 1px, transparent 1px);
+            background-size: 20px 20px;
+       }
+       /* New Nav Bar */
+       .nav-container {
+           display: flex;
+           justify-content: space-around;
+           border-bottom: 1px solid #e5e7eb;
+           position: relative;
+       }
+       .nav-item {
+           padding: 1rem;
+           cursor: pointer;
+           color: #6b7280;
+           font-weight: 500;
+           display: flex;
+           align-items: center;
+           gap: 0.5rem;
+           transition: color 0.3s ease;
+       }
+       .nav-item.active {
+           color: #111827;
+       }
+       .nav-item.completed {
+           color: #374151;
+       }
+       .nav-underline {
+           position: absolute;
+           bottom: -1px;
+           height: 2px;
+           background-color: #111827;
+           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+       }
+       .nav-check {
+           color: #10B981;
+           opacity: 0;
+           transform: scale(0.5);
+           transition: all 0.3s ease;
+       }
+       .nav-item.completed .nav-check {
+           opacity: 1;
+           transform: scale(1);
+       }
+   </style>
+</head>
+<body class="bg-gray-100 font-sans">
+   <div class="container mx-auto p-4 md:p-8 flex flex-col items-center justify-center min-h-screen">
+      
+       <!-- Onboarding Container -->
+       <div id="view-onboarding" class="view-container max-w-3xl w-full">
+           <div class="bg-white p-8 md:p-12 card">
+               <div id="onboarding-header" class="mb-12">
+                    <div class="nav-container">
+                        <div class="nav-item active" data-step="0">
+                           <svg class="nav-check h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                           Company
+                        </div>
+                        <div class="nav-item" data-step="1">
+                           <svg class="nav-check h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                           Administrator
+                        </div>
+                         <div class="nav-item" data-step="2">
+                            <svg class="nav-check h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                           Documents
+                        </div>
+                        <div class="nav-item" data-step="3">
+                           <svg class="nav-check h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                           Review
+                        </div>
+                        <div class="nav-underline"></div>
+                    </div>
+               </div>
+
+
+               <!-- Steps Container -->
+               <div id="steps-container" class="relative">
+                   <!-- Step 1: Company Details -->
+                   <div id="onboarding-step-1" class="onboarding-step">
+                       <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Company Details</h2>
+                       <div class="space-y-6">
+                          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                               <div class="input-group">
+                                   <label>Company Name</label>
+                                   <input type="text" id="companyNameInput">
+                               </div>
+                               <div class="input-group">
+                                   <label>Trade License Number</label>
+                                   <input type="text" id="tradeLicenseInput">
+                               </div>
+                           </div>
+                           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                              <div class="input-group">
+                                   <label>Street Address</label>
+                                   <input type="text" id="streetAddressInput" placeholder="e.g. Index Tower, Happiness Street">
+                               </div>
+                                <div class="input-group">
+                                   <label>Office / Unit (Optional)</label>
+                                   <input type="text" id="officeUnitInput" placeholder="e.g. Office 101">
+                               </div>
+                           </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                               <div class="input-group">
+                                  <label>City</label>
+                                  <input type="text" id="cityInput" value="Dubai">
+                              </div>
+                               <div class="input-group">
+                                  <label>Country</label>
+                                  <select id="countryInput">
+                                      <option>United Arab Emirates</option>
+                                      <option>Saudi Arabia</option>
+                                      <option>Qatar</option>
+                                  </select>
+                              </div>
+                           </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                               <div class="flex gap-4">
+                                   <div class="input-group w-1/3">
+                                       <label>Code</label>
+                                       <select id="countryCodeInput">
+                                           <option>+971</option>
+                                           <option>+1</option>
+                                           <option>+44</option>
+                                       </select>
+                                   </div>
+                                   <div class="input-group w-2/3">
+                                       <label>Contact Phone</label>
+                                       <input type="tel" id="phoneInput">
+                                   </div>
+                               </div>
+                               <div class="input-group">
+                                   <label>Tax Registration Number (TRN) (Optional)</label>
+                                   <input type="text" id="trnInput">
+                               </div>
+                           </div>
+                           <div class="text-right pt-4">
+                               <button class="next-step-btn w-full md:w-auto justify-center py-3 px-6 rounded-lg text-sm font-semibold btn-primary">Continue</button>
+                           </div>
+                       </div>
+                   </div>
+
+
+                   <!-- Step 2: Administrator Setup -->
+                   <div id="onboarding-step-2" class="onboarding-step hidden">
+                       <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Administrator Setup</h2>
+                       <p class="text-gray-500 -mt-4 mb-6 text-center">This person will manage your corporate account.</p>
+                       <div class="space-y-6">
+                           <div class="input-group">
+                               <label>Full Name</label>
+                               <input type="text" id="adminNameInput">
+                           </div>
+                           <div class="input-group">
+                               <label>Work Email Address</label>
+                               <input type="email" id="adminEmailInput">
+                           </div>
+                           <div class="input-group">
+                               <label>Create Password</label>
+                               <input type="password">
+                           </div>
+                           <div class="flex justify-between mt-8">
+                                <button class="prev-step-btn w-auto justify-center py-3 px-6 rounded-lg text-sm font-semibold btn-secondary">Back</button>
+                                <button class="next-step-btn w-auto justify-center py-3 px-6 rounded-lg text-sm font-semibold btn-primary">Continue</button>
+                           </div>
+                       </div>
+                   </div>
+
+
+                   <!-- Step 3: Document Upload & Agreement -->
+                   <div id="onboarding-step-3" class="onboarding-step hidden">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Document Verification</h2>
+                        <div class="space-y-8">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                   <label class="block text-sm font-medium text-gray-700 mb-1">Company Trade License</label>
+                                   <div class="upload-area flex justify-center px-6 pt-5 pb-6">
+                                        <div class="space-y-1 text-center upload-prompt">
+                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true"><path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                                            <p class="text-sm text-gray-600">Drag and drop Trade License</p>
+                                            <input type="file" class="sr-only">
+                                        </div>
+                                        <div class="text-center upload-success hidden">
+                                            <svg class="mx-auto h-12 w-12 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                            <p class="text-sm font-semibold text-green-600 mt-2">Upload Successful!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                   <label class="block text-sm font-medium text-gray-700 mb-1">VAT Certificate (Optional)</label>
+                                   <div class="upload-area flex justify-center px-6 pt-5 pb-6">
+                                        <div class="space-y-1 text-center upload-prompt">
+                                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true"><path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                                            <p class="text-sm text-gray-600">Drag and drop VAT Certificate</p>
+                                            <input type="file" class="sr-only">
+                                        </div>
+                                        <div class="text-center upload-success hidden">
+                                            <svg class="mx-auto h-12 w-12 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                            <p class="text-sm font-semibold text-green-600 mt-2">Upload Successful!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-4 border-t">
+                                <h3 class="text-lg font-medium text-gray-700 mb-2">Service Agreement</h3>
+                                <div class="p-4 border rounded-md h-64 overflow-y-auto bg-gray-50 text-gray-700 text-sm">
+                                   <p>This Corporate Service Agreement ("Agreement") outlines the terms for using the Esqyre Corporate Suite...</p>
+                                </div>
+                                 <div class="flex items-center mt-4">
+                                   <input id="agreement-checkbox" type="checkbox" class="h-4 w-4 text-slate-700 rounded border-gray-300">
+                                   <label for="agreement-checkbox" class="ml-2 block text-sm text-gray-900">I have read and agree to the Esqyre Corporate Service Agreement</label>
+                               </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mt-8">
+                            <button class="prev-step-btn w-auto justify-center py-3 px-6 rounded-lg text-sm font-semibold btn-secondary">Back</button>
+                            <button class="next-step-btn w-auto justify-center py-3 px-6 rounded-lg text-sm font-semibold btn-primary">Continue</button>
+                        </div>
+                   </div>
+
+
+                   <!-- Step 4: Review -->
+                   <div id="onboarding-step-4" class="onboarding-step hidden">
+                       <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Review Application</h2>
+                        <p class="text-gray-600 mb-6 text-center">Please confirm all your details are correct before submitting.</p>
+                       <div class="space-y-6">
+                           <div class="p-6 border rounded-lg bg-gray-50">
+                               <h3 class="font-semibold text-lg mb-4">Company Information</h3>
+                               <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                                   <div><dt class="text-sm font-medium text-gray-500">Company Name</dt><dd class="mt-1 text-md font-semibold text-gray-900" id="review-company-name"></dd></div>
+                                   <div><dt class="text-sm font-medium text-gray-500">Trade License #</dt><dd class="mt-1 text-md font-semibold text-gray-900" id="review-trade-license"></dd></div>
+                                   <div class="col-span-2"><dt class="text-sm font-medium text-gray-500">Address</dt><dd class="mt-1 text-md font-semibold text-gray-900" id="review-address"></dd></div>
+                                   <div><dt class="text-sm font-medium text-gray-500">Contact Phone</dt><dd class="mt-1 text-md font-semibold text-gray-900" id="review-phone"></dd></div>
+                                   <div><dt class="text-sm font-medium text-gray-500">TRN</dt><dd class="mt-1 text-md font-semibold text-gray-900" id="review-trn"></dd></div>
+                               </dl>
+                           </div>
+                            <div class="p-6 border rounded-lg bg-gray-50">
+                               <h3 class="font-semibold text-lg mb-4">Account Administrator</h3>
+                               <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                                  <div><dt class="text-sm font-medium text-gray-500">Full Name</dt><dd class="mt-1 text-md font-semibold text-gray-900" id="review-admin-name"></dd></div>
+                                  <div><dt class="text-sm font-medium text-gray-500">Email Address</dt><dd class="mt-1 text-md font-semibold text-gray-900" id="review-admin-email"></dd></div>
+                              </dl>
+                           </div>
+                       </div>
+                        <div class="flex justify-between mt-8">
+                            <button class="prev-step-btn w-auto justify-center py-3 px-6 rounded-lg text-sm font-semibold btn-secondary">Back</button>
+                            <button id="submit-application-btn" class="w-auto justify-center py-3 px-6 rounded-lg text-sm font-semibold btn-primary">Submit Application</button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+      
+       <!-- Final Success -->
+       <div id="view-success" class="view-container max-w-lg hidden text-center">
+            <div class="bg-white p-8 md:p-16 card success-card">
+                <div class="mx-auto">
+                   <svg class="success-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="success-checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="success-checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
+                </div>
+               <h2 class="text-3xl font-bold text-gray-800 mt-4">Application Received</h2>
+               <p class="text-lg text-gray-600 mt-2 max-w-xl mx-auto">Thank you for choosing Esqyre.</p>
+               <div class="mt-8 p-4 bg-gray-100 rounded-lg border inline-block">
+                   <p class="text-sm text-gray-500">Your Application ID</p>
+                   <p class="text-lg font-mono font-semibold text-gray-700 tracking-widest mt-1">ESQ-C24B-8A2D</p>
+               </div>
+                <p class="text-gray-500 mt-6 text-sm">A dedicated account manager will be in touch within one business day.</p>
+               <div class="mt-8">
+                   <button id="finish-btn" class="w-full md:w-auto justify-center py-3 px-6 rounded-lg text-sm font-semibold btn-primary">Finish</button>
+               </div>
+           </div>
+       </div>
+
+
+       <!-- OTP Verification Screen -->
+       <div id="view-otp-verification" class="modal-overlay">
+           <div class="modal-content w-full max-w-lg">
+                <div class="p-8 md:p-12">
+                    <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-slate-100">
+                       <svg class="h-8 w-8 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                       </svg>
+                   </div>
+                   <h2 class="text-2xl font-bold text-gray-800 mt-6 text-center">Verify Administrator's Email</h2>
+                   <p class="text-gray-600 mt-2 text-center">We've sent a 6-digit code to <strong id="otp-email-display">your.email@example.com</strong>. Please enter it below.</p>
+                   <div class="flex justify-center gap-2 my-8">
+                       <input type="text" maxlength="1" class="otp-input">
+                       <input type="text" maxlength="1" class="otp-input">
+                       <input type="text" maxlength="1" class="otp-input">
+                       <input type="text" maxlength="1" class="otp-input">
+                       <input type="text" maxlength="1" class="otp-input">
+                       <input type="text" maxlength="1" class="otp-input">
+                   </div>
+                   <button id="verify-otp-btn" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white btn-primary focus:outline-none">
+                       Verify & Continue Application
+                   </button>
+                    <div class="mt-4 text-sm text-center">
+                       <span class="text-gray-500">Didn't receive the code?</span>
+                       <a href="#" class="font-medium text-slate-700 hover:text-slate-600">Resend OTP</a>
+                   </div>
+                </div>
+           </div>
+       </div>
+   </div>
+
+
+   <script>
+       document.addEventListener('DOMContentLoaded', () => {
+           const onboardingView = document.getElementById('view-onboarding');
+           const otpView = document.getElementById('view-otp-verification');
+           const successView = document.getElementById('view-success');
+           const onboardingSteps = document.querySelectorAll('.onboarding-step');
+           const navItems = document.querySelectorAll('.nav-item');
+           const navUnderline = document.querySelector('.nav-underline');
+           const finishBtn = document.getElementById('finish-btn');
+           const nextStepBtns = document.querySelectorAll('.next-step-btn');
+           const prevStepBtns = document.querySelectorAll('.prev-step-btn');
+           const verifyOtpBtn = document.getElementById('verify-otp-btn');
+           const submitApplicationBtn = document.getElementById('submit-application-btn');
+          
+           // Input Fields for Review
+           const companyNameInput = document.getElementById('companyNameInput');
+           const tradeLicenseInput = document.getElementById('tradeLicenseInput');
+           const streetAddressInput = document.getElementById('streetAddressInput');
+           const officeUnitInput = document.getElementById('officeUnitInput');
+           const cityInput = document.getElementById('cityInput');
+           const countryInput = document.getElementById('countryInput');
+           const countryCodeInput = document.getElementById('countryCodeInput');
+           const phoneInput = document.getElementById('phoneInput');
+           const trnInput = document.getElementById('trnInput');
+           const adminNameInput = document.getElementById('adminNameInput');
+           const adminEmailInput = document.getElementById('adminEmailInput');
+           const otpEmailDisplay = document.getElementById('otp-email-display');
+
+
+           // Review Display Fields
+           const reviewCompanyName = document.getElementById('review-company-name');
+           const reviewTradeLicense = document.getElementById('review-trade-license');
+           const reviewAddress = document.getElementById('review-address');
+           const reviewPhone = document.getElementById('review-phone');
+           const reviewTrn = document.getElementById('review-trn');
+           const reviewAdminName = document.getElementById('review-admin-name');
+           const reviewAdminEmail = document.getElementById('review-admin-email');
+          
+           let currentStep = 0;
+           const totalSteps = 4;
+
+
+           const showView = (viewName) => {
+               const allViews = [onboardingView, successView];
+               allViews.forEach(v => {
+                   if (v) {
+                      v.style.opacity = '0';
+                      setTimeout(() => v.classList.add('hidden'), 300);
+                   }
+               });
+              
+               setTimeout(() => {
+                   const newView = document.getElementById(viewName);
+                   if (newView) {
+                       newView.classList.remove('hidden');
+                       void newView.offsetWidth;
+                       newView.style.opacity = '1';
+                   }
+               }, 300);
+           };
+
+
+           const showOtpModal = (show) => {
+                if (show) {
+                   otpView.classList.add('visible');
+                } else {
+                   otpView.classList.remove('visible');
+                }
+           }
+          
+           const populateReviewData = () => {
+               reviewCompanyName.textContent = companyNameInput.value || 'N/A';
+               reviewTradeLicense.textContent = tradeLicenseInput.value || 'N/A';
+               reviewAddress.textContent = `${streetAddressInput.value}, ${officeUnitInput.value || ''}, ${cityInput.value}, ${countryInput.value}`.replace(/ ,/g, ',');
+               reviewPhone.textContent = `${countryCodeInput.value} ${phoneInput.value}`;
+               reviewTrn.textContent = trnInput.value || 'Not provided';
+               reviewAdminName.textContent = adminNameInput.value || 'N/A';
+               reviewAdminEmail.textContent = adminEmailInput.value || 'N/A';
+           }
+          
+           const updateOnboardingStep = () => {
+               navItems.forEach((nav, index) => {
+                   nav.classList.remove('active', 'completed');
+                   if (index < currentStep) {
+                       nav.classList.add('completed');
+                   } else if (index === currentStep) {
+                       nav.classList.add('active');
+                   }
+               });
+
+
+               const activeNavItem = navItems[currentStep];
+               navUnderline.style.width = `${activeNavItem.offsetWidth}px`;
+               navUnderline.style.left = `${activeNavItem.offsetLeft}px`;
+
+
+               const currentStepEl = document.getElementById(`onboarding-step-${currentStep + 1}`);
+               onboardingSteps.forEach(step => {
+                    if(step !== currentStepEl) {
+                       step.classList.add('hidden');
+                    }
+                });
+                if(currentStepEl) {
+                   currentStepEl.classList.remove('hidden');
+                }
+           };
+          
+           finishBtn.addEventListener('click', () => {
+               location.reload();
+           });
+          
+           nextStepBtns.forEach(btn => {
+               btn.addEventListener('click', () => {
+                   if (currentStep === 1) {
+                       otpEmailDisplay.textContent = adminEmailInput.value || 'your.email@example.com';
+                       showOtpModal(true);
+                       return;
+                   }
+                    if (currentStep === 2) {
+                       populateReviewData();
+                   }
+
+
+                   if (currentStep < totalSteps - 1) {
+                       currentStep++;
+                       updateOnboardingStep();
+                   }
+               });
+           });
+
+
+            submitApplicationBtn.addEventListener('click', () => {
+               showView('view-success');
+           });
+
+
+
+
+           prevStepBtns.forEach(btn => {
+               btn.addEventListener('click', () => {
+                    if (currentStep > 0) {
+                       currentStep--;
+                       updateOnboardingStep();
+                   }
+               });
+           });
+
+
+           verifyOtpBtn.addEventListener('click', () => {
+               currentStep = 2;
+               showOtpModal(false);
+               updateOnboardingStep();
+           });
+          
+           document.querySelectorAll('.upload-area').forEach(area => {
+               area.addEventListener('click', () => {
+                   area.querySelector('input[type="file"]').click();
+               });
+               area.querySelector('input[type="file"]').addEventListener('change', (e) => {
+                   if(e.target.files.length > 0) {
+                       const prompt = area.querySelector('.upload-prompt');
+                       const success = area.querySelector('.upload-success');
+                      
+                       area.classList.add('is-success');
+                       prompt.classList.add('hidden');
+                       success.classList.remove('hidden');
+                   }
+               });
+           });
+
+
+           document.querySelectorAll('.otp-input').forEach((input, index) => {
+               input.addEventListener('keyup', (e) => {
+                   if (e.key >= 0 && e.key <= 9 && index < 5) {
+                       input.nextElementSibling.focus();
+                   } else if (e.key === 'Backspace' && index > 0) {
+                       input.previousElementSibling.focus();
+                   }
+               });
+           });
+          
+            navItems.forEach((step, index) => {
+               step.addEventListener('click', () => {
+                   if (index < currentStep) {
+                       currentStep = index;
+                       updateOnboardingStep();
+                   }
+               });
+           });
+
+
+           updateOnboardingStep();
+       });
+   </script>
+</body>
+</html>
+
+
+

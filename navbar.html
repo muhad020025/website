@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esqyre Navigation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles for the body to preview the component */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000; /* Use a dark background to see the white text nav */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Dropdown animation styles */
+        .dropdown {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none; /* Prevents interaction when hidden */
+        }
+
+        /* Show dropdown on hover for desktop */
+        .group:hover .dropdown {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* Styles for the solid dropdowns */
+        .mega-menu {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Underline animation for nav links */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #fff;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: center;
+        }
+        .group:hover .nav-link::after {
+            transform: scaleX(0.5);
+        }
+        
+        /* Primary CTA button style */
+        .btn-primary-cta {
+            background-image: linear-gradient(to right, #f9fafb, #e5e7eb);
+            transition: all 0.3s ease;
+        }
+        .btn-primary-cta:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transform: scale(1.05) translateY(-1px);
+        }
+
+        /* Mobile menu transition */
+        #mobile-menu, #mobile-menu-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #mobile-menu-content {
+             transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar Component -->
+    <nav class="bg-transparent text-white p-6 z-50 relative">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="block w-36 flex-shrink-0">
+                <img src="https://esqyre.com/assets/images/esqyre-logo.svg" alt="Esqyre Logo" class="w-full h-auto">
+            </a>
+
+            <!-- Desktop Menu Links -->
+            <div class="hidden lg:flex items-center space-x-8 font-medium">
+                <!-- Explore Luxury (Mega Menu) -->
+                <div class="relative group">
+                    <button class="nav-link flex items-center space-x-1 py-2 transition-colors hover:text-gray-200">
+                        <span>Explore Luxury</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="dropdown absolute top-full left-1/2 -translate-x-1/2 pt-4">
+                        <div class="mega-menu w-[960px] p-8 text-gray-800">
+                            <div class="grid grid-cols-2 gap-12">
+                                <!-- Left Column for links -->
+                                <div>
+                                    <h3 class="font-bold text-gray-500 uppercase tracking-wider text-sm mb-6">Services</h3>
+                                    <div class="grid grid-cols-2 gap-x-8 gap-y-6">
+                                        <a href="cars.html" class="block group/item"><h4 class="font-bold group-hover/item:text-indigo-600 transition-colors">Cars</h4><p class="text-sm text-gray-500">Exotic & Prestige Fleet</p></a>
+                                        <a href="jets.html" class="block group/item"><h4 class="font-bold group-hover/item:text-indigo-600 transition-colors">Jets</h4><p class="text-sm text-gray-500">Global Private Aviation</p></a>
+                                        <a href="yachts.html" class="block group/item"><h4 class="font-bold group-hover/item:text-indigo-600 transition-colors">Yachts</h4><p class="text-sm text-gray-500">Exclusive Sea Voyages</p></a>
+                                        <a href="villas.html" class="block group/item"><h4 class="font-bold group-hover/item:text-indigo-600 transition-colors">Villas</h4><p class="text-sm text-gray-500">Private Luxury Estates</p></a>
+                                    </div>
+                                </div>
+                                <!-- Right Column for Featured Image -->
+                                <div class="relative">
+                                    <a href="#" class="block rounded-lg h-full overflow-hidden group/feature">
+                                        <img src="https://i.pinimg.com/736x/ab/4b/85/ab4b85ad842e2c53740eefa6f210b7c0.jpg" class="object-cover h-full w-full transition-transform duration-300 group-hover/feature:scale-105" alt="Featured Car Interior">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                        <div class="absolute bottom-0 left-0 p-6">
+                                            <h4 class="font-bold text-white text-lg">Featured Experience</h4>
+                                            <p class="text-sm text-gray-200 mt-1">The Art of Automotive Luxury</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Corporate Suite Dropdown -->
+                <div class="relative group">
+                    <button class="nav-link flex items-center space-x-1 py-2 transition-colors hover:text-gray-200">
+                        <span>Corporate</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="dropdown absolute top-full left-1/2 -translate-x-1/2 pt-4">
+                        <div class="mega-menu w-[512px] p-8 text-gray-800">
+                            <a href="corporate.html" class="block p-4 -m-4 rounded-lg hover:bg-gray-100 transition-colors">
+                                <h4 class="font-bold text-lg">Corporate Suite</h4>
+                                <p class="text-sm text-gray-500 mt-1">Elevate your business travel with centralized billing and team management.</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Partner With Us Dropdown -->
+                <div class="relative group">
+                    <button class="nav-link flex items-center space-x-1 py-2 transition-colors hover:text-gray-200">
+                        <span>Partners</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="dropdown absolute top-full left-1/2 -translate-x-1/2 pt-4">
+                        <div class="mega-menu w-[480px] p-8 text-gray-800">
+                            <div class="flex flex-col gap-4">
+                                <a href="partner-overview.html" class="block p-3 -m-3 rounded-lg hover:bg-gray-100 transition-colors"><h4 class="font-bold">Partner Overview</h4><p class="text-sm text-gray-500">Learn about listing your assets.</p></a>
+                                <a href="partner-apply.html" class="block p-3 -m-3 rounded-lg hover:bg-gray-100 transition-colors"><h4 class="font-bold">Apply to List</h4><p class="text-sm text-gray-500">Join our exclusive network.</p></a>
+                                <a href="partner-login.html" class="block p-3 -m-3 rounded-lg hover:bg-gray-100 transition-colors"><h4 class="font-bold">Vendor Portal</h4><p class="text-sm text-gray-500">Manage your listings & bookings.</p></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resources Dropdown -->
+                <div class="relative group">
+                    <button class="nav-link flex items-center space-x-1 py-2 transition-colors hover:text-gray-200">
+                        <span>Resources</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="dropdown absolute top-full right-0 pt-4">
+                        <div class="mega-menu w-[480px] p-8 text-gray-800">
+                            <div class="flex flex-col gap-4">
+                                <a href="blog.html" class="block p-3 -m-3 rounded-lg hover:bg-gray-100 transition-colors"><h4 class="font-bold">Blog</h4><p class="text-sm text-gray-500">News, articles, and insights.</p></a>
+                                <a href="help-center.html" class="block p-3 -m-3 rounded-lg hover:bg-gray-100 transition-colors"><h4 class="font-bold">Help Center</h4><p class="text-sm text-gray-500">Find answers to your questions.</p></a>
+                                <a href="contact.html" class="block p-3 -m-3 rounded-lg hover:bg-gray-100 transition-colors"><h4 class="font-bold">Contact Us</h4><p class="text-sm text-gray-500">Get in touch with our team.</p></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right side buttons & Mobile Menu Toggle -->
+            <div class="flex items-center gap-2">
+                <div class="hidden sm:flex items-center gap-4">
+                    <button class="px-5 py-2.5 text-sm font-semibold rounded-lg hover:bg-white/10 transition-colors duration-300">Login</button>
+                    <a href="app-download.html" class="btn-primary-cta flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-lg text-black shadow-lg"><span>Get The App</span></a>
+                </div>
+                <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md hover:bg-white/10"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden fixed inset-0 z-40 hidden">
+            <!-- Overlay -->
+            <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/60 opacity-0"></div>
+            
+            <!-- Menu Content -->
+            <div id="mobile-menu-content" class="relative z-50 bg-gray-900 text-white w-full p-6 transform -translate-y-full">
+                <div class="flex justify-between items-center mb-6">
+                     <a href="index.html" class="block w-32 flex-shrink-0">
+                        <img src="https://www.esqyre.com/assets/images/logo.svg" alt="Esqyre Logo" class="w-full h-auto">
+                    </a>
+                    <button id="mobile-close-button" class="p-2 -m-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <a href="explore.html" class="hover:bg-white/10 p-3 rounded-md font-semibold">Explore Luxury</a>
+                    <a href="corporate.html" class="hover:bg-white/10 p-3 rounded-md font-semibold">Corporate</a>
+                    <a href="partners.html" class="hover:bg-white/10 p-3 rounded-md font-semibold">Partners</a>
+                    <a href="resources.html" class="hover:bg-white/10 p-3 rounded-md font-semibold">Resources</a>
+                    <div class="border-t border-gray-700 mt-3 pt-4 flex flex-col space-y-3">
+                         <a href="login.html" class="text-center hover:bg-white/10 p-3 rounded-md font-semibold">Login</a>
+                         <a href="app-download.html" class="text-center font-semibold rounded-lg bg-white text-black shadow-lg hover:bg-gray-200 p-3">Get The App</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+      // Wait for the DOM to be fully loaded before running the script
+      document.addEventListener('DOMContentLoaded', function() {
+        // Get all the necessary elements from the DOM
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileCloseButton = document.getElementById('mobile-close-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuContent = document.getElementById('mobile-menu-content');
+
+        // Function to open the mobile menu
+        function openMenu() {
+            // Only run if the menu element exists
+            if (!mobileMenu) return;
+            mobileMenu.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+            // Use a short timeout to allow the 'display' property to apply before starting the transition
+            setTimeout(() => {
+                if(mobileMenuOverlay) mobileMenuOverlay.classList.remove('opacity-0');
+                if(mobileMenuContent) mobileMenuContent.classList.remove('-translate-y-full');
+            }, 10);
+        }
+
+        // Function to close the mobile menu
+        function closeMenu() {
+            // Only run if the menu element exists
+            if (!mobileMenu) return;
+            if(mobileMenuOverlay) mobileMenuOverlay.classList.add('opacity-0');
+            if(mobileMenuContent) mobileMenuContent.classList.add('-translate-y-full');
+            // Wait for the transition to finish before hiding the element and restoring scroll
+            setTimeout(() => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = ''; // Restore scroll
+            }, 300);
+        }
+
+        // Add event listeners only if the corresponding buttons/elements exist
+        if (mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', openMenu);
+        }
+        if (mobileCloseButton) {
+            mobileCloseButton.addEventListener('click', closeMenu);
+        }
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.addEventListener('click', closeMenu);
+        }
+      });
+    </script>
+</body>
+</html>
