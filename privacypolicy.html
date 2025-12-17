@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Esqyre | Terms of Use</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              black: "#000000",
+              subtle: "#0B0B0B",
+              white: "#FFFFFF",
+              gray: {
+                50: "#FAFAFA",
+                100: "#F5F5F5",
+                200: "#E5E5E5",
+                300: "#D4D4D4",
+                350: "#B1B1B1",
+                400: "#A3A3A3",
+                500: "#737373",
+                600: "#525252",
+                800: "#262626",
+                900: "#171717",
+              },
+            },
+            fontFamily: { sans: ['"Inter"', "sans-serif"] },
+            letterSpacing: { ultra: ".32em" },
+          },
+        },
+      };
+    </script>
+
+<style>
+  :root {
+    --hairline: rgba(0, 0, 0, 0.08);
+    --hairline-strong: rgba(0, 0, 0, 0.12);
+    --ink: rgba(0, 0, 0, 0.92);
+    --muted: rgba(0, 0, 0, 0.62);
+  }
+
+  body {
+    background: #ffffff;
+    color: #0b0b0b;
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+  }
+
+  .esq-legal-container { max-width: 1360px; margin-left: auto; margin-right: auto; }
+  /* TOC smaller, content larger */
+@media (min-width: 1024px) {
+  .legal-grid {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr); /* slimmer TOC, bigger content */
+    gap: 28px; /* less gap = content feels wider */
+    align-items: start;
+  }
+}
+@media (min-width: 1280px) {
+  .legal-grid {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 26px;
+  }
+}
+
+  /* ===== NAVBAR ===== */
+  #mainNav {
+    background: #ffffff;
+    border-bottom: 1px solid var(--hairline);
+    backdrop-filter: none;
+  }
+  nav.nav-scrolled {
+    background: #ffffff;
+    border-bottom: 1px solid var(--hairline-strong);
+  }
+
+  .nav-link {
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.72);
+    transition: color 0.25s ease, opacity 0.25s ease;
+  }
+  .nav-link:hover {
+    color: rgba(0, 0, 0, 0.95);
+    opacity: 1;
+  }
+  #mainNav i[data-lucide] {
+    color: rgba(0, 0, 0, 0.9);
+  }
+
+  .logo-black {
+    filter: invert(1) brightness(0);
+  }
+
+  /* ===== Page header rhythm ===== */
+  .page-kicker {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.42);
+  }
+  .page-title {
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.03;
+    color: rgba(0, 0, 0, 0.92);
+  }
+  .page-subtitle {
+    color: rgba(0, 0, 0, 0.56);
+    line-height: 1.7;
+  }
+
+  /* =========================================================
+     IMPORTANT: KILL THE RIGHT-SIDE “BOX” COMPLETELY
+     Even if HTML still has class="surface" somewhere.
+     ========================================================= */
+  .surface {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* Right side spacing (premium + airy) */
+  .legal-shell {
+    padding: 0;
+  }
+  @media (min-width: 768px) {
+    .legal-shell {
+      padding-right: 12px; /* subtle breathing room vs edge */
+    }
+  }
+
+  .legal-surface {
+  width: 100%;
+}
+
+.legal-pad {
+  padding: 26px 0;
+}
+
+@media (min-width: 768px) {
+  .legal-pad {
+    padding: 44px 0; /* airy like Terms */
+  }
+}
+@media (min-width: 1280px) {
+  .legal-pad {
+    padding: 54px 0;
+  }
+}
+
+  /* ===== Legal typography ===== */
+  .legal h2 {
+    font-size: 1.06rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    margin-top: 2.2rem;
+    text-transform: uppercase;
+    scroll-margin-top: 120px;
+    color: rgba(0, 0, 0, 0.84);
+  }
+  .legal h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-top: 1.4rem;
+    scroll-margin-top: 120px;
+    color: rgba(0, 0, 0, 0.82);
+  }
+  .legal p,
+  .legal li {
+    color: var(--muted);
+    line-height: 1.85;
+    font-size: 1.02rem;
+  }
+  .legal p {
+    margin-top: 0.95rem;
+  }
+  .legal ul {
+    margin-top: 0.8rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+
+  .legal .caps {
+    display: block;
+    margin-top: 1.1rem;
+    padding: 18px 18px;
+    border-radius: 18px;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.72);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  /* =========================================================
+     TOC: NO BOX, NO BORDER, NO CHEAP HOVER
+     ========================================================= */
+  .toc-label {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.4);
+    margin-bottom: 14px;
+  }
+
+  .toc {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .toc a {
+    display: block;
+    padding: 6px 0;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.46);
+    border: none;
+    background: transparent;
+    transition: color 0.18s ease;
+  }
+
+  .toc a:hover {
+    color: rgba(0, 0, 0, 0.88);
+  }
+
+  .toc a.is-active {
+    color: rgba(0, 0, 0, 0.92);
+    font-weight: 800;
+  }
+
+  /* ===== CTA pill (unchanged) ===== */
+  .cta-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 12px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.08);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      background 0.45s ease, border-color 0.45s ease;
+  }
+  .cta-pill:hover {
+    transform: translateY(-2px);
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.18);
+  }
+
+  /* Overlay styles (keep as-is) */
+  .overlay-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.32;
+  }
+  .film-grain {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  }
+  .vignette {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(
+      1200px 800px at 50% 40%,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.38) 55%,
+      rgba(0, 0, 0, 0.75) 100%
+    );
+  }
+  .editorial {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(16px);
+    border-radius: 26px;
+    overflow: hidden;
+  }
+  .editorial-img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    opacity: 0.8;
+    transform: scale(1.02);
+    transition: opacity 0.5s ease,
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .editorial:hover .editorial-img {
+    opacity: 0.92;
+    transform: scale(1.05);
+  }
+  .editorial-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.06) 0%,
+      rgba(0, 0, 0, 0.22) 40%,
+      rgba(0, 0, 0, 0.82) 100%
+    );
+  }
+  .editorial-kicker {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .editorial-title {
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .overlay-item-dynamic {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    font-size: clamp(1.8rem, 3.3vw, 3.5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    opacity: 0.7;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .overlay-item-dynamic:last-child {
+    border-bottom: none;
+  }
+  .overlay-item-dynamic:hover {
+    opacity: 1;
+    transform: translateX(6px);
+  }
+</style>
+  </head>
+
+  <body class="antialiased overflow-x-hidden selection:bg-white selection:text-black">
+    <!-- Navbar -->
+    <nav id="mainNav" class="fixed top-0 left-0 right-0 z-50 h-24 flex items-center">
+      <div class="relative z-10 esq-container px-7 md:px-14 flex justify-between items-center w-full">
+        <a href="index.html" class="w-32">
+          <img
+            src="https://superadmin.esqyre.com/assets/images/esqyre_logo.svg"
+            class="logo-black w-full h-auto"
+            alt="Esqyre"
+          />
+        </a>
+
+        <div class="hidden lg:flex items-center gap-12">
+          <button onclick="openOverlay('exploreOverlay')" class="nav-link">Explore</button>
+          <a href="corporate.html" class="nav-link">For Business</a>
+          <a href="partners.html" class="nav-link">Partners</a>
+        </div>
+
+        <div class="flex items-center gap-6">
+          <a href="login.html" class="hidden sm:block nav-link">Login</a>
+          <button id="mobile-menu-button" class="lg:hidden">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- EXPLORE OVERLAY -->
+    <div id="exploreOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
+      <div class="absolute inset-0">
+        <video autoplay muted loop playsinline class="overlay-video">
+          <source
+            src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="absolute inset-0 bg-black/75"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+      </div>
+
+      <div class="relative z-10 h-full esq-container px-6 md:px-12 flex flex-col">
+        <div class="flex justify-between items-center h-24">
+          <span class="text-xs tracking-[.32em] uppercase opacity-60">Explore</span>
+          <button onclick="closeOverlay('exploreOverlay')">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-12">
+          <div class="lg:col-span-6">
+            <a
+              href="chauffeurs.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Chauffeur"
+              data-kicker="First Class"
+              data-image="https://cd.wheely.com/2x_webp_Artwork_4_3_1_f658d25402.webp"
+              data-action="View Chauffeur"
+              data-href="chauffeurs.html"
+              >Chauffeur</a
+            >
+
+            <a
+              href="cars.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Supercars"
+              data-kicker="Fleet"
+              data-image="https://i.pinimg.com/736x/f6/30/6f/f6306fd83483c23e4cef2d55462444fe.jpg"
+              data-action="View Supercars"
+              data-href="cars.html"
+              >Supercars</a
+            >
+
+            <a
+              href="jets.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Private Aviation"
+              data-kicker="Access"
+              data-image="https://i.pinimg.com/1200x/04/6f/c6/046fc640ad4739d024639501b330dac0.jpg"
+              data-action="Request Charter"
+              data-href="jets.html"
+              >Private Aviation</a
+            >
+
+            <a
+              href="villas.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Villas & Hotels"
+              data-kicker="Stays"
+              data-image="https://i.pinimg.com/736x/ba/28/2e/ba282e6465d684da2cee26b17dc466f0.jpg"
+              data-action="Explore Stays"
+              data-href="villas.html"
+              >Stays</a
+            >
+
+            <a
+              href="yachts.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Yachts"
+              data-kicker="Marine"
+              data-image="https://i.pinimg.com/736x/33/7b/10/337b1006a9ca27aa1bf0d7212df6fa3c.jpg"
+              data-action="Explore Yachts"
+              data-href="yachts.html"
+              >Yachts</a
+            >
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="editorial">
+              <div class="relative">
+                <img id="exploreEditorialImg" class="editorial-img" alt="Explore Preview" />
+                <div class="editorial-overlay"></div>
+
+                <div class="absolute bottom-0 left-0 right-0 p-10">
+                  <p id="exploreEditorialKicker" class="editorial-kicker"></p>
+                  <h3 id="exploreEditorialTitle" class="editorial-title mt-3"></h3>
+
+                  <div class="mt-8">
+                    <a
+                      id="exploreEditorialBtn"
+                      href="#"
+                      class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex"
+                    >
+                      <span id="exploreEditorialBtnText">Explore</span>
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pb-10 text-xs tracking-[.32em] uppercase opacity-50">Time Redefined</div>
+      </div>
+    </div>
+
+    <!-- PARTNERS OVERLAY -->
+    <div id="partnersOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
+      <div class="absolute inset-0">
+        <video autoplay muted loop playsinline class="overlay-video">
+          <source
+            src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="absolute inset-0 bg-black/75"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+      </div>
+
+      <div class="relative z-10 h-full esq-container px-6 md:px-12 flex flex-col">
+        <div class="flex justify-between items-center h-24">
+          <span class="text-xs tracking-[.32em] uppercase opacity-60">Partners</span>
+          <button onclick="closeOverlay('partnersOverlay')">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-12">
+          <div class="lg:col-span-6">
+            <a
+              href="partner-overview.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Partner Overview"
+              data-kicker="Network"
+              data-image="https://i.pinimg.com/1200x/ec/11/92/ec1192e63f0ed3b136a426096c54f470.jpg"
+              data-action="View Overview"
+              data-href="partner-overview.html"
+              >Partner Overview</a
+            >
+
+            <a
+              href="partner-apply.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Apply to List"
+              data-kicker="Curated"
+              data-image="https://esqyre.com/assets/images/assets.png"
+              data-action="Apply Now"
+              data-href="partner-apply.html"
+              >Apply to List</a
+            >
+
+            <a
+              href="partner-login.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Vendor Portal"
+              data-kicker="Operations"
+              data-image="https://esqyre.com/assets/images/help.png"
+              data-action="Open Portal"
+              data-href="partner-login.html"
+              >Vendor Portal</a
+            >
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="editorial">
+              <div class="relative">
+                <img id="partnersEditorialImg" class="editorial-img" alt="Partners Preview" />
+                <div class="editorial-overlay"></div>
+
+                <div class="absolute bottom-0 left-0 right-0 p-10">
+                  <p id="partnersEditorialKicker" class="editorial-kicker"></p>
+                  <h3 id="partnersEditorialTitle" class="editorial-title mt-3"></h3>
+
+                  <div class="mt-8">
+                    <a
+                      id="partnersEditorialBtn"
+                      href="#"
+                      class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex"
+                    >
+                      <span id="partnersEditorialBtnText">Explore</span>
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pb-10 text-xs tracking-[.32em] uppercase opacity-50">Time Redefined</div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden fixed inset-0 z-[60] hidden">
+      <div
+        id="mobile-menu-overlay"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm opacity-0"
+        onclick="closeMenu()"
+      ></div>
+      <div
+        id="mobile-menu-content"
+        class="relative z-[70] bg-black border-l border-white/10 text-white w-4/5 max-w-sm ml-auto h-full p-8 transform translate-x-full transition-transform duration-300"
+      >
+        <div class="flex justify-between items-center mb-12">
+          <span class="text-lg font-bold tracking-[.32em]">MENU</span>
+          <button id="mobile-close-button" onclick="closeMenu()" class="p-2 -m-2">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex flex-col space-y-8">
+          <button
+            onclick="openOverlay('exploreOverlay'); closeMenu();"
+            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
+          >
+            Explore
+          </button>
+
+          <a href="corporate.html" class="text-xl font-medium hover:text-gray-350 transition-colors">
+            For Business
+          </a>
+
+          <button
+            onclick="openOverlay('partnersOverlay'); closeMenu();"
+            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
+          >
+            Partners
+          </button>
+
+          <div class="h-px bg-white/10 my-4"></div>
+
+          <a
+            href="login.html"
+            class="text-sm uppercase tracking-[.32em] text-gray-500 hover:text-white transition-colors"
+            >Login</a
+          >
+
+          <div class="mt-auto pt-8">
+            <a
+              href="app-download.html"
+              class="block w-full text-center bg-white text-black py-4 text-xs font-bold tracking-[.32em] uppercase"
+            >
+              Get The App
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<main class="pt-32 pb-24">
+  <section class="relative">
+    <div class="esq-legal-container px-4 md:px-10 lg:px-8 xl:px-6">
+      <!-- Header -->
+      <div class="max-w-4xl">
+        <p class="text-[10px] tracking-[.32em] uppercase text-black/45 mb-6">Legal</p>
+
+        <h1 class="text-4xl md:text-6xl font-medium tracking-tight leading-[1.03] text-black/90">
+          Privacy Policy
+        </h1>
+
+        <p class="text-black/55 text-base md:text-lg leading-relaxed mt-6 max-w-[80ch]">
+          ESQYRE SOFTWARE SOLUTIONS AND ARTIFICIAL INTELLIGENCE - FZCO
+        </p>
+      </div>
+
+      <!-- Layout -->
+      <div class="mt-14 legal-grid">
+        <!-- TOC -->
+        <aside class="hidden lg:block">
+          <div class="sticky top-28">
+            <p class="text-[10px] tracking-[.32em] uppercase text-black/40 mb-4">Contents</p>
+
+            <div class="toc-surface">
+              <div class="toc space-y-2">
+                <a href="#policy-overview">Policy Overview</a>
+                <a href="#personal-information">What is Personal Information</a>
+                <a href="#why-we-collect">Why We Collect Information</a>
+                <a href="#third-parties">Third Parties</a>
+                <a href="#security">Security</a>
+                <a href="#access">Access to Your Information</a>
+                <a href="#quality">Maintaining Quality</a>
+                <a href="#calls-chats">Calls, Chats & Monitoring</a>
+                <a href="#disclosure">Disclosure & Sharing</a>
+                <a href="#cookies">Cookies</a>
+                <a href="#data-deletion">Data Deletion Requests</a>
+                <a href="#updates">Policy Updates</a>
+                <a href="#complaints">Complaints & Enquiries</a>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Content -->
+        <article class="legal">
+          <!-- Mobile TOC -->
+          <div class="lg:hidden mb-8">
+            <p class="text-[10px] tracking-[.32em] uppercase text-black/40 mb-4">Contents</p>
+            <div class="toc-surface">
+              <div class="toc grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <a href="#policy-overview">Policy Overview</a>
+                <a href="#personal-information">Personal Information</a>
+                <a href="#why-we-collect">Why We Collect</a>
+                <a href="#third-parties">Third Parties</a>
+                <a href="#security">Security</a>
+                <a href="#disclosure">Disclosure</a>
+                <a href="#cookies">Cookies</a>
+                <a href="#complaints">Enquiries</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- THIS must match TermsOfUse -->
+          <div class="legal-surface legal-pad">
+            <h2 id="policy-overview">POLICY OVERVIEW</h2>
+            <p>
+              ESQYRE SOFTWARE SOLUTIONS AND ARTIFICIAL INTELLIGENCE - FZCO and its affiliates (collectively referred to as
+              "we", "us", "our") is committed to providing quality Services to you and this privacy policy (the “Policy”)
+              outlines our ongoing obligations to you in respect of how we manage, capture and use your personal information
+              (the “Personal Information”).
+            </p>
+
+            <p>
+              Please read this Policy carefully and note that by using our Services or our Website, you agree to the collection,
+              usage, and transfer of Personal Information through this Policy, or provide consent, where consenting is required,
+              to use the Personal Information. You must not use the Services we offer on our Website if you do not accept these
+              terms of the Policy in any way.
+            </p>
+
+            <p>
+              This Policy is incorporated into our Terms and Conditions. Capitalized terms used in this Policy and not otherwise
+              defined shall have the meanings provided for in the Terms and Conditions.
+            </p>
+
+            <h2 id="personal-information">WHAT IS PERSONAL INFORMATION AND WHY DO WE COLLECT IT?</h2>
+            <p>
+              When you register or subscribe to our Website to access our Services, we might collect some information about you.
+              This might include:
+            </p>
+
+            <ul>
+              <li>your name, contact number, and email address.</li>
+              <li>Information that will allow us to cross-check and confirm your identity.</li>
+              <li>
+                When you download or use our App, we may have access to details about your location and your mobile device,
+                including a unique identifier for your device.
+              </li>
+              <li>Details of transactions you carry out through our Website and of the fulfilment of your orders.</li>
+              <li>
+                Details about your computer, including but not limited to your IP address, operating system, and browser type,
+                as well as information about your general internet usage (e.g., by using technology that stores information on
+                or gains access to your device, such as cookies, tracking pixels, web beacons, etc.).
+              </li>
+              <li>
+                Your email address from a third party if you indicate that you have consented to that third party sharing your information with us.
+              </li>
+              <li>Information related to your payments, history, and transactions.</li>
+              <li>Other information that we might find relevant and required for our Services to comply with the regulations and/or any applicable laws.</li>
+            </ul>
+
+            <h2 id="why-we-collect">WHY DO WE COLLECT IT</h2>
+            <p>
+              You agree and, if necessary, give us consent to obtain your information for your use on the Website and its Services.
+            </p>
+            <p>
+              You also provide us consent to use any other information that you provided us through messages and any other forms of communication.
+            </p>
+
+            <h2 id="third-parties">THIRD PARTIES</h2>
+            <p>
+              Where reasonable and practicable to do so, we will collect your Personal Information only from you. However, in some circumstances we may be
+              provided with information by third parties. In such a case we will take reasonable steps to ensure that you are made aware of the information
+              provided to us by the third party.
+            </p>
+
+            <h2 id="security">SECURITY OF PERSONAL INFORMATION</h2>
+            <p>
+              Our Website offers security policies, measures, and rules that endure complete protection of your Personal Information. It ensures your data won't be
+              exposed through unauthorized access or accidental use as we ensure confidentiality and security at every step.
+            </p>
+            <p>
+              If there is any data breach suspected, we have adopted all the measures to deal with the same. We will not only notify you but also contact legal
+              authorities in such matters to secure your data and protection. Further, account-related details including passwords have to be kept confidential by you only.
+              You may contact us immediately if you have any queries regarding the same or if you suspect unauthorized account access.
+            </p>
+
+            <h2 id="access">ACCESS TO YOUR PERSONAL INFORMATION</h2>
+            <p>
+              You may access the Personal Information we hold about you and to update and/or correct it, subject to certain exceptions. If you wish to access your Personal
+              Information, please contact us in writing.
+            </p>
+            <p>
+              We will not charge any fee for your access request, but may charge an administrative fee for providing a copy of your Personal Information.
+            </p>
+            <p>
+              In order to protect your Personal Information we may require identification from you before releasing the requested information.
+            </p>
+
+            <h2 id="quality">MAINTAINING THE QUALITY OF YOUR PERSONAL INFORMATION</h2>
+            <p>
+              It is an important to us that your Personal Information is up to date. We will take reasonable steps to make sure that your Personal Information is accurate,
+              complete and up-to-date. If you find that the information we have is not up to date or is inaccurate, please advise us as soon as possible so we can update our
+              records and ensure we can continue to provide quality services to you.
+            </p>
+
+            <p>
+              The Policy applies to anyone and everyone who wants to use our Services and/ or access our Website from any electronic device. If you chose to remain anonymous
+              on our Website through any of the devices, we will obtain and use this information automatically when you access our Website or use our Services through your mobile.
+            </p>
+
+            <h2 id="calls-chats">CALLS, CHATS & MONITORING</h2>
+            <p>
+              If you make any calls or chat with our team or with any third party through our Website, it will be recorded for quality assurance and might also be monitored for
+              enhanced customer care services.
+            </p>
+            <p>
+              We use the services of third-party to keep a track of the messages and calls between you and third parties’ vendors or between you and us. This will give access to us
+              and third-party vendors about your contact details which will be of use later on.
+            </p>
+            <p>
+              We will receive real-time data about your messages and calls that we will store. This data will include the detail of the messages and calls between you and us, the content
+              of the message, and your contact details.
+            </p>
+
+            <h2 id="disclosure">DISCLOSURE AND SHARING OF THE PERSONAL INFORMATION</h2>
+            <p>
+              Your personal information including your contact details and addresses may be used by us or third parties on our Website. Each of the Service Providers on our Website has the
+              authority to use your information but only in accordance with this Policy.
+            </p>
+            <p>
+              We might share your information with the parties providing products and services on our Website, other service providers that help us keep the business going, or any other third
+              parties that you approve while using our Services or while gaining the access to our Website through mobile technology or any other devices.
+            </p>
+            <p>
+              We ensure that the associated third parties respect your Personal Information's privacy and use it by the set rules and regulations. The third-party service providers on our Website
+              do not have permission to use your Personal Information for their benefit. They only have the authorization to use your Personal Information for particular purposes and according to
+              the set law, rules, and regulations.
+            </p>
+            <p>
+              We will share or use the information that we collect from you only if we are under the duty of doing so or only if we are required to share the information for legal purposes. This information
+              might also be used while enforcing any obligation against you or to protect the rights of our affiliates and us. This type of information-share will only be made in case of fraud prevention and
+              protection where other organizations might ask us for significant details.
+            </p>
+            <p>
+              There might be a need for us to share your Personal Information with third parties, affiliates, or our subsidiaries or if we are restructuring our business. Although your Personal Information will remain
+              anonymous, it will be unavoidable in certain situations to not share your information.
+            </p>
+            <p>
+              We might also use the Personal Information provided by you to collect your opinion regarding the Service being provided on our Website. Further, we might use the information to notify you of any changes made
+              in the Services we provide or any new developments on our Website.
+            </p>
+
+            <h2 id="cookies">COOKIES</h2>
+            <p>
+              When you access our website, we might send a small file, termed Cookie, on the device that you might be using. It will let us identify your device and monitor its behaviour on our Website while also gathering
+              information on your areas of interest that will enable us to improve our Services.
+            </p>
+            <p>
+              The Cookies will help us obtain and store personal data and link it with information supplied in Cookies. If you choose to reject the Cookies on our website, you might face deterrence from some Services on our Website.
+            </p>
+
+            <h2 id="data-deletion">DATA DELETE REQUEST</h2>
+            <p>
+              You can email us on the provided email id to request data deletion and We assure to fulfill your request. If legal action is required or if the circumstances don't allow, We might be unable to delete your personal data.
+              Also, We will retain the data if we are required to do so.
+            </p>
+            <p>
+              Before we delete any Personal iIformation provided by you, We might ask for your identity. Know that We will delete the data upon your request only after confirming your identity. If your identity is not established,
+              We will have no option other than rejecting your request for data deletion. We reserve all the rights to charge a nominal fee if we are proceeding further with the data deletion request.
+            </p>
+
+            <h2 id="updates">POLICY UPDATES</h2>
+            <p>
+              This Policy may be changed or amended from time to time and is available on the Website.
+            </p>
+
+            <h2 id="complaints">POLICY COMPLAINTS AND ENQUIRIES</h2>
+            <p>
+              If you have any enqueries or complaints regarding our Policy, please contact us at:
+            </p>
+
+            <p class="caps">[-------------------------------]</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+    <!-- Footer -->
+    <footer class="bg-black border-t border-white/10 relative z-20">
+      <div class="esq-container px-6 md:px-12 pt-20 pb-12">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+          <div class="md:col-span-4">
+            <img
+              src="https://superadmin.esqyre.com/assets/images/esqyre_logo.svg"
+              class="h-7 w-auto invert brightness-0 filter"
+              alt="Esqyre"
+            />
+
+            <p class="text-xs text-white/50 mt-6 leading-relaxed max-w-sm">
+              A system for movement. Built on discretion.
+            </p>
+
+            <div class="mt-10 flex items-center gap-4">
+              <a
+                href="#"
+                class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors"
+              >
+                Instagram
+              </a>
+              <span class="text-white/20">/</span>
+              <a
+                href="#"
+                class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors"
+              >
+                LinkedIn
+              </a>
+              <span class="text-white/20">/</span>
+              <a
+                href="contact.html"
+                class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors"
+              >
+                Contact
+              </a>
+            </div>
+          </div>
+
+          <div class="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-10">
+            <div>
+              <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Company</h4>
+              <ul class="space-y-4 text-sm text-white/55">
+                <li><a href="ourstory.html" class="hover:text-white transition-colors">Our Story</a></li>
+                <li><a href="safety.html" class="hover:text-white transition-colors">Safety</a></li>
+                <li><a href="careers.html" class="hover:text-white transition-colors">Careers</a></li>
+                <li><a href="newsroom.html" class="hover:text-white transition-colors">Newsroom</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Services</h4>
+              <ul class="space-y-4 text-sm text-white/55">
+                <li><a href="chauffeurs.html" class="hover:text-white transition-colors">Chauffeur</a></li>
+                <li><a href="cars.html" class="hover:text-white transition-colors">Supercars</a></li>
+                <li><a href="jets.html" class="hover:text-white transition-colors">Private Aviation</a></li>
+                <li><a href="villas.html" class="hover:text-white transition-colors">Villas</a></li>
+                <li><a href="yachts.html" class="hover:text-white transition-colors">Yachts</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Legal</h4>
+              <ul class="space-y-4 text-sm text-white/55">
+                <li><a href="termsofuse.html" class="hover:text-white transition-colors">Terms of Use</a></li>
+                <li><a href="privacypolicy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="cookies.html" class="hover:text-white transition-colors">Cookies</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="mt-16 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center
+                 text-[11px] tracking-[.32em] uppercase text-white/40"
+        >
+          <p>TIME REDEFINED</p>
+          <p class="mt-4 md:mt-0">© 2025 ESQYRE TECHNOLOGIES INC.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+
+      // Nav state
+      const nav = document.getElementById("mainNav");
+      const setNavState = () => {
+        if (!nav) return;
+        if (window.scrollY > 20) nav.classList.add("nav-scrolled");
+        else nav.classList.remove("nav-scrolled");
+      };
+      window.addEventListener("scroll", setNavState, { passive: true });
+      setNavState();
+
+      // Scroll lock helpers
+      function anyLayerOpen() {
+        const exploreOpen =
+          (document.getElementById("exploreOverlay") &&
+            !document.getElementById("exploreOverlay").classList.contains("hidden")) ||
+          false;
+
+        const partnersOpen =
+          (document.getElementById("partnersOverlay") &&
+            !document.getElementById("partnersOverlay").classList.contains("hidden")) ||
+          false;
+
+        const menuOpen =
+          document.getElementById("mobile-menu") &&
+          !document.getElementById("mobile-menu").classList.contains("hidden");
+
+        return exploreOpen || partnersOpen || menuOpen;
+      }
+      function lockScroll() {
+        document.body.style.overflow = "hidden";
+      }
+      function unlockScroll() {
+        document.body.style.overflow = anyLayerOpen() ? "hidden" : "";
+      }
+
+      // Overlays
+      function openOverlay(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.remove("hidden");
+        lockScroll();
+        lucide.createIcons();
+      }
+      function closeOverlay(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.add("hidden");
+        unlockScroll();
+      }
+
+      // Mobile menu
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
+      const mobileMenuContent = document.getElementById("mobile-menu-content");
+
+      function openMenu() {
+        if (!mobileMenu) return;
+        mobileMenu.classList.remove("hidden");
+        lockScroll();
+        setTimeout(() => {
+          mobileMenuOverlay?.classList.remove("opacity-0");
+          mobileMenuContent?.classList.remove("translate-x-full");
+        }, 10);
+      }
+      function closeMenu() {
+        if (!mobileMenu) return;
+        mobileMenuOverlay?.classList.add("opacity-0");
+        mobileMenuContent?.classList.add("translate-x-full");
+        setTimeout(() => {
+          mobileMenu.classList.add("hidden");
+          unlockScroll();
+        }, 300);
+      }
+      mobileMenuButton?.addEventListener("click", openMenu);
+      document.getElementById("mobile-close-button")?.addEventListener("click", closeMenu);
+
+      // Esc closes layers
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape") return;
+
+        const explore = document.getElementById("exploreOverlay");
+        if (explore && !explore.classList.contains("hidden")) closeOverlay("exploreOverlay");
+
+        const partners = document.getElementById("partnersOverlay");
+        if (partners && !partners.classList.contains("hidden")) closeOverlay("partnersOverlay");
+
+        if (mobileMenu && !mobileMenu.classList.contains("hidden")) closeMenu();
+      });
+
+      // Explore editorial hover
+      const exploreImg = document.getElementById("exploreEditorialImg");
+      const exploreTitle = document.getElementById("exploreEditorialTitle");
+      const exploreKicker = document.getElementById("exploreEditorialKicker");
+      const exploreBtn = document.getElementById("exploreEditorialBtn");
+      const exploreBtnText = document.getElementById("exploreEditorialBtnText");
+
+      function setExploreCardFrom(el) {
+        if (!el) return;
+        if (exploreImg) exploreImg.src = el.dataset.image || "";
+        if (exploreTitle) exploreTitle.textContent = el.dataset.title || "";
+        if (exploreKicker) exploreKicker.textContent = el.dataset.kicker || "";
+        if (exploreBtn) exploreBtn.href = el.dataset.href || "#";
+        if (exploreBtnText) exploreBtnText.textContent = el.dataset.action || "Explore";
+        lucide.createIcons();
+      }
+
+      const exploreLinks = document.querySelectorAll(".explore-link");
+      if (exploreLinks.length) {
+        setExploreCardFrom(exploreLinks[0]);
+        exploreLinks.forEach((link) => {
+          link.addEventListener("mouseenter", () => setExploreCardFrom(link));
+          link.addEventListener("focus", () => setExploreCardFrom(link));
+        });
+      }
+
+      // TOC active section
+      const tocLinks = Array.from(document.querySelectorAll(".toc a"));
+      const sections = tocLinks
+        .map((a) => document.querySelector(a.getAttribute("href")))
+        .filter(Boolean);
+
+      const setActive = (id) => {
+        tocLinks.forEach((a) =>
+          a.classList.toggle("is-active", a.getAttribute("href") === `#${id}`)
+        );
+      };
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (visible?.target?.id) setActive(visible.target.id);
+        },
+        { rootMargin: "-35% 0px -55% 0px", threshold: [0.1, 0.2, 0.4, 0.6] }
+      );
+
+      sections.forEach((s) => io.observe(s));
+    </script>
+  </body>
+</html>

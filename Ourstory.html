@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Esqyre | Stays</title>
+    <title>Esqyre | Our Story</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,8 +48,12 @@
         text-rendering: geometricPrecision;
       }
 
-      #standards { scroll-margin-top: 110px; }
-      #hotels, #villas, #estates { scroll-margin-top: 110px; }
+      #origin,
+      #principles,
+      #model,
+      #access {
+        scroll-margin-top: 110px;
+      }
 
       .film-grain {
         pointer-events: none;
@@ -73,37 +77,6 @@
         );
       }
 
-      .reveal {
-        opacity: 0;
-        transform: translateY(34px);
-        filter: blur(6px);
-        transition: opacity 1.05s cubic-bezier(0.16, 1, 0.3, 1),
-          transform 1.05s cubic-bezier(0.16, 1, 0.3, 1),
-          filter 1.05s cubic-bezier(0.16, 1, 0.3, 1);
-        will-change: transform, opacity, filter;
-      }
-      .reveal.active {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-      }
-
-      .bg-zoom-container {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        overflow: hidden;
-      }
-      .bg-zoom-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transform: scale(1.02);
-        transition: transform 2.2s cubic-bezier(0.19, 1, 0.22, 1),
-          opacity 1.2s ease;
-      }
-      .group:hover .bg-zoom-img { transform: scale(1.055); }
-
       .section-divider {
         position: absolute;
         left: 50%;
@@ -121,49 +94,19 @@
         opacity: 0.9;
       }
 
-      .cta-link {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.55rem;
-        padding-bottom: 3px;
-        text-shadow: 0 6px 18px rgba(0, 0, 0, 0.65);
-        opacity: 0.9;
-        transition: opacity 0.3s ease;
+      .reveal {
+        opacity: 0;
+        transform: translateY(34px);
+        filter: blur(6px);
+        transition: opacity 1.05s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 1.05s cubic-bezier(0.16, 1, 0.3, 1),
+          filter 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity, filter;
       }
-      .cta-link:hover { opacity: 1; }
-      .cta-link::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background: linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.2));
-        transform: scaleX(0.22);
-        transform-origin: left;
-        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .group:hover .cta-link::after { transform: scaleX(1); }
-
-      .cta-pill {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.6rem;
-        padding: 12px 18px;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        background: rgba(0, 0, 0, 0.35);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
-        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-          background 0.5s ease, border-color 0.5s ease;
-      }
-      .cta-pill:hover {
-        transform: translateY(-2px);
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.28);
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
       }
 
       nav.nav-scrolled {
@@ -180,9 +123,88 @@
         opacity: 0.85;
         transition: opacity 0.3s ease;
       }
-      .nav-link:hover { opacity: 1; }
+      .nav-link:hover {
+        opacity: 1;
+      }
 
-      .overlay-video { width: 100%; height: 100%; object-fit: cover; opacity: 0.32; }
+      .cta-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          background 0.5s ease,
+          border-color 0.5s ease;
+      }
+      .cta-pill:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.28);
+      }
+
+      .cta-link {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding-bottom: 3px;
+        text-shadow: 0 6px 18px rgba(0, 0, 0, 0.65);
+        opacity: 0.9;
+        transition: opacity 0.3s ease;
+      }
+      .cta-link:hover {
+        opacity: 1;
+      }
+      .cta-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 1),
+          rgba(255, 255, 255, 0.2)
+        );
+        transform: scaleX(0.22);
+        transform-origin: left;
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .group:hover .cta-link::after {
+        transform: scaleX(1);
+      }
+
+      .bg-zoom-container {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .bg-zoom-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.02);
+        transition: transform 2.2s cubic-bezier(0.19, 1, 0.22, 1),
+          opacity 1.2s ease;
+      }
+      .group:hover .bg-zoom-img {
+        transform: scale(1.055);
+      }
+
+      .overlay-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.32;
+      }
 
       .overlay-item-dynamic {
         display: flex;
@@ -194,16 +216,21 @@
         font-weight: 500;
         line-height: 1.05;
         letter-spacing: -0.01em;
-        opacity: 0.70;
-        border-bottom: 1px solid rgba(255,255,255,0.08);
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         transition: opacity 0.35s ease, transform 0.35s ease;
       }
-      .overlay-item-dynamic:last-child { border-bottom: none; }
-      .overlay-item-dynamic:hover { opacity: 1; transform: translateX(6px); }
+      .overlay-item-dynamic:last-child {
+        border-bottom: none;
+      }
+      .overlay-item-dynamic:hover {
+        opacity: 1;
+        transform: translateX(6px);
+      }
 
       .editorial {
         border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(0, 0, 0, 0.30);
+        background: rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(16px);
         border-radius: 26px;
         overflow: hidden;
@@ -212,26 +239,30 @@
         width: 100%;
         height: 520px;
         object-fit: cover;
-        opacity: 0.80;
+        opacity: 0.8;
         transform: scale(1.02);
-        transition: opacity .5s ease, transform .8s cubic-bezier(.16,1,.3,1);
+        transition: opacity 0.5s ease,
+          transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       }
-      .editorial:hover .editorial-img { opacity: 0.92; transform: scale(1.05); }
+      .editorial:hover .editorial-img {
+        opacity: 0.92;
+        transform: scale(1.05);
+      }
       .editorial-overlay {
         position: absolute;
         inset: 0;
         background: linear-gradient(
           180deg,
-          rgba(0,0,0,0.06) 0%,
-          rgba(0,0,0,0.22) 40%,
-          rgba(0,0,0,0.82) 100%
+          rgba(0, 0, 0, 0.06) 0%,
+          rgba(0, 0, 0, 0.22) 40%,
+          rgba(0, 0, 0, 0.82) 100%
         );
       }
       .editorial-kicker {
         font-size: 10px;
-        letter-spacing: .32em;
+        letter-spacing: 0.32em;
         text-transform: uppercase;
-        color: rgba(255,255,255,0.55);
+        color: rgba(255, 255, 255, 0.55);
       }
       .editorial-title {
         font-size: 28px;
@@ -239,83 +270,16 @@
         letter-spacing: -0.01em;
       }
 
-      .page-progress{
-        position: fixed;
-        right: 22px;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 60;
-        display: none;
-        gap: 14px;
-        padding: 14px 10px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.09);
-        background: rgba(0,0,0,0.28);
-        backdrop-filter: blur(12px);
-        box-shadow: 0 16px 50px rgba(0,0,0,0.55);
-        transition: opacity .4s ease;
-        opacity: 0;
-        pointer-events: none;
-      }
-      @media (min-width: 768px){
-        .page-progress{ display:flex; flex-direction:column; }
-      }
-      .page-dot{
-        position: relative;
-        width: 10px; height: 10px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.35);
-        background: rgba(255,255,255,0.06);
-        transition: transform .35s cubic-bezier(.16,1,.3,1),
-                    background .35s ease,
-                    border-color .35s ease;
-        cursor: pointer;
-        outline: none;
-      }
-      .page-dot:hover{ transform: scale(1.15); border-color: rgba(255,255,255,0.55); }
-      .page-dot.active{
-        background: rgba(255,255,255,0.92);
-        border-color: rgba(255,255,255,0.92);
-        transform: scale(1.18);
-      }
-      .page-dot .page-label{
-        position: absolute;
-        right: 18px;
-        top: 50%;
-        transform: translateY(-50%);
-        padding: 8px 10px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.1);
-        background: rgba(0,0,0,0.35);
-        backdrop-filter: blur(10px);
-        color: rgba(255,255,255,0.75);
-        font-size: 10px;
-        letter-spacing: .32em;
-        text-transform: uppercase;
-        white-space: nowrap;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity .25s ease, transform .25s ease;
-      }
-      .page-dot:hover .page-label,
-      .page-dot:focus-visible .page-label{
-        opacity: 1;
-        transform: translateY(-50%) translateX(-2px);
-      }
-
-      .overlay-scroll {
-        overflow-y: auto;
-        overscroll-behavior: contain;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      @media (prefers-reduced-motion: reduce){
-        .reveal, .page-progress, .page-dot, .bg-zoom-img { transition: none !important; }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal,
+        .bg-zoom-img {
+          transition: none !important;
+        }
       }
     </style>
   </head>
 
-    <body class="antialiased overflow-x-hidden selection:bg-white selection:text-black">
+  <body class="antialiased overflow-x-hidden selection:bg-white selection:text-black">
     <!-- Navbar -->
     <nav
       id="mainNav"
@@ -571,9 +535,9 @@
             Explore
           </button>
 
-          <a href="corporate.html" class="text-xl font-medium hover:text-gray-350 transition-colors"
-            >Corporate</a
-          >
+         <a href="corporate.html" class="text-xl font-medium hover:text-gray-350 transition-colors">
+  For Business
+</a>
 
           <button
             onclick="openOverlay('partnersOverlay'); closeMenu();"
@@ -602,46 +566,60 @@
       </div>
     </div>
 
-    <!-- Hero -->
-    <header class="relative h-screen w-full overflow-hidden bg-black flex items-end pb-24 group" data-panel="Hero">
-      <div class="absolute inset-0 z-0">
-        <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-85">
-          <source src="https://media.rotana.com/content/utility/mp4/HD_17648365747209_1.mp4" type="video/mp4" />
-        </video>
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
-        <div class="vignette"></div>
-        <div class="film-grain"></div>
-        <div class="section-divider"></div>
-      </div>
+    <main>
+      <!-- HERO -->
+      <header class="relative h-screen w-full overflow-hidden bg-black flex items-end pb-24 group" data-panel="Hero">
+        <div class="absolute inset-0 z-0">
+          <!-- Replace with a brand film later -->
+          <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-85">
+            <source
+              src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+          <div class="section-divider"></div>
+        </div>
 
-      <div class="relative z-10 container mx-auto px-6 md:px-12 w-full">
-        <div class="max-w-4xl reveal active">
-          <p class="text-[11px] tracking-[.32em] uppercase text-white/70 mb-5">Stays</p>
+        <div class="relative z-10 container mx-auto px-6 md:px-12 w-full">
+          <div class="max-w-4xl reveal active">
+            <p class="text-[11px] tracking-[.32em] uppercase text-white/70 mb-5">Our Story</p>
 
-          <h1 class="font-medium text-5xl md:text-7xl lg:text-8xl text-white tracking-tight leading-[1.05] mb-10 drop-shadow-lg">
-            PRIVACY.<br />NOT SEARCH.
-          </h1>
+            <h1
+              class="font-medium text-5xl md:text-7xl lg:text-8xl text-white tracking-tight leading-[1.05] mb-10 drop-shadow-lg"
+            >
+              CONTROL.<br />DELIVERY.
+            </h1>
 
-          <div class="flex items-center gap-6">
-            <a href="#hotels" class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white">
-              View Categories <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </a>
+            <p class="text-white/55 text-base md:text-lg leading-relaxed max-w-2xl">
+              Luxury is easy to promise. Hard to execute. This is built for consistency, control, and quiet delivery.
+            </p>
 
-            <a href="#standards" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/90 hover:text-white transition-colors">
-              Our Standards <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </a>
+            <div class="mt-10 flex items-center gap-6 flex-wrap">
+              <a href="#origin" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/90 hover:text-white">
+                Origin <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+              <a href="#principles" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/90 hover:text-white">
+                Principles <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+              <a href="#access" class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white">
+                Request Access <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
 
-    <main>
-      <div id="pageProgress" class="page-progress" aria-label="Page navigation"></div>
-
-      <!-- 5-Star Hotels -->
-      <section id="hotels" class="group relative w-full h-screen overflow-hidden flex items-end pb-24 bg-black" data-panel="5-Star Hotels">
+      <!-- ORIGIN -->
+      <section id="origin" class="group relative w-full h-screen overflow-hidden flex items-end pb-24 bg-black" data-panel="Origin">
         <div class="bg-zoom-container">
-          <img src="5star.png" class="bg-zoom-img opacity-60" alt="5-Star Hotels" />
+          <img
+            src="https://images.unsplash.com/photo-1529429617124-a92e34b06f80?auto=format&fit=crop&w=2200&q=85"
+            class="bg-zoom-img opacity-60"
+            alt="Origin"
+          />
           <div class="absolute inset-0 bg-gradient-to-t from-black via-black/38 to-transparent"></div>
           <div class="absolute inset-0 bg-gradient-to-r from-black/86 via-transparent to-transparent"></div>
           <div class="vignette"></div>
@@ -651,61 +629,28 @@
 
         <div class="relative z-10 container mx-auto px-6 md:px-12 w-full">
           <div class="max-w-xl reveal">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/55 mb-6">Origin</p>
+
             <h2 class="text-5xl md:text-7xl font-medium tracking-tight mb-6 uppercase text-white drop-shadow-xl leading-[1.03]">
-              5 Star<br/>Hotels
+              Why<br />this exists
             </h2>
 
-            <p class="text-gray-200 text-lg leading-relaxed mb-10 font-light drop-shadow-md max-w-[46ch]">
-              Verified properties, quiet handling, and priority access when timing matters.
+            <p class="text-gray-200 text-lg leading-relaxed mb-8 font-light drop-shadow-md max-w-[46ch]">
+              Premium mobility fails for predictable reasons. Supply is fragmented. Standards are inconsistent.
+              Execution depends on luck. This was built to remove luck.
             </p>
 
-            <div class="flex items-center gap-6">
-              <a href="app-download.html" class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white">
-                Request Access <i data-lucide="arrow-right" class="w-4 h-4"></i>
-              </a>
-              <a href="#standards" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
-                Standards <i data-lucide="arrow-right" class="w-3 h-3"></i>
+            <div class="mt-8">
+              <a href="#model" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/90 hover:text-white">
+                The model <i data-lucide="arrow-right" class="w-4 h-4"></i>
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Villas -->
-      <section id="villas" class="group relative w-full h-screen overflow-hidden flex items-end pb-24 bg-subtle" data-panel="Villas">
-        <div class="bg-zoom-container">
-          <img src="villas.png" class="bg-zoom-img opacity-62" alt="Villas" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent"></div>
-          <div class="absolute inset-0 bg-gradient-to-l from-black/92 via-black/20 to-transparent"></div>
-          <div class="vignette"></div>
-          <div class="film-grain"></div>
-          <div class="section-divider"></div>
-        </div>
-
-        <div class="relative z-10 container mx-auto px-6 md:px-12 w-full flex justify-end text-right">
-          <div class="max-w-xl reveal">
-            <h2 class="text-5xl md:text-7xl font-medium tracking-tight mb-6 uppercase text-white drop-shadow-xl leading-[1.03]">
-              Villas
-            </h2>
-
-            <p class="text-gray-200 text-lg leading-relaxed mb-10 font-light drop-shadow-md max-w-[46ch] ml-auto">
-              Space, discretion, and private entry. Staffed and coordinated silently.
-            </p>
-
-            <div class="flex justify-end gap-6">
-              <a href="app-download.html" class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white">
-                Request Access <i data-lucide="arrow-right" class="w-4 h-4"></i>
-              </a>
-              <a href="#standards" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
-                Standards <i data-lucide="arrow-right" class="w-3 h-3"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Standards -->
-      <section id="standards" class="relative w-full bg-black pt-16 pb-24 md:pt-20 md:pb-28" data-panel="Standards">
+      <!-- PRINCIPLES -->
+      <section id="principles" class="relative w-full bg-black pt-16 pb-24 md:pt-20 md:pb-28" data-panel="Principles">
         <div class="absolute inset-0">
           <div class="vignette"></div>
           <div class="film-grain"></div>
@@ -714,44 +659,142 @@
 
         <div class="relative z-10 container mx-auto px-6 md:px-12">
           <div class="max-w-4xl reveal">
-            <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">Standards</p>
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">Principles</p>
 
             <h2 class="text-4xl md:text-6xl font-medium tracking-tight leading-[1.05]">
-              This is not booking.<br />This is handling.
+              Invisible standards.<br />Non negotiable execution.
             </h2>
 
             <p class="mt-6 text-white/55 text-base md:text-lg leading-relaxed max-w-2xl">
-              Verified listings. Controlled check-in. Private coordination. No public back and forth.
+              Clients do not pay for process. They pay for outcomes. Our standards stay invisible.
+            </p>
+          </div>
+
+          <div class="mt-14 max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="reveal border border-white/10 rounded-2xl p-8 bg-black/30 backdrop-blur">
+              <p class="text-[10px] tracking-[.32em] uppercase text-white/45">Control</p>
+              <h3 class="mt-4 text-2xl font-medium tracking-tight">One system</h3>
+              <p class="mt-4 text-white/55 leading-relaxed">
+                Demand is routed through a single workflow. No chaos. No side channels.
+              </p>
+            </div>
+
+            <div class="reveal border border-white/10 rounded-2xl p-8 bg-black/30 backdrop-blur">
+              <p class="text-[10px] tracking-[.32em] uppercase text-white/45">Supply</p>
+              <h3 class="mt-4 text-2xl font-medium tracking-tight">Curated operators</h3>
+              <p class="mt-4 text-white/55 leading-relaxed">
+                Access is earned. Consistency is mandatory.
+              </p>
+            </div>
+
+            <div class="reveal border border-white/10 rounded-2xl p-8 bg-black/30 backdrop-blur">
+              <p class="text-[10px] tracking-[.32em] uppercase text-white/45">Execution</p>
+              <h3 class="mt-4 text-2xl font-medium tracking-tight">Response discipline</h3>
+              <p class="mt-4 text-white/55 leading-relaxed">
+                Confirmations are fast, clean, and final. If it is uncertain, it is not listed.
+              </p>
+            </div>
+
+            <div class="reveal border border-white/10 rounded-2xl p-8 bg-black/30 backdrop-blur">
+              <p class="text-[10px] tracking-[.32em] uppercase text-white/45">Client</p>
+              <h3 class="mt-4 text-2xl font-medium tracking-tight">Quiet delivery</h3>
+              <p class="mt-4 text-white/55 leading-relaxed">
+                No explanations. No friction. The experience stays calm because operations are controlled.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODEL -->
+      <section id="model" class="relative w-full bg-black pt-16 pb-24 md:pt-20 md:pb-28" data-panel="Model">
+        <div class="absolute inset-0">
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 md:px-12">
+          <div class="max-w-4xl reveal">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">Model</p>
+
+            <h2 class="text-4xl md:text-6xl font-medium tracking-tight leading-[1.05]">
+              One account.<br />One policy.<br />One standard.
+            </h2>
+
+            <p class="mt-6 text-white/55 text-base md:text-lg leading-relaxed max-w-2xl">
+              Ground, air, and stays run through one operating layer. That is the point. Not variety. Control.
             </p>
           </div>
 
           <div class="mt-14 max-w-5xl">
             <div class="reveal flex flex-col md:flex-row md:items-baseline gap-6 py-10 border-t border-white/10">
-              <span class="text-[10px] tracking-[.32em] uppercase text-white/40 md:w-44">Curation</span>
+              <span class="text-[10px] tracking-[.32em] uppercase text-white/40 md:w-44">Reality</span>
               <p class="text-2xl md:text-3xl font-medium tracking-tight leading-snug">
-                Options filtered before you see anything.
+                Luxury breaks when operations are undisciplined.
               </p>
             </div>
 
             <div class="reveal flex flex-col md:flex-row md:items-baseline gap-6 py-10 border-t border-white/10">
-              <span class="text-[10px] tracking-[.32em] uppercase text-white/40 md:w-44">Privacy</span>
+              <span class="text-[10px] tracking-[.32em] uppercase text-white/40 md:w-44">Fix</span>
               <p class="text-2xl md:text-3xl font-medium tracking-tight leading-snug">
-                Discreet check-in and guest handling.
-              </p>
-            </div>
-
-            <div class="reveal flex flex-col md:flex-row md:items-baseline gap-6 py-10 border-t border-white/10">
-              <span class="text-[10px] tracking-[.32em] uppercase text-white/40 md:w-44">Support</span>
-              <p class="text-2xl md:text-3xl font-medium tracking-tight leading-snug">
-                Concierge coordination stays off the public chain.
+                Control the supply. Enforce the standard.
               </p>
             </div>
 
             <div class="reveal flex flex-col md:flex-row md:items-baseline gap-6 py-10 border-t border-white/10 border-b">
-              <span class="text-[10px] tracking-[.32em] uppercase text-white/40 md:w-44">Consistency</span>
+              <span class="text-[10px] tracking-[.32em] uppercase text-white/40 md:w-44">Result</span>
               <p class="text-2xl md:text-3xl font-medium tracking-tight leading-snug">
-                Standards enforced quietly, every time.
+                Effortless for the client. Controlled for the operator.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ACCESS CTA -->
+      <section
+        id="access"
+        class="relative py-24 md:py-28 bg-black overflow-hidden border-t border-white/10"
+        data-panel="Access"
+      >
+        <div class="absolute inset-0">
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 md:px-12">
+          <div class="max-w-3xl mx-auto text-center reveal">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">Access</p>
+
+            <h3 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">
+              Built for teams that do not compromise.
+            </h3>
+
+            <p class="text-white/52 mt-5 text-base md:text-lg leading-relaxed">
+              One account. One policy. One standard. Across every category.
+            </p>
+
+            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+              <a
+                href="app-download.html"
+                class="inline-flex items-center justify-center gap-3 rounded-full bg-white text-black px-8 py-3.5
+                       text-xs font-bold tracking-[.32em] uppercase hover:bg-white/90 transition-colors"
+              >
+                Get the App
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+
+              <a
+                href="corporate.html"
+                class="inline-flex items-center justify-center gap-3 rounded-full border border-white/18
+                       bg-black/30 px-8 py-3.5 text-xs font-bold tracking-[.32em] uppercase text-white
+                       hover:border-white/30 hover:bg-white/[0.06] transition-all"
+              >
+                For Business
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
             </div>
           </div>
         </div>
@@ -843,6 +886,7 @@
     <script>
       lucide.createIcons();
 
+      // Nav state
       const nav = document.getElementById("mainNav");
       const setNavState = () => {
         if (!nav) return;
@@ -852,16 +896,27 @@
       window.addEventListener("scroll", setNavState, { passive: true });
       setNavState();
 
+      // Scroll lock helpers
       function anyLayerOpen() {
         const overlayOpen =
-          (document.getElementById("exploreOverlay") && !document.getElementById("exploreOverlay").classList.contains("hidden")) ||
-          (document.getElementById("partnersOverlay") && !document.getElementById("partnersOverlay").classList.contains("hidden"));
-        const menuOpen = (document.getElementById("mobile-menu") && !document.getElementById("mobile-menu").classList.contains("hidden"));
+          (document.getElementById("exploreOverlay") &&
+            !document.getElementById("exploreOverlay").classList.contains("hidden")) ||
+          false;
+
+        const menuOpen =
+          document.getElementById("mobile-menu") &&
+          !document.getElementById("mobile-menu").classList.contains("hidden");
+
         return overlayOpen || menuOpen;
       }
-      function lockScroll() { document.body.style.overflow = "hidden"; }
-      function unlockScroll() { document.body.style.overflow = anyLayerOpen() ? "hidden" : ""; }
+      function lockScroll() {
+        document.body.style.overflow = "hidden";
+      }
+      function unlockScroll() {
+        document.body.style.overflow = anyLayerOpen() ? "hidden" : "";
+      }
 
+      // Explore overlay
       function openOverlay(id) {
         const el = document.getElementById(id);
         if (!el) return;
@@ -876,6 +931,7 @@
         unlockScroll();
       }
 
+      // Mobile menu
       const mobileMenuButton = document.getElementById("mobile-menu-button");
       const mobileMenu = document.getElementById("mobile-menu");
       const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
@@ -902,17 +958,17 @@
       mobileMenuButton?.addEventListener("click", openMenu);
       document.getElementById("mobile-close-button")?.addEventListener("click", closeMenu);
 
+      // Esc closes layers
       document.addEventListener("keydown", (e) => {
         if (e.key !== "Escape") return;
 
-        ["exploreOverlay", "partnersOverlay"].forEach((id) => {
-          const el = document.getElementById(id);
-          if (el && !el.classList.contains("hidden")) closeOverlay(id);
-        });
+        const explore = document.getElementById("exploreOverlay");
+        if (explore && !explore.classList.contains("hidden")) closeOverlay("exploreOverlay");
 
         if (mobileMenu && !mobileMenu.classList.contains("hidden")) closeMenu();
       });
 
+      // Explore editorial hover
       const exploreImg = document.getElementById("exploreEditorialImg");
       const exploreTitle = document.getElementById("exploreEditorialTitle");
       const exploreKicker = document.getElementById("exploreEditorialKicker");
@@ -938,31 +994,7 @@
         });
       }
 
-      const partnersImg = document.getElementById("partnersEditorialImg");
-      const partnersTitle = document.getElementById("partnersEditorialTitle");
-      const partnersKicker = document.getElementById("partnersEditorialKicker");
-      const partnersBtn = document.getElementById("partnersEditorialBtn");
-      const partnersBtnText = document.getElementById("partnersEditorialBtnText");
-
-      function setPartnersCardFrom(el) {
-        if (!el) return;
-        if (partnersImg) partnersImg.src = el.dataset.image || "";
-        if (partnersTitle) partnersTitle.textContent = el.dataset.title || "";
-        if (partnersKicker) partnersKicker.textContent = el.dataset.kicker || "";
-        if (partnersBtn) partnersBtn.href = el.dataset.href || "#";
-        if (partnersBtnText) partnersBtnText.textContent = el.dataset.action || "Explore";
-        lucide.createIcons();
-      }
-
-      const partnerLinks = document.querySelectorAll(".partner-link");
-      if (partnerLinks.length) {
-        setPartnersCardFrom(partnerLinks[0]);
-        partnerLinks.forEach((link) => {
-          link.addEventListener("mouseenter", () => setPartnersCardFrom(link));
-          link.addEventListener("focus", () => setPartnersCardFrom(link));
-        });
-      }
-
+      // Reveal
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const revealEls = Array.from(document.querySelectorAll(".reveal"));
 
@@ -982,140 +1014,6 @@
       } else {
         revealEls.forEach((el) => el.classList.add("active"));
       }
-
-      const progress = document.getElementById("pageProgress");
-      const panels = Array.from(document.querySelectorAll("[data-panel]"));
-
-      function buildProgress() {
-        if (!progress || !panels.length) return;
-        progress.innerHTML = "";
-
-        panels.forEach((panel, idx) => {
-          const label = panel.getAttribute("data-panel") || `Section ${idx + 1}`;
-
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "page-dot";
-          btn.setAttribute("aria-label", `Go to ${label}`);
-          btn.dataset.index = String(idx);
-
-          const pill = document.createElement("span");
-          pill.className = "page-label";
-          pill.textContent = label;
-
-          btn.appendChild(pill);
-          btn.addEventListener("click", () => {
-            const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            panel.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
-          });
-
-          progress.appendChild(btn);
-        });
-      }
-
-      function setActiveDot(index) {
-        const dots = Array.from(progress.querySelectorAll(".page-dot"));
-        dots.forEach((d, i) => d.classList.toggle("active", i === index));
-      }
-
-      function shouldShowProgress() {
-        const hero = document.querySelector('header[data-panel="Hero"]');
-        if (!hero || !progress) return;
-        const r = hero.getBoundingClientRect();
-        const show = r.bottom < window.innerHeight * 0.92;
-        progress.style.opacity = show ? "1" : "0";
-        progress.style.pointerEvents = show ? "auto" : "none";
-      }
-
-      buildProgress();
-      shouldShowProgress();
-      window.addEventListener("scroll", shouldShowProgress, { passive: true });
-
-      if (panels.length && "IntersectionObserver" in window) {
-        const io = new IntersectionObserver(
-          (entries) => {
-            let best = null;
-            for (const e of entries) {
-              if (e.isIntersecting) {
-                if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
-              }
-            }
-            if (best) setActiveDot(panels.indexOf(best.target));
-          },
-          { threshold: [0.35, 0.5, 0.65, 0.8] }
-        );
-        panels.forEach((p) => io.observe(p));
-      } else {
-        setActiveDot(0);
-      }
-
-      (function guidedSnapMac() {
-        if (prefersReduced) return;
-        const isDesktop = window.matchMedia("(min-width: 768px)").matches;
-        if (!isDesktop) return;
-
-        let lock = false;
-        let cooldownUntil = 0;
-        let acc = 0;
-        let lastT = 0;
-
-        const SNAP_THRESHOLD = 170;
-        const DECAY_PER_MS = 0.55;
-        const COOLDOWN_MS = 700;
-        const MOMENTUM_CUTOFF = 10;
-
-        function getActiveIndex() {
-          const dots = Array.from(progress.querySelectorAll(".page-dot"));
-          const idx = dots.findIndex((d) => d.classList.contains("active"));
-          return Math.max(0, idx);
-        }
-
-        function snapTo(index) {
-          const panel = panels[index];
-          if (!panel) return;
-          lock = true;
-          panel.scrollIntoView({ behavior: "smooth", block: "start" });
-          setTimeout(() => (lock = false), 650);
-        }
-
-        window.addEventListener(
-          "wheel",
-          (e) => {
-            if (!progress) return;
-            if (lock) return;
-            if (anyLayerOpen()) return;
-
-            const now = performance.now();
-            if (now < cooldownUntil) return;
-
-            const dt = lastT ? now - lastT : 16;
-            lastT = now;
-            acc *= Math.max(0, 1 - (dt * DECAY_PER_MS) / 1000);
-
-            let dy = e.deltaY;
-            if (e.deltaMode === 1) dy *= 16;
-            if (e.deltaMode === 2) dy *= window.innerHeight;
-
-            if (Math.abs(dy) < MOMENTUM_CUTOFF) return;
-
-            acc += dy;
-            e.preventDefault();
-
-            if (Math.abs(acc) >= SNAP_THRESHOLD) {
-              const dir = acc > 0 ? 1 : -1;
-              const idx = getActiveIndex();
-              const next = Math.max(0, Math.min(panels.length - 1, idx + dir));
-
-              if (next !== idx) {
-                snapTo(next);
-                cooldownUntil = now + COOLDOWN_MS;
-              }
-              acc = 0;
-            }
-          },
-          { passive: false }
-        );
-      })();
     </script>
   </body>
 </html>

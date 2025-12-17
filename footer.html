@@ -1,264 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Esqyre Footer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: "Inter", sans-serif;
-        background-color: #f3f4f6; /* Light gray background to preview footer */
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Footer Component -->
-    <footer class="bg-gray-900 text-white">
-      <div class="container mx-auto px-6 lg:px-8 pt-24 pb-12">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
-          <!-- Left Column: Links -->
-          <div class="lg:col-span-2">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <!-- Explore Column -->
-              <div>
-                <h3
-                  class="font-semibold tracking-wider uppercase text-sm text-gray-400"
-                >
-                  Explore
-                </h3>
-                <ul class="mt-4 space-y-3">
-                  <li>
-                    <a
-                      href="cars.html"
-                      class="text-gray-300 hover:text-white transition-colors"
-                      >Cars</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="jets.html"
-                      class="text-gray-300 hover:text-white transition-colors"
-                      >Jets</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="yachts.html"
-                      class="text-gray-300 hover:text-white transition-colors"
-                      >Yachts</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="villas.html"
-                      class="text-gray-300 hover:text-white transition-colors"
-                      >Villas</a
-                    >
-                  </li>
-                </ul>
-              </div>
-
-              <!-- Company Column -->
-              <div>
-                <h3
-                  class="font-semibold tracking-wider uppercase text-sm text-gray-400"
-                >
-                  Company
-                </h3>
-                <ul class="mt-4 space-y-3">
-                  <li>
-                    <a
-                      href="about-story.html"
-                      class="text-gray-300 hover:text-white transition-colors"
-                      >About Us</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="about-team.html"
-                      class="text-gray-300 hover:text-white transition-colors"
-                      >Team</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="text-gray-300 hover:text-white transition-colors"
-                      >Careers</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="about-legal.html"
-                      class="text-gray-300 hover:text-white transition-colors"
-                      >Legal & Privacy</a
-                    >
-                  </li>
-                </ul>
-              </div>
-
-              <!-- Business Column -->
-              <div>
-                <h3
-                  class="font-semibold tracking-wider uppercase text-sm text-gray-400"
-                >
-                  Business
-                </h3>
-                <ul class="mt-4 space-y-3">
-                  <li>
-                    <a
-                      href="corporate.html"
-                      class="text-gray-300 hover:text-white transition-colors"
-                      >Corporate Suite</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="partner-overview.html"
-                      class="text-gray-300 hover:text-white transition-colors"
-                      >Partner With Us</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="partner-login.html"
-                      class="text-gray-300 hover:text-white transition-colors"
-                      >Vendor Login</a
-                    >
-                  </li>
-                </ul>
-              </div>
-
-              <!-- Resources Column -->
-              <div>
-                <h3
-                  class="font-semibold tracking-wider uppercase text-sm text-gray-400"
-                >
-                  Resources
-                </h3>
-                <ul class="mt-4 space-y-3">
-                  <li>
-                    <a
-                      href="blog.html"
-                      class="text-gray-300 hover:text-white transition-colors"
-                      >Blog</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="support-faq.html"
-                      class="text-gray-300 hover:text-white transition-colors"
-                      >Help Center</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      href="contact.html"
-                      class="text-gray-300 hover:text-white transition-colors"
-                      >Contact Us</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right Column: Newsletter -->
-          <div class="lg:col-span-1">
-            <h3
-              class="font-semibold tracking-wider uppercase text-sm text-gray-400"
-            >
-              Stay Updated
-            </h3>
-            <p class="mt-4 text-sm text-gray-300">
-              Get the latest news, offers, and insights from the world of
-              luxury, delivered to your inbox.
-            </p>
-            <form class="mt-4 flex flex-col sm:flex-row gap-2">
-              <label for="email-address" class="sr-only">Email address</label>
-              <input
-                type="email"
-                name="email-address"
-                id="email-address"
-                autocomplete="email"
-                required
-                class="w-full px-4 py-2.5 rounded-md bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-white"
-                placeholder="Enter your email"
-              />
-              <button
-                type="submit"
-                class="flex-shrink-0 px-5 py-2.5 rounded-md bg-white text-gray-900 font-semibold hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-white transition-colors"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
-        </div>
-
-        <!-- Bottom Bar -->
-        <div
-          class="mt-20 border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center"
-        >
-          <div class="flex items-center space-x-6">
-            <a href="index.html" class="block w-24">
+ <!-- Footer -->
+      <footer class="bg-black border-t border-white/10 relative z-20">
+        <div class="container mx-auto px-6 md:px-12 pt-20 pb-12">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
               <img
-                src="https://esqyre.com/assets/images/esqyre-logo.svg"
-                alt="Esqyre Logo"
-                class="w-full h-auto"
+                src="https://superadmin.esqyre.com/assets/images/esqyre_logo.svg"
+                class="h-7 w-auto invert brightness-0 filter"
+                alt="Esqyre"
               />
-            </a>
-            <p class="text-sm text-gray-500">
-              &copy; 2025 Esqyre. All Rights Reserved.
-            </p>
-          </div>
-          <div class="flex items-center space-x-6 mt-6 md:mt-0">
-            <div class="flex space-x-5">
-              <a
-                href="#"
-                class="text-gray-500 hover:text-white transition-colors"
-                aria-label="Twitter"
-              >
-                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.064c0 2.298 1.634 4.218 3.801 4.654-.744.202-1.533.262-2.336.088.632 1.936 2.458 3.341 4.623 3.38-1.723 1.353-3.884 2.16-6.22 2.16-.404 0-.802-.023-1.195-.069 2.219 1.424 4.858 2.26 7.734 2.26 9.284 0 14.376-7.794 14.022-14.437.983-.707 1.828-1.59 2.504-2.59z"
-                  ></path>
-                </svg>
-              </a>
-              <a
-                href="#"
-                class="text-gray-500 hover:text-white transition-colors"
-                aria-label="Instagram"
-              >
-                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98C15.667.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"
-                  ></path>
-                </svg>
-              </a>
-              <a
-                href="#"
-                class="text-gray-500 hover:text-white transition-colors"
-                aria-label="LinkedIn"
-              >
-                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
-                  ></path>
-                </svg>
-              </a>
+
+              <p class="text-xs text-white/50 mt-6 leading-relaxed max-w-sm">
+                A system for movement. Built on discretion.
+              </p>
+
+              <div class="mt-10 flex items-center gap-4">
+                <a
+                  href="#"
+                  class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors"
+                >
+                  Instagram
+                </a>
+                <span class="text-white/20">/</span>
+                <a
+                  href="#"
+                  class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors"
+                >
+                  LinkedIn
+                </a>
+                <span class="text-white/20">/</span>
+                <a
+                  href="contact.html"
+                  class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors"
+                >
+                  Contact
+                </a>
+              </div>
+            </div>
+
+            <div class="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-10">
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Company</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="Ourstory.html" class="hover:text-white transition-colors">Our Story</a></li>
+                  <li><a href="safety.html" class="hover:text-white transition-colors">Safety</a></li>
+                  <li><a href="careers.html" class="hover:text-white transition-colors">Careers</a></li>
+                  <li><a href="newsroom.html" class="hover:text-white transition-colors">Newsroom</a></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Services</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="chauffeurs.html" class="hover:text-white transition-colors">Chauffeur</a></li>
+                  <li><a href="cars.html" class="hover:text-white transition-colors">Supercars</a></li>
+                  <li><a href="jets.html" class="hover:text-white transition-colors">Private Aviation</a></li>
+                  <li><a href="villas.html" class="hover:text-white transition-colors">Villas</a></li>
+                  <li><a href="yachts.html" class="hover:text-white transition-colors">Yachts</a></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Legal</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="termsofuse.html" class="hover:text-white transition-colors">Terms of Use</a></li>
+                  <li><a href="privacypolicy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                  <li><a href="cookies.html" class="hover:text-white transition-colors">Cookies</a></li>
+                </ul>
+              </div>
             </div>
           </div>
+
+          <div
+            class="mt-16 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center
+                      text-[11px] tracking-[.32em] uppercase text-white/40"
+          >
+            <p>TIME REDEFINED</p>
+            <p class="mt-4 md:mt-0">© 2025 ESQYRE TECHNOLOGIES INC.</p>
+          </div>
         </div>
-      </div>
-    </footer>
-  </body>
-</html>
+      </footer>
+    </main>

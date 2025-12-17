@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Esqyre | Terms of Use</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              black: "#000000",
+              subtle: "#0B0B0B",
+              white: "#FFFFFF",
+              gray: {
+                50: "#FAFAFA",
+                100: "#F5F5F5",
+                200: "#E5E5E5",
+                300: "#D4D4D4",
+                350: "#B1B1B1",
+                400: "#A3A3A3",
+                500: "#737373",
+                600: "#525252",
+                800: "#262626",
+                900: "#171717",
+              },
+            },
+            fontFamily: { sans: ['"Inter"', "sans-serif"] },
+            letterSpacing: { ultra: ".32em" },
+          },
+        },
+      };
+    </script>
+
+    <style>
+  :root {
+    --hairline: rgba(0, 0, 0, 0.08);
+    --hairline-strong: rgba(0, 0, 0, 0.12);
+    --soft: rgba(0, 0, 0, 0.035);
+    --paper: rgba(250, 250, 250, 0.72);
+    --ink: rgba(0, 0, 0, 0.9);
+    --muted: rgba(0, 0, 0, 0.62);
+  }
+
+  body {
+    background: #ffffff;
+    color: #0b0b0b;
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+  }
+
+  /* Wider, more “free” layout */
+  .esq-container {
+    max-width: 1360px; /* key change */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* TOC smaller, content larger */
+  @media (min-width: 1024px) {
+    .legal-grid {
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+      gap: 44px;
+      align-items: start;
+    }
+  }
+
+  /* ===== NAVBAR (pure white, black logo, premium hairline) ===== */
+  #mainNav {
+    background: #ffffff;
+    border-bottom: 1px solid var(--hairline);
+    backdrop-filter: none;
+  }
+  nav.nav-scrolled {
+    background: #ffffff;
+    border-bottom: 1px solid var(--hairline-strong);
+  }
+
+  .nav-link {
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.72);
+    transition: color 0.25s ease, opacity 0.25s ease;
+  }
+  .nav-link:hover {
+    color: rgba(0, 0, 0, 0.95);
+    opacity: 1;
+  }
+  #mainNav i[data-lucide] {
+    color: rgba(0, 0, 0, 0.9);
+  }
+
+  /* Make the logo black (SVG) without touching URL */
+  .logo-black {
+    filter: invert(1) brightness(0);
+  }
+
+  /* ===== Page header rhythm ===== */
+  .page-kicker {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.42);
+  }
+  .page-title {
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.03;
+    color: rgba(0, 0, 0, 0.92);
+  }
+  .page-subtitle {
+    color: rgba(0, 0, 0, 0.56);
+    line-height: 1.7;
+  }
+
+  /* ===== Surfaces ===== */
+  .surface {
+    border: 1px solid var(--hairline);
+    background: rgba(255, 255, 255, 0.88); /* cleaner than paper for content */
+    border-radius: 26px;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.06);
+  }
+
+  /* TOC should be quieter than content */
+  .toc-surface {
+    border: 1px solid var(--hairline);
+    background: rgba(250, 250, 250, 0.75);
+    border-radius: 22px;
+    box-shadow: 0 14px 44px rgba(0, 0, 0, 0.05);
+  }
+
+  .toc-shell {
+    padding: 14px;
+  }
+
+  /* THIS is what makes the right side feel premium + spacious */
+  .legal-shell {
+    padding: 26px;
+  }
+  @media (min-width: 768px) {
+    .legal-shell {
+      padding: 44px; /* key change */
+    }
+  }
+  @media (min-width: 1280px) {
+    .legal-shell {
+      padding: 54px;
+    }
+  }
+
+  /* ===== Legal typography ===== */
+  .legal h2 {
+    font-size: 1.06rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    margin-top: 2.2rem;
+    text-transform: uppercase;
+    scroll-margin-top: 120px;
+    color: rgba(0, 0, 0, 0.84);
+  }
+  .legal h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-top: 1.4rem;
+    scroll-margin-top: 120px;
+    color: rgba(0, 0, 0, 0.82);
+  }
+  .legal p,
+  .legal li {
+    color: var(--muted);
+    line-height: 1.85; /* more editorial */
+    font-size: 1.02rem; /* key change */
+  }
+  .legal p {
+    margin-top: 0.95rem;
+  }
+  .legal ul {
+    margin-top: 0.8rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+
+  .legal .caps {
+    display: block;
+    margin-top: 1.1rem;
+    padding: 18px 18px;
+    border-radius: 18px;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: rgba(0, 0, 0, 0.72);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  /* ===== TOC (editorial, no boxes, no cheap hover) ===== */
+
+.toc-surface {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.toc-shell {
+  padding: 0;
+}
+
+/* Section label */
+.toc-label {
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.4);
+  margin-bottom: 14px;
+}
+
+/* TOC links */
+.toc a {
+  display: block;
+  padding: 6px 0;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.48);
+  border: none;
+  background: transparent;
+  transition: color 0.18s ease;
+}
+
+/* Hover = typography change only */
+.toc a:hover {
+  color: rgba(0, 0, 0, 0.88);
+  transform: none;
+}
+
+/* Active section */
+.toc a.is-active {
+  color: rgba(0, 0, 0, 0.92);
+  font-weight: 800;
+}
+
+/* Spacing rhythm */
+.toc {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+  /* ===== CTA pill ===== */
+  .cta-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 12px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.08);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      background 0.45s ease, border-color 0.45s ease;
+  }
+  .cta-pill:hover {
+    transform: translateY(-2px);
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.18);
+  }
+
+  /* Overlay styles (black) */
+  .overlay-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.32;
+  }
+  .film-grain {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  }
+  .vignette {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(
+      1200px 800px at 50% 40%,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.38) 55%,
+      rgba(0, 0, 0, 0.75) 100%
+    );
+  }
+  .editorial {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(16px);
+    border-radius: 26px;
+    overflow: hidden;
+  }
+  .editorial-img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    opacity: 0.8;
+    transform: scale(1.02);
+    transition: opacity 0.5s ease,
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .editorial:hover .editorial-img {
+    opacity: 0.92;
+    transform: scale(1.05);
+  }
+  .editorial-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.06) 0%,
+      rgba(0, 0, 0, 0.22) 40%,
+      rgba(0, 0, 0, 0.82) 100%
+    );
+  }
+  .editorial-kicker {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .editorial-title {
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .overlay-item-dynamic {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    font-size: clamp(1.8rem, 3.3vw, 3.5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    opacity: 0.7;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .overlay-item-dynamic:last-child {
+    border-bottom: none;
+  }
+  .overlay-item-dynamic:hover {
+    opacity: 1;
+    transform: translateX(6px);
+  }
+</style>
+  </head>
+
+  <body class="antialiased overflow-x-hidden selection:bg-white selection:text-black">
+    <!-- Navbar -->
+    <nav id="mainNav" class="fixed top-0 left-0 right-0 z-50 h-24 flex items-center">
+      <div class="relative z-10 esq-container px-7 md:px-14 flex justify-between items-center w-full">
+        <a href="index.html" class="w-32">
+          <img
+            src="https://superadmin.esqyre.com/assets/images/esqyre_logo.svg"
+            class="logo-black w-full h-auto"
+            alt="Esqyre"
+          />
+        </a>
+
+        <div class="hidden lg:flex items-center gap-12">
+          <button onclick="openOverlay('exploreOverlay')" class="nav-link">Explore</button>
+          <a href="corporate.html" class="nav-link">For Business</a>
+          <a href="partners.html" class="nav-link">Partners</a>
+        </div>
+
+        <div class="flex items-center gap-6">
+          <a href="login.html" class="hidden sm:block nav-link">Login</a>
+          <button id="mobile-menu-button" class="lg:hidden">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- EXPLORE OVERLAY -->
+    <div id="exploreOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
+      <div class="absolute inset-0">
+        <video autoplay muted loop playsinline class="overlay-video">
+          <source
+            src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="absolute inset-0 bg-black/75"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+      </div>
+
+      <div class="relative z-10 h-full esq-container px-6 md:px-12 flex flex-col">
+        <div class="flex justify-between items-center h-24">
+          <span class="text-xs tracking-[.32em] uppercase opacity-60">Explore</span>
+          <button onclick="closeOverlay('exploreOverlay')">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-12">
+          <div class="lg:col-span-6">
+            <a
+              href="chauffeurs.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Chauffeur"
+              data-kicker="First Class"
+              data-image="https://cd.wheely.com/2x_webp_Artwork_4_3_1_f658d25402.webp"
+              data-action="View Chauffeur"
+              data-href="chauffeurs.html"
+              >Chauffeur</a
+            >
+
+            <a
+              href="cars.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Supercars"
+              data-kicker="Fleet"
+              data-image="https://i.pinimg.com/736x/f6/30/6f/f6306fd83483c23e4cef2d55462444fe.jpg"
+              data-action="View Supercars"
+              data-href="cars.html"
+              >Supercars</a
+            >
+
+            <a
+              href="jets.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Private Aviation"
+              data-kicker="Access"
+              data-image="https://i.pinimg.com/1200x/04/6f/c6/046fc640ad4739d024639501b330dac0.jpg"
+              data-action="Request Charter"
+              data-href="jets.html"
+              >Private Aviation</a
+            >
+
+            <a
+              href="villas.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Villas & Hotels"
+              data-kicker="Stays"
+              data-image="https://i.pinimg.com/736x/ba/28/2e/ba282e6465d684da2cee26b17dc466f0.jpg"
+              data-action="Explore Stays"
+              data-href="villas.html"
+              >Stays</a
+            >
+
+            <a
+              href="yachts.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Yachts"
+              data-kicker="Marine"
+              data-image="https://i.pinimg.com/736x/33/7b/10/337b1006a9ca27aa1bf0d7212df6fa3c.jpg"
+              data-action="Explore Yachts"
+              data-href="yachts.html"
+              >Yachts</a
+            >
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="editorial">
+              <div class="relative">
+                <img id="exploreEditorialImg" class="editorial-img" alt="Explore Preview" />
+                <div class="editorial-overlay"></div>
+
+                <div class="absolute bottom-0 left-0 right-0 p-10">
+                  <p id="exploreEditorialKicker" class="editorial-kicker"></p>
+                  <h3 id="exploreEditorialTitle" class="editorial-title mt-3"></h3>
+
+                  <div class="mt-8">
+                    <a
+                      id="exploreEditorialBtn"
+                      href="#"
+                      class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex"
+                    >
+                      <span id="exploreEditorialBtnText">Explore</span>
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pb-10 text-xs tracking-[.32em] uppercase opacity-50">Time Redefined</div>
+      </div>
+    </div>
+
+    <!-- PARTNERS OVERLAY -->
+    <div id="partnersOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
+      <div class="absolute inset-0">
+        <video autoplay muted loop playsinline class="overlay-video">
+          <source
+            src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="absolute inset-0 bg-black/75"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+      </div>
+
+      <div class="relative z-10 h-full esq-container px-6 md:px-12 flex flex-col">
+        <div class="flex justify-between items-center h-24">
+          <span class="text-xs tracking-[.32em] uppercase opacity-60">Partners</span>
+          <button onclick="closeOverlay('partnersOverlay')">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-12">
+          <div class="lg:col-span-6">
+            <a
+              href="partner-overview.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Partner Overview"
+              data-kicker="Network"
+              data-image="https://i.pinimg.com/1200x/ec/11/92/ec1192e63f0ed3b136a426096c54f470.jpg"
+              data-action="View Overview"
+              data-href="partner-overview.html"
+              >Partner Overview</a
+            >
+
+            <a
+              href="partner-apply.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Apply to List"
+              data-kicker="Curated"
+              data-image="https://esqyre.com/assets/images/assets.png"
+              data-action="Apply Now"
+              data-href="partner-apply.html"
+              >Apply to List</a
+            >
+
+            <a
+              href="partner-login.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Vendor Portal"
+              data-kicker="Operations"
+              data-image="https://esqyre.com/assets/images/help.png"
+              data-action="Open Portal"
+              data-href="partner-login.html"
+              >Vendor Portal</a
+            >
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="editorial">
+              <div class="relative">
+                <img id="partnersEditorialImg" class="editorial-img" alt="Partners Preview" />
+                <div class="editorial-overlay"></div>
+
+                <div class="absolute bottom-0 left-0 right-0 p-10">
+                  <p id="partnersEditorialKicker" class="editorial-kicker"></p>
+                  <h3 id="partnersEditorialTitle" class="editorial-title mt-3"></h3>
+
+                  <div class="mt-8">
+                    <a
+                      id="partnersEditorialBtn"
+                      href="#"
+                      class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex"
+                    >
+                      <span id="partnersEditorialBtnText">Explore</span>
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pb-10 text-xs tracking-[.32em] uppercase opacity-50">Time Redefined</div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden fixed inset-0 z-[60] hidden">
+      <div
+        id="mobile-menu-overlay"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm opacity-0"
+        onclick="closeMenu()"
+      ></div>
+      <div
+        id="mobile-menu-content"
+        class="relative z-[70] bg-black border-l border-white/10 text-white w-4/5 max-w-sm ml-auto h-full p-8 transform translate-x-full transition-transform duration-300"
+      >
+        <div class="flex justify-between items-center mb-12">
+          <span class="text-lg font-bold tracking-[.32em]">MENU</span>
+          <button id="mobile-close-button" onclick="closeMenu()" class="p-2 -m-2">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex flex-col space-y-8">
+          <button
+            onclick="openOverlay('exploreOverlay'); closeMenu();"
+            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
+          >
+            Explore
+          </button>
+
+          <a href="corporate.html" class="text-xl font-medium hover:text-gray-350 transition-colors">
+            For Business
+          </a>
+
+          <button
+            onclick="openOverlay('partnersOverlay'); closeMenu();"
+            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
+          >
+            Partners
+          </button>
+
+          <div class="h-px bg-white/10 my-4"></div>
+
+          <a
+            href="login.html"
+            class="text-sm uppercase tracking-[.32em] text-gray-500 hover:text-white transition-colors"
+            >Login</a
+          >
+
+          <div class="mt-auto pt-8">
+            <a
+              href="app-download.html"
+              class="block w-full text-center bg-white text-black py-4 text-xs font-bold tracking-[.32em] uppercase"
+            >
+              Get The App
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   <main class="pt-32 pb-24">
+  <section class="relative">
+    <div class="esq-legal-container px-6 md:px-12">
+      <!-- Header -->
+      <div class="max-w-4xl">
+        <p class="text-[10px] tracking-[.32em] uppercase text-black/45 mb-6">Legal</p>
+
+        <h1 class="text-4xl md:text-6xl font-medium tracking-tight leading-[1.03] text-black/90">
+          Terms of Use
+        </h1>
+
+        <p class="text-black/55 text-base md:text-lg leading-relaxed mt-6 max-w-[80ch]">
+          ESQYRE SOFTWARE SOLUTIONS AND ARTIFICIAL INTELLIGENCE - FZCO
+        </p>
+      </div>
+
+      <!-- Layout -->
+      <div class="mt-14 legal-grid">
+        <!-- TOC -->
+        <aside class="hidden lg:block">
+          <div class="sticky top-28">
+            <p class="text-[10px] tracking-[.32em] uppercase text-black/40 mb-4">Contents</p>
+
+            <div class="toc-surface">
+              <div class="toc space-y-2">
+                <a href="#intro">Introduction</a>
+                <a href="#definitions">Definitions</a>
+                <a href="#eligibility">Eligibility</a>
+                <a href="#your-account">Your Account</a>
+                <a href="#required-documents">Required Documents</a>
+                <a href="#agreement-with-service-provider">Agreement With the Service Provider</a>
+                <a href="#prohibited-activities">Prohibited Activities</a>
+                <a href="#content">Content</a>
+                <a href="#personal-data-and-privacy">Personal Data and Privacy</a>
+                <a href="#security">Security</a>
+                <a href="#additional-user-responsibilities">Additional User Responsibilities</a>
+                <a href="#payment">Payment</a>
+                <a href="#deposit-policy">Deposit Policy</a>
+                <a href="#termination">Termination of Access to Account</a>
+                <a href="#services-listings">Services Listings</a>
+                <a href="#insurance">Insurance</a>
+                <a href="#third-party-links">Links to Third-Party Websites</a>
+                <a href="#availability">Availability of Website/Services</a>
+                <a href="#representations-and-warranties">Representations and Warranties</a>
+                <a href="#compliance">Compliance With Applicable Laws</a>
+                <a href="#limitation-of-liability">Limitation of Liability</a>
+                <a href="#indemnification">Indemnification</a>
+                <a href="#limited-liability">Limited Liability</a>
+                <a href="#governing-law">Governing Law</a>
+                <a href="#other-general-terms">Other General Terms</a>
+                <a href="#modification">Modification of Agreement, Website or Services</a>
+                <a href="#contact-information">Contact Information</a>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Content -->
+        <article class="legal">
+          <!-- Mobile TOC (so layout still feels premium) -->
+          <div class="lg:hidden mb-8">
+            <p class="text-[10px] tracking-[.32em] uppercase text-black/40 mb-4">Contents</p>
+            <div class="toc-surface">
+              <div class="toc grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <a href="#intro">Introduction</a>
+                <a href="#definitions">Definitions</a>
+                <a href="#eligibility">Eligibility</a>
+                <a href="#your-account">Your Account</a>
+                <a href="#required-documents">Required Documents</a>
+                <a href="#payment">Payment</a>
+                <a href="#limitation-of-liability">Limitation of Liability</a>
+                <a href="#governing-law">Governing Law</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="legal-surface legal-pad">
+            <!-- KEEP YOUR EXISTING LEGAL CONTENT EXACTLY AS-IS BELOW THIS LINE -->
+            <!-- INTRO -->
+            <h2 id="intro">INTRODUCTION</h2>
+            <p>
+              ESQYRE SOFTWARE SOLUTIONS AND ARTIFICIAL INTELLIGENCE - FZCO (collectively referred to as "we", "us",
+              "our") is based in the UAE and owns and operates the website at www.esqyre.com and the mobile application
+              available for download in App Store and Google Play (the “Application”) as the case may be (the
+              Application and the website, which are collectively referred to as the “Website”).
+            </p>
+                <p>
+                  Please read these terms and conditions (“Terms and Conditions”) carefully. By using this Website, anyone
+                  accessing this Website (“You”), agree to be bound by the Terms and Conditions set forth below. If You do
+                  not accept these Terms and Conditions, please do not use this Website. Unless otherwise agreed in writing,
+                  these Terms and Conditions supersede any other agreement you may have with Esqyre.
+                </p>
+
+                <p>
+                  Esqyre may, in its sole discretion, revise these Terms and Conditions at any time. You may hence review
+                  these Terms and Conditions regularly on the Website.
+                </p>
+
+                <p>
+                  On the date of electronic acceptance of these Terms and Conditions, it shall be deemed that You have entered
+                  into a formal binding agreement with the Esqyre. These Terms and Conditions sets forth the general terms and
+                  conditions for your use of the Website and for procuring the Offers/services offered on this Website (the
+                  “Services”).
+                </p>
+
+                <!-- DEFINITIONS -->
+                <h2 id="definitions">DEFINITIONS</h2>
+                <p>
+                  “Service” means the reservation of cars, vehicles, drivers or yachts or any additional services ordered
+                  through Esqyre;
+                </p>
+                <p>
+                  “Service Provider(s)” means individuals or companies providing their services on the Website such as the drivers
+                  or car rental companies responsible for renting the specific vehicle or yachts;
+                </p>
+                <p>
+                  “Information” or “Content” means the facts and other information about the driver, vehicle rental company and
+                  the services provided on the Website;
+                </p>
+                <p>
+                  “Offer” means Service offer provided by service Provider via Esqyre to rent specific vehicle, yacht or request
+                  a driver under the specific terms, including cost, insurance coverage, cancellation policy, pickup and return
+                  location and time and the cost of optional extras.
+                </p>
+
+                <!-- ELIGIBILITY -->
+                <h2 id="eligibility">ELIGIBILITY</h2>
+                <p>
+                  This Website and the Services are available only to individuals and/or entities (“User(s)”) who can form legally
+                  binding contracts under laws of United Arab Emirates. The Services are intended solely for users who are Twenty One
+                  (21) years of age or older. Any registration by, use of or access to the Services by anyone under Twenty One (21) is
+                  unauthorized and in violation of these Terms and Conditions . As a minor, if you wish to use or transact on the Website,
+                  such use or transaction may be made only in the presence of and through your legal guardian or parents. We reserve our right
+                  to terminate the Services and / or refuse to provide you with access to the Website if it is brought to our notice or if it is
+                  discovered that you are under the age of Twenty One (21).
+                </p>
+
+                <p>
+                  If you are entering into these Terms and Conditions on behalf of a corporate entity or other organization, you represent and
+                  warrant that you have the legal authority to bind such corporate entity or organization to these terms and conditions contained
+                  herein, in which case the terms "You", "Your", "User" shall refer to such corporate entity or organisation.
+                </p>
+
+                <!-- YOUR ACCOUNT -->
+                <h2 id="your-account">YOUR ACCOUNT</h2>
+                <p>
+                  In order to access some of the features of this Website, purchase Offers or use some of the Services, you will have to get
+                  registered. You represent and warrant to Esqyre that all information and documents you submit about you and/or your organization
+                  (if applicable) provided when you create your Account, is accurate, current and complete, and that you will keep your information
+                  up to date and complete. If Esqyre has reason to believe that your Account information or documents is untrue, inaccurate, out-of-date
+                  or incomplete, Esqyre reserves the right, in its sole and absolute discretion, to suspend or terminate your Account. You are solely
+                  responsible for the activity that occurs on your Account, whether authorized by you or not, and you must maintain utmost confidentiality
+                  of your Account information, including without limitation your login, password, Payment terms mentioned below). You must notify us
+                  immediately of any breach of security or unauthorized use of your Account. Esqyre will not be liable for any loss you incur due to any
+                  unauthorized use of your Account.
+                </p>
+
+                <!-- REQUIRED DOCUMENTS -->
+                <h2 id="required-documents">REQUIRED DOCUMENTS</h2>
+                <h3>DRIVING LICENSE, PASSPORT OR NATIONAL ID</h3>
+                <p>
+                  In order to rent a vehicle if you are an individual you must hold a full and valid driving license in the UAE or am international driving
+                  license and to provide passport or national ID. If you are a company you must provide an updated trade license with POA for authorized
+                  signatory and their related identification documents or any other documents to be requited by us from time to time.
+                </p>
+
+                <p>
+                  You are required to send scanned or photographed images of the documents requested to confirm the reservation or prior to consuming Services.
+                  Once you confirm your reservation, you will have the option to securely upload the required documents. It is your responsibility to ensure
+                  the validity of any documents you provide. Failure to do so could result in the termination of your reservation in which case no refund will be
+                  offered. If we suspect you have made a deliberate attempt to rent a vehicle under false pretenses we will be required by law to inform the local
+                  authorities. We are in no way responsible for any losses incurred by you or any third-party as a result of fraudulent or otherwise invalid documents
+                  provided by you.
+                </p>
+
+                <p>
+                  You are responsible for obtaining an International Driving License or any other necessary permit, if required by law. We are not responsible for any
+                  change to local or national laws regarding driver license requirements and it is your responsibility to ensure you are entitled to drive a vehicle in
+                  your destination country.
+                </p>
+
+                <p>
+                  We must be informed at the time of reservation of any endorsements or penalties on your driving license. Failure to do so may result in the refusal
+                  or the cancellation of a reservation. You must have your driving license and any necessary permits with you at any time and you must provide it for
+                  inspection to local authorities when requested.
+                </p>
+
+                <p>
+                  Service Provider has the right to refuse to deliver a vehicle or honor the reservation agreement with you if you fail to provide your driving license,
+                  passport or national ID at the time of delivery. In such cases no refunds will be made.
+                </p>
+
+                <!-- AGREEMENT WITH SERVICE PROVIDER -->
+                <h2 id="agreement-with-service-provider">AGREEMENT WITH THE SERVICE PROVIDER</h2>
+                <p>
+                  In order to collect the vehicle, you will need to sign the agreement with the Service Provider. The agreement doesn’t conflict with these Terms and Conditions,
+                </p>
+
+                <!-- PROHIBITED ACTIVITIES -->
+                <h2 id="prohibited-activities">PROHIBITED ACTIVITIES</h2>
+                <p>
+                  You must not engage in prohibited activities, including but not limited to fraud, harassment, and unauthorized use of the Website. Esqyre reserves the right
+                  to suspend or terminate accounts engaging in such activities.
+                </p>
+
+                <!-- CONTENT -->
+                <h2 id="content">CONTENT</h2>
+                <p>
+                  All content available through the Offers, Services, including designs, text, graphics, images, video, information, software, audio and other files, and their
+                  selection and arrangement, and all software used to provide the Offers or Services (collectively, " Esqyre’s Content"), are the property of Esqyre or its licensors
+                  and no rights in the Esqyre’s Content are deemed granted to you, unless expressly stated under these Terms and Conditions. No Esqyre’s Content may be modified, copied,
+                  distributed, framed, reproduced, republished, downloaded, scraped, displayed, posted, transmitted, sold or exploited for any purpose in any form or by any means, in whole
+                  or in part, other than as expressly permitted in these Terms and Conditions . You may not, directly or indirectly, reverse engineer, decompile, disassemble or otherwise attempt
+                  to derive source code or other trade secrets from any Esqyre’s Content. Any use of the Esqyre’s Content other than as specifically authorized herein is prohibited and will automatically
+                  terminate your rights with respect to your use of the Services and the Esqyre’s Content granted herein. All rights of Esqyre or its licensors that are not expressly granted in these Terms
+                  and Conditions are reserved to the Esqyre and its licensors. You hereby acknowledge that the Esqyre may use text, images, videos or other content in any of the Services provided to you, however,
+                  such content maybe procured from third party and shall be subject to the applicable third party’s terms and conditions.
+                </p>
+
+                <p>
+                  Additional data shared. You may be required to provide additional data to support Your requirement or for the Esqyre to fulfil Your service request or place order for Services. In all such cases,
+                  such additional data may uploaded onto the Website in such format as instructed by Esqyre. You acknowledge and undertake not to upload any file or data that may contain any virus, trojan, worm, spyware,
+                  malware, firmware, ransomware or any other such hidden codes intended to disrupt the Website or to illegally gather data and information from Esqyre (collectively Malicious Codes). Esqyre reserves the
+                  right to refrain from accepting any such file that is marked as hazardous or potential security threat to Esqyre. Esqyre further reserves its right to initiate appropriate legal proceedings against You in
+                  case they perceive that You have intentionally attempted to upload any such Malicious Codes.
+                </p>
+
+                <!-- PERSONAL DATA -->
+                <h2 id="personal-data-and-privacy">PERSONAL DATA AND PRIVACY</h2>
+                <p>
+                  If you wish to make reservation we may ask you to supply certain data applicable to your purchase – including, without limitation, credit card information and other personally identifiable data. You understand
+                  that any such data will be treated by us in the manner described in our privacy policy. You agree that all data that you provide for this purpose will be accurate, current and complete. You agree to pay all
+                  charges incurred by you or any users of your account, credit card or other payment mechanism at the rates in effect when such charges are incurred.
+                </p>
+
+                <p>
+                  Verification of submitted data may be required prior to our acceptance of any reservation. Except as otherwise required by law or as otherwise expressly stated by us, price, rate and availability of Offers or
+                  services are subject to change without notice. You acknowledge that bookings, purchases and services are subject to additional terms and conditions imposed by us or by the Service Provider.
+                </p>
+
+                <p>
+                  Your privacy is important to us. Esqyre’s Privacy Policy (the “Privacy Policy”) governs use of data and information provided to Esqyre by You. By accepting these Terms and Conditions , you also acknowledge that you
+                  have read and agreed to the terms of the Privacy Policy.
+                </p>
+
+                <!-- SECURITY -->
+                <h2 id="security">SECURITY</h2>
+                <p>
+                  You acknowledge and accept that despite the security measures Esqyre takes in connection with the Services, Esqyre’s systems may nonetheless become compromised, including without limitation, by hackers, Internet viruses,
+                  worms or Trojan horses, or the like. Under such circumstances, Esqyre may take corrective actions as it deems appropriate in its sole discretion and you acknowledge and agree that Esqyre shall have no liability to you
+                  for any damage or loss that you may incur due to such corrective action.
+                </p>
+
+                <p>
+                  Your further acknowledge that We may, in our sole discretion, agree to provide necessary information or assistance as may be required by an applicable governmental authority or court, concerning cyber security or security of
+                  the state, investigation, detection, prosecution, or prevention of offences.
+                </p>
+
+                <p>
+                  We will provide technical support via email for the Services (“Technical Support Services”). You will be required to provide as much information as possible to aid our investigation into any issues or problems.
+                </p>
+
+                <!-- ADDITIONAL USER RESPONSIBILITIES -->
+                <h2 id="additional-user-responsibilities">ADDITIONAL USER RESPONSIBILITIES</h2>
+                <p>
+                  You will be solely responsible for all activities conducted on or through Your Account, including initiating any transactions or discussions with us. You shall solely be responsible for any illegal use of the Offers or Services.
+                  Esqyre shall at no time be responsible to ascertain the intent of purchase of Offers or requesting for the Services.
+                </p>
+
+                <p>
+                  You will use your best efforts to ensure that the content, documents and other materials you intend to provide to us is and will at all times remain free of all computer viruses, worms, Trojan horses and other malicious code.
+                </p>
+
+                <p>
+                  You will not use the Services in any manner infringe the intellectual property rights or other proprietary rights of any third party or with the intention of violating the privacy rights or publicity rights of any third party.
+                </p>
+
+                <!-- PAYMENT -->
+                <h2 id="payment">PAYMENT</h2>
+                <p>
+                  You agree to pay such prices or fees as mentioned against various Offers or Services selected by You from the Website. All prices or fees are non-refundable when paid except as otherwise provided in the payment terms related to the Product
+                  or Service. We may change our prices from time to time, and such changes shall be posted online at this Website and effective immediately without need for further notice to you. If you have purchased or obtained any Services for a period of
+                  months or years, changes in prices and fees shall be effective when the Services in question come up for renewal as further described in the payment terms related to the Service.
+                </p>
+
+                <p>
+                  The fee is exclusive of any applicable goods and service taxes (GST) and any other tax imposed by any authority with respect to the Services.
+                </p>
+
+                <p>
+                  Cancellation and Refund Policy: In case where you wish to cancel a booking, it is mandatory for you to notify us at least before 24 (twenty four) hours of the scheduled time. A nominal amount shall be deducted towards cancellation fees and
+                  the balance shall be refunded to the original mode of payment within 10 (ten) to 45 (forty five) days depending on the issuing bank of the credit card. If you fail to notify us within the prescribed time limit, we shall be entitled to
+                  deduct the entire amount and no refund shall be made. In case of other queries, please contact us at : info@Esqyre.com
+                </p>
+
+                <p>
+                  Failure to Pay: If you fail to pay the fees due for the Services, we may suspend or terminate your Services and pursue any collection costs incurred by the Esqyre, including without limitation, any arbitration and legal fees and Esqyre's reasonable
+                  attorneys' fees. Accounts or subscriptions will not be reactivated until all outstanding amounts are paid. We are not responsible for any deleted or lost content that was provided by You, as a result of any suspension or termination of the Services.
+                </p>
+
+                <!-- DEPOSIT POLICY -->
+                <h2 id="deposit-policy">DEPOSIT POLICY</h2>
+                <p>
+                  Before you use the Service, you must leave a deposit. The amount is different for each Service and it will be displayed as “credit card block” amount on your Offer. The amount of deposit is less or equal to the amount of insurance deductible.
+                  The deposit amount will be authorized on your credit card but not debited (charged).
+                </p>
+
+                <p>
+                  The deposit is intended to cover additional rental costs, traffic fines, any potential damage to the vehicle, its loss or theft. In the event that the vehicle is damaged, lost or stolen, the entire deposit amount shall be retained and, after the
+                  original condition has been restored, it shall be paid back to you less the Service Provider damage as compensation claims.
+                </p>
+
+                <p>
+                  Assuming there are no damages or additional costs, your deposit will released no later than 14 working days for the completion of the Service. If there are damages, traffic fines or additional rental costs the deposit, minus the cost, will be released
+                  no later than 2 working days after being invoiced for damages or the additional rental costs. Please note that it might take some time before the transaction is visible on your credit card statement.
+                </p>
+
+                <!-- TERMINATION -->
+                <h2 id="termination">TERMINATION OF ACCESS TO ACCOUNT</h2>
+                <p>
+                  Esqyre reserves the right to temporarily or permanently suspend access to your Account, with or without prior notice, if in their sole opinion they deem such action necessary to prevent illegal, unauthorized and fraudulent use of the Website.
+                </p>
+
+                <p>
+                  Esqyre may terminate your access to your Account and/or to the Services, in whole or in part, upon notice in the event that: (i) you fail to pay any fees due hereunder to the Esqyre; (ii) you violate the terms and conditions of these Terms and
+                  Conditions ; (iii) your conduct results in any harm to the Esqyre or others, cause Esqyre or others to incur liability, or disrupt Esqyre's business operations (as determined by Esqyre in its sole discretion), or affect Esqyre’s reputation; or
+                  (v) for any other lawful reason or as otherwise specified in these Terms and Conditions . In such event. We will not refund you any fees paid in advance of such termination, and you shall be obligated to pay all fees and charges accrued prior to
+                  the effectiveness of such termination.
+                </p>
+
+                <!-- SERVICES LISTINGS -->
+                <h2 id="services-listings">SERVICES LISTINGS</h2>
+                <p>
+                  Service Providers are responsible for the accuracy and completeness of their listings and related Information. You are encouraged to carefully review the Services details, terms, and conditions before making a reservation.
+                </p>
+
+                <!-- INSURANCE -->
+                <h2 id="insurance">INSURANCE</h2>
+                <p>
+                  Service Providers are responsible for obtaining and maintaining adequate insurance coverage for their Services. Esqyre does not provide insurance coverage.
+                </p>
+
+                <!-- THIRD PARTY LINKS -->
+                <h2 id="third-party-links">LINKS TO THIRD-PARTY WEBSITES</h2>
+                <p>
+                  This Website and the Services found at this Website may contain links to third-party Websites that are not owned or controlled by the Esqyre. Esqyre assumes no responsibility for the content, terms and conditions, privacy policies, or practices of any
+                  third-party Websites. By using this Website or the Services found at this Website, you expressly release Esqyre from any and all liability arising from your use of any third-party Website. Accordingly, the Esqyre encourages you to be aware when you
+                  leave this Website or the Services found at this Website and to review the terms and conditions, privacy policies, and other governing documents of each other Website that you may visit.
+                </p>
+
+                <!-- AVAILABILITY -->
+                <h2 id="availability">AVAILABILITY OF WEBSITE/SERVICES</h2>
+                <p>
+                  Subject to the terms and conditions of these Terms and Conditions and our other policies and procedures, we shall use commercially reasonable efforts to attempt to provide this Website and the Services on a twenty-four (24) hours a day, seven (7) days
+                  a week basis. You acknowledge and agree that from time to time this Website may be inaccessible or inoperable for any reason including, but not limited to, equipment malfunctions; periodic maintenance, repairs or replacements that we undertake from time
+                  to time; or causes beyond our reasonable control or that are not reasonably foreseeable including, but not limited to, interruption or failure of telecommunication or digital transmission links, hostile network attacks, network congestion or other failures.
+                  You acknowledge and agree that we rely of our service providers for providing these Offers and Services and have no control over the availability of this Website or the Service on a continuous or uninterrupted basis, and that we assume no liability to you
+                  or any other party with regard thereto. You further acknowledge that we may, under unavoidable circumstances, including but not limited to sandstorms, be forced to delay delivery of the Services. A notice shall reasonably provide the revised date of delivery.
+                </p>
+
+                <!-- REPRESENTATIONS AND WARRANTIES -->
+                <h2 id="representations-and-warranties">REPRESENTATIONS AND WARRANTIES</h2>
+                <p>
+                  You acknowledge and agree that your purchase of the Offers or use of the Services, including any information or content obtained through the Services, is at your own risk. You further acknowledge and agree that we exercise no control over, and accept no
+                  responsibility for, the content of the information passing through Esqyre’s network hubs and points of presence or the Internet.
+                </p>
+
+                <p class="caps">
+                  THIS WEBSITE AND OFFERS AND SERVICES FOUND ON THIS WEBSITE ARE PROVIDED ON AN “AS IS”, “AS AVAILABLE BASIS” AND “WITH ALL FAULTS”. ESQYRE AND ITS AFFILIATES, EMPLOYEES, AGENTS, SUPPLIERS AND LICENSORS, DISCLAIM ALL WARRANTIES OF ANY KIND, INCLUDING BUT
+                  NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT, FOR THE OFFERS AND SERVICES PROVIDED HEREUNDER. THE ESQYRE AND ITS AFFILIATES, EMPLOYEES, AGENTS, SUPPLIERS AND LICENSORS MAKE NO
+                  REPRESENTATIONS OR WARRANTIES (I) THAT THE SERVICES WILL BE UNINTERRUPTED, ERROR FREE OR COMPLETELY SECURE; (II) AS TO THE RESULTS THAT MAY BE OBTAINED FROM THE USE OF THE SERVICES; OR (III) AS TO THE ACCURACY, RELIABILITY OR CONTENT OF ANY
+                  INFORMATION PROVIDED THROUGH THE SERVICES. THE ESQYRE AND ITS AFFILIATES, EMPLOYEES, AGENTS, SUPPLIERS AND LICENSORS ARE NOT LIABLE, AND EXPRESSLY DISCLAIM ANY LIABILITY, FOR THE CONTENT OF ANY DATA TRANSFERRED EITHER TO OR FROM USERS OR STORED BY
+                  USERS ON OR THROUGH THE SERVICES. NO ADVICE OR INFORMATION GIVEN BY ESQYRE OR ESQYRE'S REPRESENTATIVES INCLUDING, WITHOUT LIMITATION, SUPPORT REPRESENTATIVES, SHALL CREATE A WARRANTY. ESQYRE DOES NOT GUARANTEE THAT USERS WILL BE ABLE TO USE THE
+                  SERVICES AT TIMES OR LOCATIONS OF THEIR CHOOSING.THE TERMS OF THIS SECTION SHALL SURVIVE ANY TERMINATION OF THESE TERMS AND CONDITIONS .
+                </p>
+
+                <p>
+                  You acknowledge and accept that despite the security measures the Esqyre takes in connection with the Services, Esqyre’s system may nonetheless become compromised, including without limitation, by hackers, Internet viruses, worms or Trojan horses, or
+                  the like. Under such circumstances, Esqyre may take corrective action as it deems appropriate in its sole discretion and you acknowledge and agree that Esqyre shall have no liability to you for any damage or loss that you may incur due to such
+                  corrective action.
+                </p>
+
+                <!-- COMPLIANCE -->
+                <h2 id="compliance">COMPLIANCE WITH APPLICABLE LAWS</h2>
+                <p>
+                  You agree to comply with all applicable laws, rules, and regulations applicable to You in regards to your Websites, online activities, email and Your use of the Offers and Services.
+                </p>
+
+                <!-- LIMITATION OF LIABILITY -->
+                <h2 id="limitation-of-liability">LIMITATION OF LIABILITY</h2>
+                <p class="caps">
+                  ESQYRE SHALL NOT BE LIABLE FOR NON-PERFORMANCE OR DELAY IN PERFORMANCE CAUSED BY ANY REASON, WHETHER WITHIN OR OUTSIDE OF ITS CONTROL. IN NO EVENT WILL THE ESQYRE ITS OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, AND ALL THIRD PARTY SERVICE PROVIDERS BE LIABLE
+                  TO YOU OR ANY THIRD PERSON FOR ANY INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL OR PUNITIVE DAMAGES, INCLUDING FOR ANY LOST PROFITS OR LOST DATA ARISING FROM YOUR USE OF THE OFFERS OR SERVICES, OR ANY CONTENT, EVEN IF ESQYRE IS AWARE OR HAS
+                  BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+                </p>
+
+                <p class="caps">
+                  NOTWITHSTANDING ANYTHING TO THE CONTRARY CONTAINED HEREIN, ESQYRE'S LIABILITY TO YOU OR ANY PARTY CLAIMING THROUGH YOU FOR ANY CAUSE WHATSOEVER, AND REGARDLESS OF THE FORM OF THE ACTION, SHALL AT ALL TIMES BE LIMITED TO THE AMOUNT PAID, IF ANY, BY YOU TO
+                  ESQYRE FOR OFFERS PURCHASED OR THE SERVICES PROCURED. THIS IS AN AGGREGATE LIMIT. THE EXISTENCE OF MORE THAN ONE CLAIM HEREUNDER WILL NOT INCREASE THIS LIMIT. NO ACTION, REGARDLESS OF FORM, ARISING OUT OF THESE TERMS AND CONDITIONS OR OUT OF THE SERVICES
+                  MAY BE BROUGHT BY YOU, THE USER, MORE THAN THREE (3) YEARS AFTER THE EVENT WHICH GAVE RISE TO THE CAUSE OF ACTION.
+                </p>
+
+                <!-- INDEMNIFICATION -->
+                <h2 id="indemnification">INDEMNIFICATION</h2>
+                <p>
+                  You agree to indemnify, defend and hold harmless the Esqyre and its affiliates or its officers, directors, employees, agents and all third party service providers from and against any and all claims, damages, losses, liabilities, suits, actions, demands,
+                  proceedings (whether legal or administrative), and expenses (including, but not limited to, reasonable attorney's fees) threatened, asserted, or filed by a third party against the Esqyre or its officers, directors, employees, agents and/or its third party
+                  service providers, arising out of or relating to (i) your purchase of Offers or use of the Services, (ii) any breach or violation by you of these Terms and Conditions ; or (iii) any of your acts or omissions (including without limitation fraud,
+                  negligence or wilful misconduct), except to the extent any of the foregoing directly results from Esqyre's own gross negligence or wilful misconduct. The terms of this section shall survive any termination of these Terms and Conditions.
+                </p>
+
+                <!-- LIMITED LIABILITY -->
+                <h2 id="limited-liability">LIMITED LIABILITY</h2>
+                <p>
+                  Your rental is subject to the agreement with the Service Provider and to the corresponding laws of the country and/or state in which the rental takes place. You will therefore be subject both to our terms and to those of the Service Provider. We accept no
+                  responsibility for and shall not be liable in respect of any loss, damage, alterations, delays or changes arising from civil strife, industrial disputes including air traffic control disputes, terrorist activity, natural or nuclear disaster, fire or adverse
+                  weather conditions, unavoidable technical problems with transport, closure or congestion of roads, airports or ferry ports, cancellation of scheduled flights or financial failure of airlines.
+                </p>
+
+                <p>
+                  We are responsible for losses you directly suffer as a result of us breaking these Terms and Conditions if the losses are a foreseeable consequence of us breaking the agreement. Losses are foreseeable where they could be contemplated by both you and us at
+                  the time our agreement is formed. We are not responsible for indirect losses which happen as a side effect of the main loss or damage and which are not foreseeable by you and us nor are we liable for loss of profits, loss of opportunity, loss of goodwill
+                  or consequential losses, damages or costs. In the event that the force majeure persists for more than 14 consecutive days, we may terminate and withdraw reservations by giving 14 days’ notice and refunding all monies paid prior to the force majeure event.
+                </p>
+
+                <!-- GOVERNING LAW -->
+                <h2 id="governing-law">GOVERNING LAW</h2>
+                <p>
+                  Any dispute, controversy or claim arising out of or relating to these Terms and Conditions , the formation of these Terms and Conditions or the breach of these Terms and Conditions , including any claim based upon or arising from an alleged tort, shall be
+                  governed by the laws of United Arab Emirates in the Emirate of Dubai without giving effect to conflicts of law principles thereof and shall be subject to the exclusive jurisdiction of the Courts in Dubai.
+                </p>
+
+                <!-- OTHER GENERAL TERMS -->
+                <h2 id="other-general-terms">OTHER GENERAL TERMS</h2>
+                <p>
+                  Esqyre and User are independent contractors and nothing contained in these Terms and Conditions shall place Esqyre and Users in the relationship of principal and agent, partners or joint ventures.
+                </p>
+
+                <p>
+                  If any provision or portion of any provision of these Terms and Conditions shall be held to be illegal, invalid or unenforceable by a court of competent jurisdiction, it is the intention of the parties that the remaining provisions or portions (unless
+                  otherwise specified) thereof shall constitute their agreement with respect to the subject matter hereof, and all such remaining provisions or portions (unless otherwise specified) thereof shall remain in full force and effect.
+                </p>
+
+                <p>
+                  No failure or delay by any party hereto to exercise any right or remedy hereunder shall operate as a waiver thereof, nor shall any single or partial exercise of any right or remedy by any party preclude any other or further exercise thereof or the exercise
+                  of any other right or remedy.
+                </p>
+
+                <p>
+                  You may not assign or transfer your obligations, rights and/or duties under these Terms and Conditions without the prior written consent of Esqyre. Any attempted assignment in violation of the foregoing provision shall be null and void and of no force or
+                  effect whatsoever. Esqyre may assign its rights and obligations under these Terms and Conditions , and may engage subcontractors or agents in performing its duties and exercising its rights hereunder, without your consent.
+                </p>
+
+                <p>
+                  Neither party is liable for any default or delay in the performance of any of its obligations under these Terms and Conditions (other than failure to make payments when due) if such default or delay is caused, directly or indirectly, by forces beyond such
+                  party's reasonable control, including, without limitation,sandstorms, fire, flood, acts of God, labour disputes, accidents, pandemics, lockdown, acts of war or terrorism, interruptions of transportation or communications, supply shortages, internet outage,
+                  technology or network disruptions or the failure of any third party to perform any commitment relative to the production or delivery of any equipment or material required for such party to perform its obligations hereunder.
+                </p>
+
+                <p>
+                  Nothing in these Terms and Conditions shall be deemed to confer any rights or benefits to any third party.
+                </p>
+
+                <!-- MODIFICATION -->
+                <h2 id="modification">MODIFICATION OF AGREEMENT, WEBSITE OR SERVICES</h2>
+                <p>
+                  Esqyre may, in its sole and absolute discretion, change or modify these Terms and Conditions , and any policies which are incorporated herein, at any time, and such changes or modifications shall be effective immediately upon posting to this Website. Your use
+                  of this Website or the Services after such changes or modifications have been made shall constitute your acceptance of these Terms and Conditions as last revised. If you do not agree to be bound by these Terms and Conditions as last revised, do not use (or
+                  continue to use) this Website or the Offers or Services. Esqyre assumes no liability or responsibility for your failure to receive an email notification if such failure results from an inaccurate email address. In addition, Esqyre may terminate Your use of
+                  Services for any violation or breach of any of the terms of these Terms and Conditions by You.
+                </p>
+
+               <h2 id="contact-information">CONTACT INFORMATION</h2>
+            <p>If you have any questions about these Terms and Conditions , please contact at : info@esqyre.com</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-white/10 relative z-20">
+      <div class="esq-container px-6 md:px-12 pt-20 pb-12">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+          <div class="md:col-span-4">
+            <img
+              src="https://superadmin.esqyre.com/assets/images/esqyre_logo.svg"
+              class="h-7 w-auto invert brightness-0 filter"
+              alt="Esqyre"
+            />
+
+            <p class="text-xs text-white/50 mt-6 leading-relaxed max-w-sm">
+              A system for movement. Built on discretion.
+            </p>
+
+            <div class="mt-10 flex items-center gap-4">
+              <a
+                href="#"
+                class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors"
+              >
+                Instagram
+              </a>
+              <span class="text-white/20">/</span>
+              <a
+                href="#"
+                class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors"
+              >
+                LinkedIn
+              </a>
+              <span class="text-white/20">/</span>
+              <a
+                href="contact.html"
+                class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors"
+              >
+                Contact
+              </a>
+            </div>
+          </div>
+
+          <div class="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-10">
+            <div>
+              <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Company</h4>
+              <ul class="space-y-4 text-sm text-white/55">
+                <li><a href="ourstory.html" class="hover:text-white transition-colors">Our Story</a></li>
+                <li><a href="safety.html" class="hover:text-white transition-colors">Safety</a></li>
+                <li><a href="careers.html" class="hover:text-white transition-colors">Careers</a></li>
+                <li><a href="newsroom.html" class="hover:text-white transition-colors">Newsroom</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Services</h4>
+              <ul class="space-y-4 text-sm text-white/55">
+                <li><a href="chauffeurs.html" class="hover:text-white transition-colors">Chauffeur</a></li>
+                <li><a href="cars.html" class="hover:text-white transition-colors">Supercars</a></li>
+                <li><a href="jets.html" class="hover:text-white transition-colors">Private Aviation</a></li>
+                <li><a href="villas.html" class="hover:text-white transition-colors">Villas</a></li>
+                <li><a href="yachts.html" class="hover:text-white transition-colors">Yachts</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Legal</h4>
+              <ul class="space-y-4 text-sm text-white/55">
+                <li><a href="termsofuse.html" class="hover:text-white transition-colors">Terms of Use</a></li>
+                <li><a href="privacypolicy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="cookies.html" class="hover:text-white transition-colors">Cookies</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="mt-16 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center
+                 text-[11px] tracking-[.32em] uppercase text-white/40"
+        >
+          <p>TIME REDEFINED</p>
+          <p class="mt-4 md:mt-0">© 2025 ESQYRE TECHNOLOGIES INC.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+
+      // Nav state
+      const nav = document.getElementById("mainNav");
+      const setNavState = () => {
+        if (!nav) return;
+        if (window.scrollY > 20) nav.classList.add("nav-scrolled");
+        else nav.classList.remove("nav-scrolled");
+      };
+      window.addEventListener("scroll", setNavState, { passive: true });
+      setNavState();
+
+      // Scroll lock helpers
+      function anyLayerOpen() {
+        const exploreOpen =
+          (document.getElementById("exploreOverlay") &&
+            !document.getElementById("exploreOverlay").classList.contains("hidden")) ||
+          false;
+
+        const partnersOpen =
+          (document.getElementById("partnersOverlay") &&
+            !document.getElementById("partnersOverlay").classList.contains("hidden")) ||
+          false;
+
+        const menuOpen =
+          document.getElementById("mobile-menu") &&
+          !document.getElementById("mobile-menu").classList.contains("hidden");
+
+        return exploreOpen || partnersOpen || menuOpen;
+      }
+      function lockScroll() {
+        document.body.style.overflow = "hidden";
+      }
+      function unlockScroll() {
+        document.body.style.overflow = anyLayerOpen() ? "hidden" : "";
+      }
+
+      // Overlays
+      function openOverlay(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.remove("hidden");
+        lockScroll();
+        lucide.createIcons();
+      }
+      function closeOverlay(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.add("hidden");
+        unlockScroll();
+      }
+
+      // Mobile menu
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
+      const mobileMenuContent = document.getElementById("mobile-menu-content");
+
+      function openMenu() {
+        if (!mobileMenu) return;
+        mobileMenu.classList.remove("hidden");
+        lockScroll();
+        setTimeout(() => {
+          mobileMenuOverlay?.classList.remove("opacity-0");
+          mobileMenuContent?.classList.remove("translate-x-full");
+        }, 10);
+      }
+      function closeMenu() {
+        if (!mobileMenu) return;
+        mobileMenuOverlay?.classList.add("opacity-0");
+        mobileMenuContent?.classList.add("translate-x-full");
+        setTimeout(() => {
+          mobileMenu.classList.add("hidden");
+          unlockScroll();
+        }, 300);
+      }
+      mobileMenuButton?.addEventListener("click", openMenu);
+      document.getElementById("mobile-close-button")?.addEventListener("click", closeMenu);
+
+      // Esc closes layers
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape") return;
+
+        const explore = document.getElementById("exploreOverlay");
+        if (explore && !explore.classList.contains("hidden")) closeOverlay("exploreOverlay");
+
+        const partners = document.getElementById("partnersOverlay");
+        if (partners && !partners.classList.contains("hidden")) closeOverlay("partnersOverlay");
+
+        if (mobileMenu && !mobileMenu.classList.contains("hidden")) closeMenu();
+      });
+
+      // Explore editorial hover
+      const exploreImg = document.getElementById("exploreEditorialImg");
+      const exploreTitle = document.getElementById("exploreEditorialTitle");
+      const exploreKicker = document.getElementById("exploreEditorialKicker");
+      const exploreBtn = document.getElementById("exploreEditorialBtn");
+      const exploreBtnText = document.getElementById("exploreEditorialBtnText");
+
+      function setExploreCardFrom(el) {
+        if (!el) return;
+        if (exploreImg) exploreImg.src = el.dataset.image || "";
+        if (exploreTitle) exploreTitle.textContent = el.dataset.title || "";
+        if (exploreKicker) exploreKicker.textContent = el.dataset.kicker || "";
+        if (exploreBtn) exploreBtn.href = el.dataset.href || "#";
+        if (exploreBtnText) exploreBtnText.textContent = el.dataset.action || "Explore";
+        lucide.createIcons();
+      }
+
+      const exploreLinks = document.querySelectorAll(".explore-link");
+      if (exploreLinks.length) {
+        setExploreCardFrom(exploreLinks[0]);
+        exploreLinks.forEach((link) => {
+          link.addEventListener("mouseenter", () => setExploreCardFrom(link));
+          link.addEventListener("focus", () => setExploreCardFrom(link));
+        });
+      }
+
+      // TOC active section
+      const tocLinks = Array.from(document.querySelectorAll(".toc a"));
+      const sections = tocLinks
+        .map((a) => document.querySelector(a.getAttribute("href")))
+        .filter(Boolean);
+
+      const setActive = (id) => {
+        tocLinks.forEach((a) =>
+          a.classList.toggle("is-active", a.getAttribute("href") === `#${id}`)
+        );
+      };
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (visible?.target?.id) setActive(visible.target.id);
+        },
+        { rootMargin: "-35% 0px -55% 0px", threshold: [0.1, 0.2, 0.4, 0.6] }
+      );
+
+      sections.forEach((s) => io.observe(s));
+    </script>
+  </body>
+</html>
