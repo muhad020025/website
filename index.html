@@ -48,6 +48,130 @@
         -webkit-font-smoothing: antialiased;
         text-rendering: geometricPrecision;
       }
+/* =========================
+   HERO: 3 videos + clock + dots + small CTA
+   ========================= */
+/* =========================
+   HERO: dots + blended ring timer (no separate clock)
+   ========================= */
+
+.hero-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 34px;
+  transform: translateX(-50%);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.55);
+}
+
+/* wrapper so ring can sit around dot */
+.hero-dot-wrap {
+  position: relative;
+  width: 10px;
+  height: 10px;
+}
+
+.hero-dot {
+  position: relative;
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1),
+    background 250ms ease, border-color 250ms ease;
+}
+.hero-dot:hover {
+  transform: scale(1.15);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+.hero-dot.active {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(255, 255, 255, 0.92);
+  transform: scale(1.18);
+}
+
+/* ring sits behind dot, only visible on active */
+.hero-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 34px;
+  height: 34px;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.hero-dot.active + .hero-ring {
+  opacity: 1;
+}
+
+.hero-ring-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.18);
+  stroke-width: 2.2;
+}
+.hero-ring-fg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.92);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+
+/* restartable animation class */
+.hero-ring.is-animating .hero-ring-fg {
+  animation: heroProgress 5s linear forwards;
+}
+
+@keyframes heroProgress {
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-ring.is-animating .hero-ring-fg { animation: none !important; stroke-dashoffset: 0; }
+}
+
+/* HERO micro CTA (matches ring + dots vibe) */
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.28);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 44px rgba(0,0,0,.55);
+  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 350ms ease, background 350ms ease, opacity 250ms ease;
+  opacity: .92;
+}
+.hero-cta:hover{
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,.22);
+  background: rgba(255,255,255,.06);
+  opacity: 1;
+}
+/* Replace the slash divider with a subtle dot */
+.hero-cta-sep{
+  width: 4px; height: 4px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.22);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset;
+}
 
       /* Cinematic Grain + Vignette */
       .film-grain {
@@ -823,11 +947,11 @@
           >
 
           <button
-            onclick="openOverlay('partnersOverlay'); closeMenu();"
-            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
-          >
-            Partners
-          </button>
+  onclick="openOverlay('partnersOverlay'); closeMenu();"
+  class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
+>
+  Partners
+</button>
 
           <div class="h-px bg-white/10 my-4"></div>
 
@@ -849,48 +973,101 @@
       </div>
     </div>
 
-    <!-- HERO -->
-    <header class="relative h-screen w-full overflow-hidden bg-black flex items-end pb-24 group">
-      <div class="absolute inset-0 z-0">
-        <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-85">
-          <source src="Velocity Black.mp4" type="video/mp4" />
-        </video>
+   <!-- HERO (3 chapters / 3 videos) -->
+<header id="hero" class="relative h-screen w-full overflow-hidden bg-black flex items-end pb-24 group">
+  <div class="absolute inset-0 z-0">
+    <!-- Video 1 -->
+    <video
+      id="heroVideo0"
+      class="hero-video absolute inset-0 w-full h-full object-cover opacity-85"
+      autoplay
+      muted
+      playsinline
+      preload="auto"
+    >
+      <source src="Velocity Black.mp4" type="video/mp4" />
+    </video>
 
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
-        <div class="vignette"></div>
-        <div class="film-grain"></div>
-        <div class="section-divider"></div>
-      </div>
+    <!-- Video 2 -->
+    <video
+      id="heroVideo1"
+      class="hero-video absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none"
+      muted
+      playsinline
+      preload="auto"
+    >
+      <source src="https://cd.wheely.com/PAP_Video_C_2caee2bf28.mp4#t=0.001" type="video/mp4" />
+    </video>
 
-      <div class="relative z-10 container mx-auto px-6 md:px-12 w-full">
-        <div class="max-w-4xl reveal active" data-delay="0ms">
-          <p class="text-[11px] tracking-[.32em] uppercase text-white/70 mb-5">Time Redefined</p>
+    <!-- Video 3 -->
+    <video
+      id="heroVideo2"
+      class="hero-video absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none"
+      muted
+      playsinline
+      preload="auto"
+    >
+      <source src="https://cd.wheely.com/2025_Jun_Wheely_CFAD_Update_C_3082ff09b7.mp4#t=0.001" type="video/mp4" />
+    </video>
 
-          <h1
-            class="font-medium text-5xl md:text-7xl lg:text-8xl text-white tracking-tight leading-[1.05] mb-10 drop-shadow-lg"
-          >
-            CURATED<br />ACCESS.
-          </h1>
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
+    <div class="vignette"></div>
+    <div class="film-grain"></div>
+    <div class="section-divider"></div>
+  </div>
 
-          <p class="text-white/62 text-base md:text-lg leading-relaxed max-w-[58ch] mb-10">
-            Chauffeur, supercars, aviation, yachts, stays.
-          </p>
+  <div class="absolute inset-0 z-10 flex items-end justify-center pb-[9.5rem] text-center pointer-events-none">
+  <div class="max-w-3xl reveal active">
+    <h1
+      id="heroTitle"
+      class="font-medium text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.08] mb-5"
+    >
+      Curated Access
+    </h1>
 
-          <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-            <a href="app-download.html" class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white">
-              Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </a>
+    <p
+      id="heroSub"
+      class="text-white/60 text-base md:text-lg leading-relaxed max-w-[44ch] mx-auto"
+    >
+      Chauffeur, cars, aviation, yachts, stays — one platform.
+    </p>
+  </div>
+</div>
 
-            <a
-              href="#collection"
-              class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/90 hover:text-white transition-colors"
-            >
-              View Collection <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </header>
+  <!-- Center-bottom: clock + dots + SMALL CTA -->
+  <div class="absolute left-1/2 bottom-10 -translate-x-1/2 z-20 flex flex-col items-center gap-3">
+    <button id="heroIndicator" type="button" class="hero-indicator" aria-label="Hero progress / next">
+      <svg class="hero-ring" viewBox="0 0 44 44" aria-hidden="true">
+        <circle class="hero-ring-bg" cx="22" cy="22" r="18"></circle>
+        <circle class="hero-ring-fg" cx="22" cy="22" r="18"></circle>
+      </svg>
+    </button>
+
+    <div class="flex items-center gap-3">
+      <button class="hero-dot active" type="button" aria-label="Go to chapter 1" data-hero-dot="0"></button>
+      <button class="hero-dot" type="button" aria-label="Go to chapter 2" data-hero-dot="1"></button>
+      <button class="hero-dot" type="button" aria-label="Go to chapter 3" data-hero-dot="2"></button>
+    </div>
+
+<div class="mt-2 flex items-center gap-4">
+  <a
+    href="app-download.html"
+    class="hero-cta text-[10px] font-bold tracking-[.32em] uppercase text-white/90 hover:text-white"
+  >
+    Enter the Platform →
+  </a>
+
+  <span class="text-white/25 text-[10px] tracking-[.32em]">/</span>
+
+  <a
+    href="#collection"
+    class="hero-cta text-[10px] font-bold tracking-[.32em] uppercase text-white/75 hover:text-white"
+  >
+    See How It Works →
+  </a>
+</div>
+  </div>
+</header>
 
     <main>
       <!-- Progress Markers -->
@@ -1301,7 +1478,134 @@
 
     <script>
       lucide.createIcons();
+/* =========================
+   HERO: 3 videos, 5s each + copy swap (NO animation)
+   ========================= */
+(function heroChapters() {
+  const DURATION_MS = 5000;
 
+  const videos = [
+    document.getElementById("heroVideo0"),
+    document.getElementById("heroVideo1"),
+    document.getElementById("heroVideo2"),
+  ].filter(Boolean);
+
+  if (videos.length !== 3) return;
+
+  const titleEl = document.getElementById("heroTitle");
+  const subEl = document.getElementById("heroSub");
+  const ring = document.querySelector(".hero-ring-fg");
+  const dots = Array.from(document.querySelectorAll(".hero-dot"));
+  const indicator = document.getElementById("heroIndicator");
+
+  // ✅ YOUR WORDINGS (2 & 3 different)
+ const chapters = [
+  {
+    title: "ONE<br/>PLATFORM.",
+    sub: "Chauffeur, supercars, aviation, yachts and stays."
+  },
+  {
+    title: "MOVE<br/>QUIETLY.",
+    sub: "Professional chauffeurs. Precise timing. Absolute discretion."
+  },
+  {
+    title: "ONE<br/>STANDARD.",
+    sub: "Every booking. Every category. Every time."
+  }
+];
+
+  const RING_LEN = 113.1;
+
+  let idx = 0;
+  let timer = null;
+
+  function setActiveDot(i) {
+    dots.forEach((d, n) => d.classList.toggle("active", n === i));
+  }
+
+  function resetRing() {
+    if (!ring) return;
+    ring.style.transition = "none";            // kill any easing
+    ring.style.strokeDashoffset = String(RING_LEN); // empty
+    // force reflow so the next change applies instantly too
+    ring.getBoundingClientRect();
+  }
+
+  function fillRingInstant() {
+    if (!ring) return;
+    ring.style.transition = "none";
+    ring.style.strokeDashoffset = "0";
+    ring.getBoundingClientRect();
+  }
+
+  function showChapter(i) {
+    idx = (i + 3) % 3;
+
+    // hard cut videos (no fade)
+    videos.forEach((v, n) => {
+      const isActive = n === idx;
+
+      v.classList.toggle("opacity-85", isActive);
+      v.classList.toggle("opacity-0", !isActive);
+      v.classList.toggle("pointer-events-none", !isActive);
+
+      if (isActive) {
+        // restart the chapter cleanly
+        try { v.currentTime = 0; } catch (_) {}
+        const p = v.play();
+        if (p && typeof p.catch === "function") p.catch(() => {});
+      } else {
+        try { v.pause(); } catch (_) {}
+      }
+    });
+
+    // copy swap (instant)
+    if (titleEl) titleEl.innerHTML = chapters[idx].title;
+    if (subEl) subEl.textContent = chapters[idx].sub;
+
+    // reset ring (instant)
+    resetRing();
+
+    setActiveDot(idx);
+    lucide.createIcons();
+  }
+
+  function startTimer() {
+    stopTimer();
+    // (optional) show a "full ring" instantly right before switching? keep OFF.
+    timer = setInterval(() => showChapter(idx + 1), DURATION_MS);
+  }
+
+  function stopTimer() {
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+
+  // Dot controls
+  dots.forEach((d) => {
+    d.addEventListener("click", () => {
+      const to = Number(d.dataset.heroDot || 0);
+      showChapter(to);
+      startTimer(); // reset 5s cycle
+    });
+  });
+
+  // Click ring -> next
+  indicator?.addEventListener("click", () => {
+    showChapter(idx + 1);
+    startTimer();
+  });
+
+  // Pause when tab hidden
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stopTimer();
+    else startTimer();
+  });
+
+  // init
+  showChapter(0);
+  startTimer();
+})();
       // Navbar scrolled
       const nav = document.getElementById("mainNav");
       const setNavState = () => {
