@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Esqyre | Careers</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              black: "#000000",
+              subtle: "#0B0B0B",
+              white: "#FFFFFF",
+              gray: {
+                350: "#B1B1B1",
+                400: "#A3A3A3",
+                500: "#737373",
+                600: "#525252",
+                800: "#262626",
+                900: "#171717",
+              },
+            },
+            fontFamily: { sans: ['"Inter"', "sans-serif"] },
+            letterSpacing: { ultra: ".32em" },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        background: #000;
+        color: #fff;
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: geometricPrecision;
+      }
+
+      /* Grain + vignette */
+      .film-grain {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        opacity: 0.06;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+      }
+      .vignette {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: radial-gradient(
+          1200px 800px at 50% 40%,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.38) 55%,
+          rgba(0, 0, 0, 0.82) 100%
+        );
+      }
+
+      /* Hairline divider */
+      .section-divider {
+        position: absolute;
+        left: 50%;
+        top: 32px;
+        transform: translateX(-50%);
+        width: min(1100px, 92%);
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0)
+        );
+        z-index: 5;
+        opacity: 0.9;
+      }
+
+      /* Reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px) scale(0.985);
+        filter: blur(2px);
+        transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+          filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity, filter;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+      .reveal[data-delay] {
+        transition-delay: var(--d, 0ms);
+      }
+
+      /* Navbar */
+      nav.nav-scrolled {
+        background: rgba(0, 0, 0, 0.78);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .nav-link {
+        font-size: 11px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: white;
+        opacity: 0.85;
+        transition: opacity 0.3s ease;
+      }
+      .nav-link:hover {
+        opacity: 1;
+      }
+
+      /* Underline CTA */
+      .cta-link {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding-bottom: 3px;
+        opacity: 0.92;
+        transition: opacity 0.3s ease;
+      }
+      .cta-link:hover {
+        opacity: 1;
+      }
+      .cta-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.2));
+        transform: scaleX(0.22);
+        transform-origin: left;
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .cta-link:hover::after {
+        transform: scaleX(1);
+      }
+
+      /* Overlay core */
+      .overlay-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.35;
+      }
+      .overlay-item-dynamic {
+        display: block;
+        font-size: clamp(28px, 4vw, 44px);
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        padding: 14px 0;
+        color: rgba(255, 255, 255, 0.9);
+        opacity: 0.78;
+        transition: opacity 0.35s ease, transform 0.35s ease;
+      }
+      .overlay-item-dynamic:hover {
+        opacity: 1;
+        transform: translateX(6px);
+      }
+      .editorial {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 28px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .editorial-img {
+        width: 100%;
+        height: 520px;
+        object-fit: cover;
+        display: block;
+        opacity: 0.95;
+      }
+      @media (max-width: 1024px) {
+        .editorial-img {
+          height: 360px;
+        }
+      }
+      .editorial-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.18));
+      }
+      .editorial-kicker {
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .editorial-title {
+        font-size: 30px;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+      }
+      .cta-pill {
+        gap: 10px;
+        align-items: center;
+        padding: 12px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(0, 0, 0, 0.28);
+        backdrop-filter: blur(10px);
+        transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+      }
+      .cta-pill:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.24);
+        transform: translateX(2px);
+      }
+
+      /* Modal */
+      .app-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+      }
+      .app-modal.hidden {
+        display: none;
+      }
+      .app-modal-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(10px);
+      }
+      .app-modal-card {
+        position: relative;
+        width: calc(100% - 32px);
+        max-width: 480px;
+        margin: 0 auto;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 28px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(16px);
+      }
+      .app-modal-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.35);
+        color: #fff;
+        font-size: 14px;
+        cursor: pointer;
+        opacity: 0.75;
+        z-index: 20;
+      }
+      .app-modal-close:hover {
+        opacity: 1;
+      }
+
+      /* QR */
+      .title {
+        font-size: 28px;
+        font-weight: 500;
+        letter-spacing: -0.015em;
+        margin: 0 0 10px;
+      }
+      .subtitle {
+        font-size: 11px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+        margin: 0 0 22px;
+      }
+      .qr-wrap {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 22px;
+      }
+      .qr-box {
+        width: 168px;
+        height: 168px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(0, 0, 0, 0.35);
+        position: relative;
+        overflow: hidden;
+      }
+      .qr-image {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: 120px;
+        height: 120px;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+      }
+      .qr-image.active {
+        opacity: 1;
+      }
+      .qr-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+      }
+      .qr-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        border: none;
+        background: rgba(255, 255, 255, 0.28);
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.3s ease;
+      }
+      .qr-dot.active {
+        background: rgba(255, 255, 255, 0.92);
+        transform: scale(1.2);
+      }
+      .divider {
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+        margin: 0 0 16px;
+      }
+      .sms-row {
+        display: flex;
+        align-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+        padding: 6px 6px 6px 14px;
+        transition: border-color 0.2s ease;
+        background: rgba(0, 0, 0, 0.25);
+      }
+      .sms-row:focus-within {
+        border-color: rgba(255, 255, 255, 0.32);
+      }
+      .country {
+        border: none;
+        background: none;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.9);
+        margin-right: 8px;
+        outline: none;
+        appearance: none;
+        cursor: pointer;
+      }
+      .phone {
+        flex: 1;
+        border: none;
+        outline: none;
+        font-size: 15px;
+        padding: 8px 4px;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.92);
+      }
+      .phone::placeholder {
+        color: rgba(255, 255, 255, 0.35);
+      }
+      .send {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.92);
+        color: #000;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.25s ease, opacity 0.25s ease;
+      }
+      .send:hover {
+        transform: translateX(2px);
+        opacity: 0.92;
+      }
+      .inline-confirm {
+        margin: 14px 0 0;
+        font-size: 11px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .inline-confirm.hidden {
+        display: none;
+      }
+
+      /* How we work upgraded */
+      .howcard {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        padding: 28px;
+        transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+      }
+      .howcard:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.18);
+        transform: translateY(-2px);
+      }
+      .howcard-top {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .howcard-p {
+        color: rgba(255, 255, 255, 0.55);
+        margin-top: 12px;
+        line-height: 1.7;
+      }
+      .howmeta {
+        margin-top: 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+      }
+      .howmeta span {
+        padding: 6px 10px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.22);
+      }
+      .howpanel {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        background: radial-gradient(
+          900px 300px at 20% 0%,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.02)
+        );
+        padding: 26px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      @media (min-width: 768px) {
+        .howpanel {
+          grid-template-columns: 1.2fr 1fr;
+          gap: 26px;
+          padding: 30px;
+        }
+      }
+      .howbullet {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 10px 0;
+      }
+      .howdot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.85);
+        margin-top: 7px;
+        flex: 0 0 auto;
+      }
+      .howline {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 14px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .howtag {
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.48);
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.22);
+        white-space: nowrap;
+      }
+      .howtext {
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.7;
+      }
+
+      /* Filters (zero heavy UI) */
+      .filterbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin-top: 18px;
+      }
+      .filterpill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.03);
+        transition: border-color 0.25s ease, background 0.25s ease;
+      }
+      .filterpill:focus-within {
+        border-color: rgba(255, 255, 255, 0.26);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .filterlabel {
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+        white-space: nowrap;
+      }
+      .filterselect {
+        border: none;
+        outline: none;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 13px;
+        min-width: 140px;
+        appearance: none;
+        cursor: pointer;
+      }
+      .filterbtn {
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.25);
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 11px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        font-weight: 700;
+        transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+      }
+      .filterbtn:hover {
+        transform: translateX(2px);
+        border-color: rgba(255, 255, 255, 0.22);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .countline {
+        margin-top: 14px;
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+      }
+    </style>
+  </head>
+
+  <body class="antialiased overflow-x-hidden selection:bg-white selection:text-black">
+    <!-- Navbar -->
+    <nav
+      id="mainNav"
+      class="fixed top-0 left-0 right-0 z-50 h-24 flex items-center border-b border-white/0 transition-all duration-500"
+    >
+      <div class="absolute inset-0 bg-gradient-to-b from-black/80 to-transparent"></div>
+
+      <div class="relative z-10 container mx-auto px-7 md:px-14 flex justify-between items-center w-full">
+        <a href="index.html" class="w-32">
+          <img
+            src="https://superadmin.esqyre.com/assets/images/esqyre_logo.svg"
+            class="invert brightness-0"
+            alt="Esqyre"
+          />
+        </a>
+
+        <div class="hidden lg:flex items-center gap-12">
+          <button onclick="openOverlay('exploreOverlay')" class="nav-link">Explore</button>
+          <a href="corporate.html" class="nav-link">For Business</a>
+          <a href="partners.html" class="nav-link">Partners</a>
+        </div>
+
+        <div class="flex items-center gap-6">
+          <a href="login.html" class="hidden sm:block nav-link">Login</a>
+          <button id="mobile-menu-button" class="lg:hidden">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- EXPLORE OVERLAY -->
+    <div id="exploreOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
+      <div class="absolute inset-0">
+        <video autoplay muted loop playsinline class="overlay-video">
+          <source
+            src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="absolute inset-0 bg-black/75"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+      </div>
+
+      <div class="relative z-10 h-full container mx-auto px-6 md:px-12 flex flex-col">
+        <div class="flex justify-between items-center h-24">
+          <span class="text-xs tracking-[.32em] uppercase opacity-60">Explore</span>
+          <button onclick="closeOverlay('exploreOverlay')">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-12">
+          <div class="lg:col-span-6">
+            <a
+              href="chauffeurs.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Chauffeur"
+              data-kicker="First Class"
+              data-image="https://cd.wheely.com/2x_webp_Artwork_4_3_1_f658d25402.webp"
+              data-action="View Chauffeur"
+              data-href="chauffeurs.html"
+              >Chauffeur</a
+            >
+
+            <a
+              href="cars.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Supercars"
+              data-kicker="Fleet"
+              data-image="https://i.pinimg.com/736x/f6/30/6f/f6306fd83483c23e4cef2d55462444fe.jpg"
+              data-action="View Supercars"
+              data-href="cars.html"
+              >Supercars</a
+            >
+
+            <a
+              href="jets.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Private Aviation"
+              data-kicker="Access"
+              data-image="https://i.pinimg.com/1200x/04/6f/c6/046fc640ad4739d024639501b330dac0.jpg"
+              data-action="Request Charter"
+              data-href="jets.html"
+              >Private Aviation</a
+            >
+
+            <a
+              href="villas.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Villas & Hotels"
+              data-kicker="Stays"
+              data-image="https://i.pinimg.com/736x/ba/28/2e/ba282e6465d684da2cee26b17dc466f0.jpg"
+              data-action="Explore Stays"
+              data-href="villas.html"
+              >Stays</a
+            >
+
+            <a
+              href="yachts.html"
+              class="overlay-item-dynamic explore-link"
+              data-title="Yachts"
+              data-kicker="Marine"
+              data-image="https://i.pinimg.com/736x/33/7b/10/337b1006a9ca27aa1bf0d7212df6fa3c.jpg"
+              data-action="Explore Yachts"
+              data-href="yachts.html"
+              >Yachts</a
+            >
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="editorial">
+              <div class="relative">
+                <img id="exploreEditorialImg" class="editorial-img" alt="Explore Preview" />
+                <div class="editorial-overlay"></div>
+
+                <div class="absolute bottom-0 left-0 right-0 p-10">
+                  <p id="exploreEditorialKicker" class="editorial-kicker"></p>
+                  <h3 id="exploreEditorialTitle" class="editorial-title mt-3"></h3>
+
+                  <div class="mt-8">
+                    <a
+                      id="exploreEditorialBtn"
+                      href="#"
+                      class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex"
+                    >
+                      <span id="exploreEditorialBtnText">Explore</span>
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pb-10 text-xs tracking-[.32em] uppercase opacity-50">Time Redefined</div>
+      </div>
+    </div>
+
+    <!-- PARTNERS OVERLAY -->
+    <div id="partnersOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
+      <div class="absolute inset-0">
+        <video autoplay muted loop playsinline class="overlay-video">
+          <source
+            src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="absolute inset-0 bg-black/75"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+      </div>
+
+      <div class="relative z-10 h-full container mx-auto px-6 md:px-12 flex flex-col">
+        <div class="flex justify-between items-center h-24">
+          <span class="text-xs tracking-[.32em] uppercase opacity-60">Partners</span>
+          <button onclick="closeOverlay('partnersOverlay')">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-12">
+          <div class="lg:col-span-6">
+            <a
+              href="partner-overview.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Partner Overview"
+              data-kicker="Network"
+              data-image="https://i.pinimg.com/1200x/ec/11/92/ec1192e63f0ed3b136a426096c54f470.jpg"
+              data-action="View Overview"
+              data-href="partner-overview.html"
+              >Partner Overview</a
+            >
+
+            <a
+              href="partner-apply.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Apply to List"
+              data-kicker="Curated"
+              data-image="https://esqyre.com/assets/images/assets.png"
+              data-action="Apply Now"
+              data-href="partner-apply.html"
+              >Apply to List</a
+            >
+
+            <a
+              href="partner-login.html"
+              class="overlay-item-dynamic partner-link"
+              data-title="Vendor Portal"
+              data-kicker="Operations"
+              data-image="https://esqyre.com/assets/images/help.png"
+              data-action="Open Portal"
+              data-href="partner-login.html"
+              >Vendor Portal</a
+            >
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="editorial">
+              <div class="relative">
+                <img id="partnersEditorialImg" class="editorial-img" alt="Partners Preview" />
+                <div class="editorial-overlay"></div>
+
+                <div class="absolute bottom-0 left-0 right-0 p-10">
+                  <p id="partnersEditorialKicker" class="editorial-kicker"></p>
+                  <h3 id="partnersEditorialTitle" class="editorial-title mt-3"></h3>
+
+                  <div class="mt-8">
+                    <a
+                      id="partnersEditorialBtn"
+                      href="#"
+                      class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex"
+                    >
+                      <span id="partnersEditorialBtnText">Explore</span>
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pb-10 text-xs tracking-[.32em] uppercase opacity-50">Time Redefined</div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden fixed inset-0 z-[60] hidden">
+      <div
+        id="mobile-menu-overlay"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm opacity-0"
+        onclick="closeMenu()"
+      ></div>
+      <div
+        id="mobile-menu-content"
+        class="relative z-[70] bg-black border-l border-white/10 text-white w-4/5 max-w-sm ml-auto h-full p-8 transform translate-x-full transition-transform duration-300"
+      >
+        <div class="flex justify-between items-center mb-12">
+          <span class="text-lg font-bold tracking-[.32em]">MENU</span>
+          <button id="mobile-close-button" onclick="closeMenu()" class="p-2 -m-2">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex flex-col space-y-8">
+          <button
+            onclick="openOverlay('exploreOverlay'); closeMenu();"
+            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
+          >
+            Explore
+          </button>
+
+         <a href="corporate.html" class="text-xl font-medium hover:text-gray-350 transition-colors">
+  For Business
+</a>
+
+          <button
+            onclick="openOverlay('partnersOverlay'); closeMenu();"
+            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
+          >
+            Partners
+          </button>
+
+          <div class="h-px bg-white/10 my-4"></div>
+
+          <a
+            href="login.html"
+            class="text-sm uppercase tracking-[.32em] text-gray-500 hover:text-white transition-colors"
+            >Login</a
+          >
+
+          <div class="mt-auto pt-8">
+            <a
+              href="app-download.html"
+              class="block w-full text-center bg-white text-black py-4 text-xs font-bold tracking-[.32em] uppercase"
+            >
+              Get The App
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden fixed inset-0 z-[60] hidden">
+      <div
+        id="mobile-menu-overlay"
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm opacity-0"
+        onclick="closeMenu()"
+      ></div>
+      <div
+        id="mobile-menu-content"
+        class="relative z-[70] bg-black border-l border-white/10 text-white w-4/5 max-w-sm ml-auto h-full p-8 transform translate-x-full transition-transform duration-300"
+      >
+        <div class="flex justify-between items-center mb-12">
+          <span class="text-lg font-bold tracking-[.32em]">MENU</span>
+          <button id="mobile-close-button" onclick="closeMenu()" class="p-2 -m-2">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex flex-col space-y-8">
+          <button
+            onclick="openOverlay('exploreOverlay'); closeMenu();"
+            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
+          >
+            Explore
+          </button>
+
+          <a href="corporate.html" class="text-xl font-medium hover:text-gray-350 transition-colors">
+            For Business
+          </a>
+
+          <button
+            onclick="openOverlay('partnersOverlay'); closeMenu();"
+            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
+          >
+            Partners
+          </button>
+
+          <div class="h-px bg-white/10 my-4"></div>
+
+          <a
+            href="login.html"
+            class="text-sm uppercase tracking-[.32em] text-gray-500 hover:text-white transition-colors"
+            >Login</a
+          >
+
+          <div class="mt-auto pt-8">
+            <a
+              href="#"
+              data-app-modal
+              class="block w-full text-center bg-white text-black py-4 text-xs font-bold tracking-[.32em] uppercase"
+              onclick="closeMenu()"
+            >
+              Get The App
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- HERO -->
+<header class="relative h-screen w-full overflow-hidden bg-black flex items-end pb-24 group" data-panel="Hero">
+  <div class="absolute inset-0 z-0">
+    <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-85">
+      <source
+        src="https://brand.brex.com/m/41dadabb90420d3c/original/BREX_QW_HERO_45s_1920x1080_H264.mp4"
+        type="video/mp4"
+      />
+    </video>
+
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
+    <div class="vignette"></div>
+    <div class="film-grain"></div>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="relative z-10 container mx-auto px-6 md:px-12 w-full">
+    <div class="max-w-4xl reveal active">
+      <p class="text-[11px] tracking-[.32em] uppercase text-white/70 mb-5">
+        Careers
+      </p>
+
+      <h1
+        class="font-medium text-5xl md:text-7xl lg:text-8xl text-white tracking-tight leading-[1.05] mb-10 drop-shadow-lg"
+      >
+        BUILD<br />THE STANDARD.
+      </h1>
+
+      <div class="mt-10 flex items-center gap-6 flex-wrap">
+        <a
+          href="#open-roles"
+          class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/90 hover:text-white"
+        >
+          Open Roles <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+
+        <a
+          href="#"
+          data-app-modal
+          class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white"
+        >
+          Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+    <main>
+     <!-- How we Work (Ultra minimal, editorial) -->
+<section class="relative py-20 md:py-28 bg-black border-t border-white/10 overflow-hidden">
+  <div class="absolute inset-0">
+    <div class="vignette"></div>
+    <div class="film-grain"></div>
+  </div>
+
+  <div class="relative z-10 container mx-auto px-6 md:px-12">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-14 items-start">
+      <!-- Left copy -->
+      <div class="lg:col-span-5 reveal">
+        <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">How we work</p>
+
+        <h2 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">
+          Calm execution. High standards.
+        </h2>
+
+        <p class="text-white/55 mt-5 text-base md:text-lg leading-relaxed max-w-[58ch]">
+          We build quietly, ship fast, and protect the details customers feel.
+          No drama, no noise, just taste and velocity.
+        </p>
+
+        <div class="mt-10">
+          <a href="#open-roles" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
+            View open roles <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right principles (no cards, no blocks) -->
+      <div class="lg:col-span-7 reveal">
+        <div class="space-y-10">
+          <div class="flex items-start gap-5">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/40 w-16 shrink-0 mt-1">01</p>
+            <div class="flex-1">
+              <p class="text-lg font-medium tracking-tight">Own outcomes</p>
+              <p class="text-white/55 mt-2 leading-relaxed max-w-[70ch]">
+                We do not ship tasks. We ship results with clear accountability.
+              </p>
+              <div class="mt-6 h-px w-full bg-white/10"></div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-5">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/40 w-16 shrink-0 mt-1">02</p>
+            <div class="flex-1">
+              <p class="text-lg font-medium tracking-tight">Taste is a feature</p>
+              <p class="text-white/55 mt-2 leading-relaxed max-w-[70ch]">
+                The smallest detail changes trust. We care about the finish.
+              </p>
+              <div class="mt-6 h-px w-full bg-white/10"></div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-5">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/40 w-16 shrink-0 mt-1">03</p>
+            <div class="flex-1">
+              <p class="text-lg font-medium tracking-tight">Short feedback loops</p>
+              <p class="text-white/55 mt-2 leading-relaxed max-w-[70ch]">
+                We iterate fast with direct feedback. No politics, no ambiguity.
+              </p>
+              <div class="mt-6 h-px w-full bg-white/10"></div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-5">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/40 w-16 shrink-0 mt-1">04</p>
+            <div class="flex-1">
+              <p class="text-lg font-medium tracking-tight">Discretion by default</p>
+              <p class="text-white/55 mt-2 leading-relaxed max-w-[70ch]">
+                Privacy and professionalism are non negotiable.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p class="mt-10 text-[10px] tracking-[.32em] uppercase text-white/35">
+          Precision over noise.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+      <!-- Open roles -->
+      <section id="open-roles" class="relative py-20 md:py-24 bg-black border-t border-white/10">
+        <div class="absolute inset-0">
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 md:px-12">
+          <div class="max-w-3xl reveal">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">Open roles</p>
+            <h2 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">Join the build.</h2>
+            <p class="text-white/55 mt-5 text-base md:text-lg leading-relaxed max-w-[62ch]">
+              Apply with a short note and links that show your work.
+            </p>
+
+            <!-- Filters (Department, Location, Type) -->
+            <div class="filterbar">
+              <div class="filterpill">
+                <span class="filterlabel">Department</span>
+                <select id="filterDept" class="filterselect" aria-label="Filter by Department"></select>
+              </div>
+
+              <div class="filterpill">
+                <span class="filterlabel">Location</span>
+                <select id="filterLoc" class="filterselect" aria-label="Filter by Location"></select>
+              </div>
+
+              <div class="filterpill">
+                <span class="filterlabel">Type</span>
+                <select id="filterType" class="filterselect" aria-label="Filter by Type"></select>
+              </div>
+
+              <button id="resetFilters" class="filterbtn" type="button">Reset</button>
+            </div>
+
+            <div class="countline" id="roleCount">Showing 0 roles</div>
+          </div>
+
+          <!-- Roles rendered here -->
+          <div id="rolesGrid" class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6"></div>
+
+          <div class="mt-10 reveal">
+            <a href="mailto:careers@esqyre.com" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
+              Send a general application <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hiring process -->
+      <section class="relative py-20 md:py-24 bg-black border-t border-white/10">
+        <div class="absolute inset-0">
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 md:px-12">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div class="lg:col-span-5 reveal">
+              <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">Process</p>
+              <h2 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">Simple. Fast. Fair.</h2>
+              <p class="text-white/55 mt-5 text-base md:text-lg leading-relaxed max-w-[58ch]">
+                We respect time. You will always know the next step.
+              </p>
+            </div>
+
+            <div class="lg:col-span-7 grid grid-cols-1 gap-4">
+              <div class="reveal border border-white/10 rounded-2xl bg-white/[0.03] p-7">
+                <p class="text-[10px] tracking-[.32em] uppercase text-white/45">Step 01</p>
+                <h3 class="text-lg font-medium mt-3">Application</h3>
+                <p class="text-white/55 mt-2 leading-relaxed">A short note plus links. No long forms.</p>
+              </div>
+              <div class="reveal border border-white/10 rounded-2xl bg-white/[0.03] p-7">
+                <p class="text-[10px] tracking-[.32em] uppercase text-white/45">Step 02</p>
+                <h3 class="text-lg font-medium mt-3">Call</h3>
+                <p class="text-white/55 mt-2 leading-relaxed">Fit, clarity, and expectations.</p>
+              </div>
+              <div class="reveal border border-white/10 rounded-2xl bg-white/[0.03] p-7">
+                <p class="text-[10px] tracking-[.32em] uppercase text-white/45">Step 03</p>
+                <h3 class="text-lg font-medium mt-3">Work sample</h3>
+                <p class="text-white/55 mt-2 leading-relaxed">A small task. Real context. No free labor.</p>
+              </div>
+              <div class="reveal border border-white/10 rounded-2xl bg-white/[0.03] p-7">
+                <p class="text-[10px] tracking-[.32em] uppercase text-white/45">Step 04</p>
+                <h3 class="text-lg font-medium mt-3">Decision</h3>
+                <p class="text-white/55 mt-2 leading-relaxed">Clear yes or no. No dragging.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="relative py-24 md:py-28 bg-black overflow-hidden border-t border-white/10">
+        <div class="absolute inset-0">
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 md:px-12">
+          <div class="max-w-3xl mx-auto text-center reveal">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">Apply</p>
+
+            <h3 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">
+              If you care about standards, we should talk.
+            </h3>
+
+            <p class="text-white/52 mt-5 text-base md:text-lg leading-relaxed">
+              Email your portfolio, LinkedIn, and a short note.
+            </p>
+
+            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+              <a
+                href="mailto:careers@esqyre.com"
+                class="inline-flex items-center justify-center gap-3 rounded-full bg-white text-black px-8 py-3.5
+                       text-xs font-bold tracking-[.32em] uppercase hover:bg-white/90 transition-colors"
+              >
+                careers@esqyre.com <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+
+              <a
+                href="#"
+                data-app-modal
+                class="inline-flex items-center justify-center gap-3 rounded-full border border-white/18
+                       bg-black/30 px-8 py-3.5 text-xs font-bold tracking-[.32em] uppercase text-white
+                       hover:border-white/30 hover:bg-white/[0.06] transition-all"
+              >
+                Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-black border-t border-white/10 relative z-20">
+        <div class="container mx-auto px-6 md:px-12 pt-20 pb-12">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+              <img
+                src="https://superadmin.esqyre.com/assets/images/esqyre_logo.svg"
+                class="h-7 w-auto invert brightness-0 filter"
+                alt="Esqyre"
+              />
+
+              <p class="text-xs text-white/50 mt-6 leading-relaxed max-w-sm">A system for movement. Built on discretion.</p>
+
+              <div class="mt-10 flex items-center gap-4">
+                <a href="#" class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors">
+                  Instagram
+                </a>
+                <span class="text-white/20">/</span>
+                <a href="#" class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors">
+                  LinkedIn
+                </a>
+                <span class="text-white/20">/</span>
+                <a href="contact.html" class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors">
+                  Contact
+                </a>
+              </div>
+            </div>
+
+            <div class="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-10">
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Company</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="Ourstory.html" class="hover:text-white transition-colors">Our Story</a></li>
+                  <li><a href="safety.html" class="hover:text-white transition-colors">Safety</a></li>
+                  <li><a href="careers.html" class="hover:text-white transition-colors">Careers</a></li>
+                  <li><a href="newsroom.html" class="hover:text-white transition-colors">Newsroom</a></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Services</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="chauffeurs.html" class="hover:text-white transition-colors">Chauffeur</a></li>
+                  <li><a href="cars.html" class="hover:text-white transition-colors">Supercars</a></li>
+                  <li><a href="jets.html" class="hover:text-white transition-colors">Private Aviation</a></li>
+                  <li><a href="villas.html" class="hover:text-white transition-colors">Villas</a></li>
+                  <li><a href="yachts.html" class="hover:text-white transition-colors">Yachts</a></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Legal</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="termsofuse.html" class="hover:text-white transition-colors">Terms of Use</a></li>
+                  <li><a href="privacypolicy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                  <li><a href="cookies.html" class="hover:text-white transition-colors">Cookies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="mt-16 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center
+                  text-[11px] tracking-[.32em] uppercase text-white/40"
+          >
+            <p>TIME REDEFINED</p>
+            <p class="mt-4 md:mt-0">© 2025 ESQYRE TECHNOLOGIES INC.</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- APP DOWNLOAD MODAL -->
+    <div id="appModal" class="app-modal hidden" aria-hidden="true">
+      <div class="app-modal-backdrop" data-app-close></div>
+
+      <div class="app-modal-card" role="dialog" aria-modal="true" aria-label="Get the Esqyre App">
+        <div class="relative">
+          <div class="absolute inset-0">
+            <img
+              src="https://i.pinimg.com/1200x/ec/11/92/ec1192e63f0ed3b136a426096c54f470.jpg"
+              class="w-full h-full object-cover opacity-25"
+              alt=""
+            />
+            <div class="absolute inset-0 bg-black/70"></div>
+            <div class="vignette"></div>
+            <div class="film-grain"></div>
+          </div>
+
+          <button class="app-modal-close" data-app-close aria-label="Close">✕</button>
+
+          <div class="relative z-10 p-10 text-center">
+            <h1 class="title">Get the Esqyre App</h1>
+            <p class="subtitle">Scan the QR code to download the app</p>
+
+            <div class="qr-wrap" id="qrWrap">
+              <div class="qr-box" aria-label="QR code area">
+                <img src="corporate page/appstore.png" class="qr-image active" alt="Download on App Store" />
+                <img src="corporate page/playstore.png" class="qr-image" alt="Download on Play Store" />
+              </div>
+
+              <div class="qr-dots" aria-label="QR selector">
+                <button class="qr-dot active" type="button" aria-label="App Store QR"></button>
+                <button class="qr-dot" type="button" aria-label="Play Store QR"></button>
+              </div>
+            </div>
+
+            <div class="divider">Or get a download link via SMS</div>
+
+            <div class="sms-row">
+              <select class="country" aria-label="Country code">
+                <option value="+971">+971</option>
+                <option value="+91">+91</option>
+                <option value="+44">+44</option>
+                <option value="+1">+1</option>
+              </select>
+
+              <input type="tel" class="phone" placeholder="Phone number" />
+
+              <button class="send" aria-label="Send link">→</button>
+            </div>
+
+            <p class="inline-confirm hidden" id="smsConfirm">Link sent.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      lucide.createIcons();
+
+      /* Navbar scrolled */
+      const nav = document.getElementById("mainNav");
+      const setNavState = () => {
+        if (!nav) return;
+        if (window.scrollY > 20) nav.classList.add("nav-scrolled");
+        else nav.classList.remove("nav-scrolled");
+      };
+      window.addEventListener("scroll", setNavState, { passive: true });
+      setNavState();
+
+      /* Mobile menu */
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
+      const mobileMenuContent = document.getElementById("mobile-menu-content");
+      const mobileCloseButton = document.getElementById("mobile-close-button");
+
+      function openMenu() {
+        if (!mobileMenu) return;
+        mobileMenu.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => {
+          mobileMenuOverlay?.classList.remove("opacity-0");
+          mobileMenuContent?.classList.remove("translate-x-full");
+        }, 10);
+      }
+      function closeMenu() {
+        if (!mobileMenu) return;
+        mobileMenuOverlay?.classList.add("opacity-0");
+        mobileMenuContent?.classList.add("translate-x-full");
+        setTimeout(() => {
+          mobileMenu.classList.add("hidden");
+          document.body.style.overflow = "";
+        }, 300);
+      }
+      mobileMenuButton?.addEventListener("click", openMenu);
+      mobileCloseButton?.addEventListener("click", closeMenu);
+
+      /* Reveal (IO + stagger) */
+      const revealEls = Array.from(document.querySelectorAll(".reveal"));
+      revealEls.forEach((el, i) => {
+        const d = el.getAttribute("data-delay");
+        if (d) el.style.setProperty("--d", d);
+        else el.style.setProperty("--d", `${Math.min(i * 70, 420)}ms`);
+      });
+
+      if ("IntersectionObserver" in window) {
+        const ro = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("active");
+                ro.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.18, rootMargin: "0px 0px -12% 0px" }
+        );
+        revealEls.forEach((el) => ro.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add("active"));
+      }
+
+      /* Overlays open close */
+      function openOverlay(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => lucide.createIcons(), 0);
+        hydrateOverlayEditorial(id);
+      }
+      function closeOverlay(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape") return;
+        closeOverlay("exploreOverlay");
+        closeOverlay("partnersOverlay");
+        closeAppModal();
+      });
+
+      /* Overlay editorial behavior */
+      function hydrateOverlayEditorial(id) {
+        if (id === "exploreOverlay") {
+          const first = document.querySelector("#exploreOverlay .explore-link");
+          if (first) setEditorialFromLink(first, "explore");
+          document.querySelectorAll("#exploreOverlay .explore-link").forEach((a) => {
+            a.addEventListener("mouseenter", () => setEditorialFromLink(a, "explore"), { passive: true });
+            a.addEventListener("focus", () => setEditorialFromLink(a, "explore"));
+          });
+        }
+        if (id === "partnersOverlay") {
+          const first = document.querySelector("#partnersOverlay .partner-link");
+          if (first) setEditorialFromLink(first, "partners");
+          document.querySelectorAll("#partnersOverlay .partner-link").forEach((a) => {
+            a.addEventListener("mouseenter", () => setEditorialFromLink(a, "partners"), { passive: true });
+            a.addEventListener("focus", () => setEditorialFromLink(a, "partners"));
+          });
+        }
+      }
+
+      function setEditorialFromLink(linkEl, prefix) {
+        const img = document.getElementById(prefix + "EditorialImg");
+        const kicker = document.getElementById(prefix + "EditorialKicker");
+        const title = document.getElementById(prefix + "EditorialTitle");
+        const btn = document.getElementById(prefix + "EditorialBtn");
+        const btnText = document.getElementById(prefix + "EditorialBtnText");
+
+        if (!img || !kicker || !title || !btn || !btnText) return;
+
+        img.src = linkEl.dataset.image || "";
+        kicker.textContent = linkEl.dataset.kicker || "";
+        title.textContent = linkEl.dataset.title || "";
+        btnText.textContent = linkEl.dataset.action || "Explore";
+        btn.href = linkEl.dataset.href || linkEl.getAttribute("href") || "#";
+      }
+
+      /* App modal open close */
+      const appModal = document.getElementById("appModal");
+      const openers = Array.from(document.querySelectorAll("[data-app-modal]"));
+      const closers = Array.from(document.querySelectorAll("[data-app-close]"));
+
+      function openAppModal() {
+        if (!appModal) return;
+        appModal.classList.remove("hidden");
+        appModal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeAppModal() {
+        if (!appModal) return;
+        appModal.classList.add("hidden");
+        appModal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+
+      openers.forEach((el) => {
+        el.addEventListener("click", (e) => {
+          e.preventDefault();
+          openAppModal();
+        });
+      });
+      closers.forEach((el) => el.addEventListener("click", closeAppModal));
+
+      /* QR rotate */
+      const qrWrap = document.getElementById("qrWrap");
+      const qrImages = Array.from(document.querySelectorAll(".qr-image"));
+      const qrDots = Array.from(document.querySelectorAll(".qr-dot"));
+      let currentQR = 0;
+      let qrTimer = null;
+
+      function showQR(index) {
+        qrImages.forEach((img, i) => img.classList.toggle("active", i === index));
+        qrDots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+        currentQR = index;
+      }
+      function startQRRotation() {
+        stopQRRotation();
+        if (qrImages.length < 2) return;
+        qrTimer = setInterval(() => showQR((currentQR + 1) % qrImages.length), 2000);
+      }
+      function stopQRRotation() {
+        if (qrTimer) clearInterval(qrTimer);
+        qrTimer = null;
+      }
+      qrDots.forEach((dot, i) => {
+        dot.addEventListener("click", () => {
+          showQR(i);
+          startQRRotation();
+        });
+      });
+      const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      if (isDesktop && qrWrap) {
+        qrWrap.addEventListener("mouseenter", stopQRRotation);
+        qrWrap.addEventListener("mouseleave", startQRRotation);
+      }
+      showQR(0);
+      startQRRotation();
+
+      /* Inline SMS confirmation */
+      const sendBtn = document.querySelector(".send");
+      const smsConfirm = document.getElementById("smsConfirm");
+      sendBtn?.addEventListener("click", () => {
+        if (!smsConfirm) return;
+        smsConfirm.classList.remove("hidden");
+        setTimeout(() => smsConfirm.classList.add("hidden"), 2200);
+      });
+
+      /* Roles JSON */
+      const JOBS = [
+        {
+          id: "product-designer",
+          title: "Product Designer",
+          summary: "UI systems, luxury craft, and product clarity.",
+          department: "Product",
+          location: "Dubai",
+          type: "Full Time",
+          email: "careers@esqyre.com",
+        },
+        {
+          id: "frontend-engineer",
+          title: "Frontend Engineer",
+          summary: "Tailwind, performance, motion restraint, pixel precision.",
+          department: "Engineering",
+          location: "Remote",
+          type: "Contract",
+          email: "careers@esqyre.com",
+        },
+        {
+          id: "growth-manager",
+          title: "Growth Manager",
+          summary: "Paid, lifecycle, analytics, and quality lead pipelines.",
+          department: "Growth",
+          location: "Dubai",
+          type: "Full Time",
+          email: "careers@esqyre.com",
+        },
+        {
+          id: "operations-lead",
+          title: "Operations Lead",
+          summary: "Vendor quality, scheduling, and service perfection.",
+          department: "Operations",
+          location: "Dubai",
+          type: "Full Time",
+          email: "careers@esqyre.com",
+        },
+      ];
+
+      /* Filters */
+      const filterDept = document.getElementById("filterDept");
+      const filterLoc = document.getElementById("filterLoc");
+      const filterType = document.getElementById("filterType");
+      const resetBtn = document.getElementById("resetFilters");
+      const rolesGrid = document.getElementById("rolesGrid");
+      const roleCount = document.getElementById("roleCount");
+
+      function uniq(values) {
+        return Array.from(new Set(values)).sort((a, b) => a.localeCompare(b));
+      }
+
+      function setSelectOptions(selectEl, options, labelAll) {
+        if (!selectEl) return;
+        selectEl.innerHTML = "";
+        const all = document.createElement("option");
+        all.value = "All";
+        all.textContent = labelAll;
+        selectEl.appendChild(all);
+
+        options.forEach((opt) => {
+          const o = document.createElement("option");
+          o.value = opt;
+          o.textContent = opt;
+          selectEl.appendChild(o);
+        });
+      }
+
+      function getFilteredJobs() {
+        const d = filterDept?.value || "All";
+        const l = filterLoc?.value || "All";
+        const t = filterType?.value || "All";
+
+        return JOBS.filter((job) => {
+          const okD = d === "All" || job.department === d;
+          const okL = l === "All" || job.location === l;
+          const okT = t === "All" || job.type === t;
+          return okD && okL && okT;
+        });
+      }
+
+      function mailtoFor(job) {
+        const subject = encodeURIComponent(`Application - ${job.title}`);
+        return `mailto:${job.email}?subject=${subject}`;
+      }
+
+      function roleCard(job) {
+        return `
+          <a
+            href="${mailtoFor(job)}"
+            class="reveal block border border-white/10 rounded-2xl bg-white/[0.03] p-8 hover:bg-white/[0.06] transition"
+            data-role-card
+          >
+            <div class="flex items-start justify-between gap-6">
+              <div>
+                <h3 class="text-xl font-medium tracking-tight">${job.title}</h3>
+                <p class="text-white/55 mt-2 leading-relaxed">${job.summary}</p>
+
+                <div class="mt-5 flex flex-wrap gap-3 text-[10px] tracking-[.32em] uppercase text-white/55">
+                  <span class="px-3 py-1 rounded-full border border-white/10 bg-black/30">${job.location}</span>
+                  <span class="px-3 py-1 rounded-full border border-white/10 bg-black/30">${job.type}</span>
+                  <span class="px-3 py-1 rounded-full border border-white/10 bg-black/30">${job.department}</span>
+                </div>
+              </div>
+
+              <i data-lucide="arrow-right" class="w-5 h-5 mt-1 opacity-80"></i>
+            </div>
+          </a>
+        `;
+      }
+
+      function renderJobs(jobs) {
+        if (!rolesGrid) return;
+
+        rolesGrid.innerHTML = jobs.map(roleCard).join("");
+
+        const countText = jobs.length === 1 ? "Showing 1 role" : `Showing ${jobs.length} roles`;
+        if (roleCount) roleCount.textContent = countText;
+
+        Array.from(document.querySelectorAll("[data-role-card]")).forEach((el, i) => {
+          if (!el.classList.contains("reveal")) el.classList.add("reveal");
+          el.style.setProperty("--d", `${Math.min(i * 70, 420)}ms`);
+        });
+
+        if ("IntersectionObserver" in window) {
+          const cards = Array.from(rolesGrid.querySelectorAll(".reveal"));
+          const ro2 = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((e) => {
+                if (e.isIntersecting) {
+                  e.target.classList.add("active");
+                  ro2.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 0.18, rootMargin: "0px 0px -12% 0px" }
+          );
+          cards.forEach((c) => ro2.observe(c));
+        } else {
+          Array.from(rolesGrid.querySelectorAll(".reveal")).forEach((c) => c.classList.add("active"));
+        }
+
+        lucide.createIcons();
+      }
+
+      function hydrateFilters() {
+        const depts = uniq(JOBS.map((j) => j.department));
+        const locs = uniq(JOBS.map((j) => j.location));
+        const types = uniq(JOBS.map((j) => j.type));
+
+        setSelectOptions(filterDept, depts, "All");
+        setSelectOptions(filterLoc, locs, "All");
+        setSelectOptions(filterType, types, "All");
+      }
+
+      function applyFilters() {
+        renderJobs(getFilteredJobs());
+      }
+
+      filterDept?.addEventListener("change", applyFilters);
+      filterLoc?.addEventListener("change", applyFilters);
+      filterType?.addEventListener("change", applyFilters);
+
+      resetBtn?.addEventListener("click", () => {
+        if (filterDept) filterDept.value = "All";
+        if (filterLoc) filterLoc.value = "All";
+        if (filterType) filterType.value = "All";
+        applyFilters();
+      });
+
+      /* Init */
+      hydrateFilters();
+      applyFilters();
+    </script>
+  </body>
+</html>
