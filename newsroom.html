@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Esqyre | Newsroom</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              black: "#000000",
+              subtle: "#0B0B0B",
+              white: "#FFFFFF",
+              gray: {
+                350: "#B1B1B1",
+                400: "#A3A3A3",
+                500: "#737373",
+                600: "#525252",
+                800: "#262626",
+                900: "#171717",
+              },
+            },
+            fontFamily: { sans: ['"Inter"', "sans-serif"] },
+            letterSpacing: { ultra: ".32em" },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        background: #000;
+        color: #fff;
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: geometricPrecision;
+      }
+
+      /* Grain + vignette */
+      .film-grain {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        opacity: 0.06;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+      }
+      .vignette {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: radial-gradient(
+          1200px 800px at 50% 40%,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.38) 55%,
+          rgba(0, 0, 0, 0.82) 100%
+        );
+      }
+
+      /* Hairline divider */
+      .section-divider {
+        position: absolute;
+        left: 50%;
+        top: 32px;
+        transform: translateX(-50%);
+        width: min(1100px, 92%);
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0)
+        );
+        z-index: 5;
+        opacity: 0.9;
+      }
+
+      /* Reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px) scale(0.985);
+        filter: blur(2px);
+        transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+          filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity, filter;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+      .reveal[data-delay] {
+        transition-delay: var(--d, 0ms);
+      }
+
+      /* Navbar */
+      nav.nav-scrolled {
+        background: rgba(0, 0, 0, 0.78);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .nav-link {
+        font-size: 11px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: white;
+        opacity: 0.85;
+        transition: opacity 0.3s ease;
+      }
+      .nav-link:hover {
+        opacity: 1;
+      }
+
+      /* Underline CTA */
+      .cta-link {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding-bottom: 3px;
+        opacity: 0.92;
+        transition: opacity 0.3s ease;
+      }
+      .cta-link:hover {
+        opacity: 1;
+      }
+      .cta-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 1),
+          rgba(255, 255, 255, 0.2)
+        );
+        transform: scaleX(0.22);
+        transform-origin: left;
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .cta-link:hover::after {
+        transform: scaleX(1);
+      }
+
+      /* Primary pill CTA */
+      .cta-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          background 0.5s ease, border-color 0.5s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-pill:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.28);
+      }
+      .cta-pill::before {
+        content: "";
+        position: absolute;
+        inset: -40% -60%;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.16) 45%,
+          rgba(255, 255, 255, 0) 70%
+        );
+        transform: translateX(-60%) rotate(12deg);
+        transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: none;
+      }
+      .cta-pill:hover::before {
+        transform: translateX(60%) rotate(12deg);
+      }
+
+      /* Overlay video */
+      .overlay-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.32;
+      }
+
+      /* Overlay list */
+      .overlay-item-dynamic {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0;
+        font-size: clamp(1.8rem, 3.3vw, 3.5rem);
+        font-weight: 500;
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        opacity: 0.7;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        transition: opacity 0.35s ease, transform 0.35s ease;
+      }
+      .overlay-item-dynamic:last-child {
+        border-bottom: none;
+      }
+      .overlay-item-dynamic:hover {
+        opacity: 1;
+        transform: translateX(6px);
+      }
+
+      /* Editorial card */
+      .editorial {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(16px);
+        border-radius: 26px;
+        overflow: hidden;
+        transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+          border-color 0.6s ease, background 0.6s ease;
+      }
+      .editorial:hover {
+        transform: translateY(-4px);
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+      .editorial-img {
+        width: 100%;
+        height: 520px;
+        object-fit: cover;
+        opacity: 0.8;
+        transform: scale(1.02);
+        transition: opacity 0.5s ease,
+          transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .editorial:hover .editorial-img {
+        opacity: 0.92;
+        transform: scale(1.05);
+      }
+      .editorial-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.06) 0%,
+          rgba(0, 0, 0, 0.22) 40%,
+          rgba(0, 0, 0, 0.82) 100%
+        );
+      }
+      .editorial-kicker {
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .editorial-title {
+        font-size: 28px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+      }
+
+      /* Modal */
+      .app-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+      }
+      .app-modal.hidden {
+        display: none;
+      }
+      .app-modal-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(10px);
+      }
+      .app-modal-card {
+        position: relative;
+        width: calc(100% - 32px);
+        max-width: 480px;
+        margin: 0 auto;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 28px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(16px);
+      }
+      .app-modal-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(0, 0, 0, 0.35);
+        color: #fff;
+        font-size: 14px;
+        cursor: pointer;
+        opacity: 0.75;
+        z-index: 20;
+      }
+      .app-modal-close:hover {
+        opacity: 1;
+      }
+
+      /* QR */
+      .title {
+        font-size: 28px;
+        font-weight: 500;
+        letter-spacing: -0.015em;
+        margin: 0 0 10px;
+      }
+      .subtitle {
+        font-size: 11px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+        margin: 0 0 22px;
+      }
+      .qr-wrap {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 22px;
+      }
+      .qr-box {
+        width: 168px;
+        height: 168px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(0, 0, 0, 0.35);
+        position: relative;
+        overflow: hidden;
+      }
+      .qr-image {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: 120px;
+        height: 120px;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+      }
+      .qr-image.active {
+        opacity: 1;
+      }
+      .qr-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+      }
+      .qr-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        border: none;
+        background: rgba(255, 255, 255, 0.28);
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.3s ease;
+      }
+      .qr-dot.active {
+        background: rgba(255, 255, 255, 0.92);
+        transform: scale(1.2);
+      }
+      .divider {
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+        margin: 0 0 16px;
+      }
+      .sms-row {
+        display: flex;
+        align-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+        padding: 6px 6px 6px 14px;
+        transition: border-color 0.2s ease;
+        background: rgba(0, 0, 0, 0.25);
+      }
+      .sms-row:focus-within {
+        border-color: rgba(255, 255, 255, 0.32);
+      }
+      .country {
+        border: none;
+        background: none;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.9);
+        margin-right: 8px;
+        outline: none;
+        appearance: none;
+        cursor: pointer;
+      }
+      .phone {
+        flex: 1;
+        border: none;
+        outline: none;
+        font-size: 15px;
+        padding: 8px 4px;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.92);
+      }
+      .phone::placeholder {
+        color: rgba(255, 255, 255, 0.35);
+      }
+      .send {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.92);
+        color: #000;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.25s ease, opacity 0.25s ease;
+      }
+      .send:hover {
+        transform: translateX(2px);
+        opacity: 0.92;
+      }
+      .inline-confirm {
+        margin: 14px 0 0;
+        font-size: 11px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .inline-confirm.hidden {
+        display: none;
+      }
+      
+      /* Newsroom Specific Additions */
+      .news-filter[aria-pressed="true"] {
+        color: #fff;
+        background: rgba(255,255,255,0.1);
+        border-color: rgba(255,255,255,0.3);
+      }
+    </style>
+  </head>
+
+  <body class="antialiased overflow-x-hidden selection:bg-white selection:text-black">
+    <nav
+      id="mainNav"
+      class="fixed top-0 left-0 right-0 z-50 h-24 flex items-center border-b border-white/0 transition-all duration-500"
+    >
+      <div class="absolute inset-0 bg-gradient-to-b from-black/80 to-transparent"></div>
+
+      <div class="relative z-10 container mx-auto px-7 md:px-14 flex justify-between items-center w-full">
+        <a href="index.html" class="w-32">
+          <img
+            src="https://superadmin.esqyre.com/assets/images/esqyre_logo.svg"
+            class="invert brightness-0"
+            alt="Esqyre"
+          />
+        </a>
+
+        <div class="hidden lg:flex items-center gap-12">
+          <button onclick="openOverlay('exploreOverlay')" class="nav-link">Explore</button>
+          <a href="corporate.html" class="nav-link">For Business</a>
+          <button onclick="openOverlay('partnersOverlay')" class="nav-link">Partners</button>
+        </div>
+
+        <div class="flex items-center gap-6">
+          <a href="login.html" class="hidden sm:block nav-link">Login</a>
+          <button id="mobile-menu-button" class="lg:hidden">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div id="exploreOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
+      <div class="absolute inset-0">
+        <video autoplay muted loop playsinline class="overlay-video">
+          <source
+            src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="absolute inset-0 bg-black/75"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+      </div>
+
+      <div class="relative z-10 h-full container mx-auto px-6 md:px-12 flex flex-col">
+        <div class="flex justify-between items-center h-24">
+          <span class="text-xs tracking-[.32em] uppercase opacity-60">Explore</span>
+          <button onclick="closeOverlay('exploreOverlay')">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-12">
+          <div class="lg:col-span-6">
+            <a href="chauffeurs.html" class="overlay-item-dynamic explore-link" data-title="Chauffeur" data-kicker="First Class" data-image="https://cd.wheely.com/2x_webp_Artwork_4_3_1_f658d25402.webp" data-action="View Chauffeur" data-href="chauffeurs.html">Chauffeur</a>
+            <a href="cars.html" class="overlay-item-dynamic explore-link" data-title="Supercars" data-kicker="Fleet" data-image="https://i.pinimg.com/736x/f6/30/6f/f6306fd83483c23e4cef2d55462444fe.jpg" data-action="View Supercars" data-href="cars.html">Supercars</a>
+            <a href="jets.html" class="overlay-item-dynamic explore-link" data-title="Private Aviation" data-kicker="Access" data-image="https://i.pinimg.com/1200x/04/6f/c6/046fc640ad4739d024639501b330dac0.jpg" data-action="Request Charter" data-href="jets.html">Private Aviation</a>
+            <a href="villas.html" class="overlay-item-dynamic explore-link" data-title="Villas & Hotels" data-kicker="Stays" data-image="https://i.pinimg.com/736x/ba/28/2e/ba282e6465d684da2cee26b17dc466f0.jpg" data-action="Explore Stays" data-href="villas.html">Stays</a>
+            <a href="yachts.html" class="overlay-item-dynamic explore-link" data-title="Yachts" data-kicker="Marine" data-image="https://i.pinimg.com/736x/33/7b/10/337b1006a9ca27aa1bf0d7212df6fa3c.jpg" data-action="Explore Yachts" data-href="yachts.html">Yachts</a>
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="editorial">
+              <div class="relative">
+                <img id="exploreEditorialImg" class="editorial-img" alt="Explore Preview" />
+                <div class="editorial-overlay"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-10">
+                  <p id="exploreEditorialKicker" class="editorial-kicker"></p>
+                  <h3 id="exploreEditorialTitle" class="editorial-title mt-3"></h3>
+                  <div class="mt-8">
+                    <a id="exploreEditorialBtn" href="#" class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex">
+                      <span id="exploreEditorialBtnText">Explore</span>
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pb-10 text-xs tracking-[.32em] uppercase opacity-50">Time Redefined</div>
+      </div>
+    </div>
+
+    <div id="partnersOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
+      <div class="absolute inset-0">
+        <video autoplay muted loop playsinline class="overlay-video">
+          <source
+            src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div class="absolute inset-0 bg-black/75"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+      </div>
+
+      <div class="relative z-10 h-full container mx-auto px-6 md:px-12 flex flex-col">
+        <div class="flex justify-between items-center h-24">
+          <span class="text-xs tracking-[.32em] uppercase opacity-60">Partners</span>
+          <button onclick="closeOverlay('partnersOverlay')">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-12">
+          <div class="lg:col-span-6">
+            <a href="partner-overview.html" class="overlay-item-dynamic partner-link" data-title="Partner Overview" data-kicker="Network" data-image="https://i.pinimg.com/1200x/ec/11/92/ec1192e63f0ed3b136a426096c54f470.jpg" data-action="View Overview" data-href="partner-overview.html">Partner Overview</a>
+            <a href="partner-apply.html" class="overlay-item-dynamic partner-link" data-title="Apply to List" data-kicker="Curated" data-image="https://esqyre.com/assets/images/assets.png" data-action="Apply Now" data-href="partner-apply.html">Apply to List</a>
+            <a href="partner-login.html" class="overlay-item-dynamic partner-link" data-title="Vendor Portal" data-kicker="Operations" data-image="https://esqyre.com/assets/images/help.png" data-action="Open Portal" data-href="partner-login.html">Vendor Portal</a>
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="editorial">
+              <div class="relative">
+                <img id="partnersEditorialImg" class="editorial-img" alt="Partners Preview" />
+                <div class="editorial-overlay"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-10">
+                  <p id="partnersEditorialKicker" class="editorial-kicker"></p>
+                  <h3 id="partnersEditorialTitle" class="editorial-title mt-3"></h3>
+                  <div class="mt-8">
+                    <a id="partnersEditorialBtn" href="#" class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex">
+                      <span id="partnersEditorialBtnText">Explore</span>
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pb-10 text-xs tracking-[.32em] uppercase opacity-50">Time Redefined</div>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="lg:hidden fixed inset-0 z-[60] hidden">
+      <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm opacity-0" onclick="closeMenu()"></div>
+      <div id="mobile-menu-content" class="relative z-[70] bg-black border-l border-white/10 text-white w-4/5 max-w-sm ml-auto h-full p-8 transform translate-x-full transition-transform duration-300">
+        <div class="flex justify-between items-center mb-12">
+          <span class="text-lg font-bold tracking-[.32em]">MENU</span>
+          <button id="mobile-close-button" onclick="closeMenu()" class="p-2 -m-2">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+        <div class="flex flex-col space-y-8">
+          <button onclick="openOverlay('exploreOverlay'); closeMenu();" class="text-xl font-medium hover:text-gray-350 transition-colors text-left">Explore</button>
+          <a href="corporate.html" class="text-xl font-medium hover:text-gray-350 transition-colors">For Business</a>
+          <button onclick="openOverlay('partnersOverlay'); closeMenu();" class="text-xl font-medium hover:text-gray-350 transition-colors text-left">Partners</button>
+          <div class="h-px bg-white/10 my-4"></div>
+          <a href="login.html" class="text-sm uppercase tracking-[.32em] text-gray-500 hover:text-white transition-colors">Login</a>
+          <div class="mt-auto pt-8">
+            <a href="#" data-app-modal class="block w-full text-center bg-white text-black py-4 text-xs font-bold tracking-[.32em] uppercase">Get The App</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <header class="relative h-screen w-full overflow-hidden bg-black flex items-end pb-24 group" data-panel="Hero">
+      <div class="absolute inset-0 z-0">
+        <img src="https://i.pinimg.com/1200x/a6/62/82/a662824d46f77385ea10b5c34ac48c17.jpg" alt="Hero Background" class="w-full h-full object-cover opacity-85">
+        
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="relative z-10 container mx-auto px-6 md:px-12 w-full">
+        <div class="max-w-4xl reveal active">
+          <p class="text-[11px] tracking-[.32em] uppercase text-white/70 mb-5">Newsroom</p>
+
+          <h1 class="font-medium text-5xl md:text-7xl lg:text-8xl text-white tracking-tight leading-[1.05] mb-10 drop-shadow-lg">
+            SIGNAL.<br />CLARITY.
+          </h1>
+
+          <div class="mt-10 flex items-center gap-6 flex-wrap">
+            <a href="#latest" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/90 hover:text-white">
+              Latest <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="#press" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/90 hover:text-white">
+              Press <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="#" data-app-modal class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white">
+              Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="latest" class="relative pt-24 pb-12 bg-black border-t border-white/10">
+        <div class="absolute inset-0">
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 md:px-12">
+          
+          <div class="max-w-2xl reveal mb-16">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">Latest</p>
+            <h2 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">
+              Updates, without noise.
+            </h2>
+            <p class="text-white/55 mt-5 text-base md:text-lg leading-relaxed">
+              Product releases, operational milestones, and press highlights. Short, factual, and dated.
+            </p>
+          </div>
+
+          <div class="reveal border-y border-white/10 py-4 mb-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div class="flex flex-wrap items-center gap-2">
+                <button type="button" class="news-filter px-4 py-2 rounded-full border border-transparent hover:border-white/10 text-[10px] tracking-[.32em] uppercase text-white/50 hover:text-white transition" data-filter="all" aria-pressed="true">All</button>
+                <button type="button" class="news-filter px-4 py-2 rounded-full border border-transparent hover:border-white/10 text-[10px] tracking-[.32em] uppercase text-white/50 hover:text-white transition" data-filter="press" aria-pressed="false">Press</button>
+                <button type="button" class="news-filter px-4 py-2 rounded-full border border-transparent hover:border-white/10 text-[10px] tracking-[.32em] uppercase text-white/50 hover:text-white transition" data-filter="product" aria-pressed="false">Product</button>
+                <button type="button" class="news-filter px-4 py-2 rounded-full border border-transparent hover:border-white/10 text-[10px] tracking-[.32em] uppercase text-white/50 hover:text-white transition" data-filter="company" aria-pressed="false">Company</button>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <div class="relative">
+                  <select id="newsLocation" class="appearance-none bg-transparent border-none text-[10px] tracking-[.32em] uppercase text-white/70 outline-none pr-6 cursor-pointer" aria-label="Location filter">
+                    <option value="all" class="bg-black text-white">Location</option>
+                    <option value="dubai" class="bg-black text-white">Dubai</option>
+                    <option value="uae" class="bg-black text-white">UAE</option>
+                    <option value="global" class="bg-black text-white">Global</option>
+                  </select>
+                  <i data-lucide="chevron-down" class="w-3 h-3 absolute right-0 top-1/2 -translate-y-1/2 text-white/50 pointer-events-none"></i>
+                </div>
+                <span class="text-white/20">|</span>
+                <div class="relative">
+                  <select id="newsType" class="appearance-none bg-transparent border-none text-[10px] tracking-[.32em] uppercase text-white/70 outline-none pr-6 cursor-pointer" aria-label="Type filter">
+                    <option value="all" class="bg-black text-white">Type</option>
+                    <option value="announcement" class="bg-black text-white">Announcement</option>
+                    <option value="press-release" class="bg-black text-white">Press release</option>
+                    <option value="coverage" class="bg-black text-white">Coverage</option>
+                  </select>
+                  <i data-lucide="chevron-down" class="w-3 h-3 absolute right-0 top-1/2 -translate-y-1/2 text-white/50 pointer-events-none"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="newsGrid" class="flex flex-col">
+            </div>
+
+          <div class="mt-16 reveal border-t border-white/10 pt-8 flex justify-between items-center">
+             <span class="text-[10px] tracking-[.32em] uppercase text-white/30">End of Feed</span>
+             <a href="mailto:press@esqyre.com" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
+                Press inquiries <i data-lucide="arrow-right" class="w-4 h-4"></i>
+             </a>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="press" class="relative py-24 bg-black border-t border-white/10">
+        <div class="absolute inset-0">
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 md:px-12">
+          
+          <div class="max-w-2xl reveal mb-16">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">Press</p>
+            <h2 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">
+              Facts. Quotes. Assets.
+            </h2>
+            <p class="text-white/55 mt-5 text-base md:text-lg leading-relaxed">
+              If you are covering Esqyre, we can share brand assets and verified statements.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10 border border-white/10 rounded-2xl overflow-hidden reveal">
+            
+            <div class="bg-[#080808] p-10 flex flex-col justify-between group">
+              <div>
+                <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mb-8 text-white/80">
+                  <i data-lucide="folder-down" class="w-4 h-4"></i>
+                </div>
+                <p class="text-[10px] font-bold tracking-[.32em] uppercase text-white/90 mb-4">Media kit</p>
+                <p class="text-white/50 text-sm leading-relaxed mb-8">
+                  Logo pack, brand colors, product screenshots, and a short company blurb.
+                </p>
+              </div>
+              <a href="#" data-app-modal class="inline-flex items-center gap-3 text-[10px] font-bold tracking-[.32em] uppercase text-white group-hover:text-gray-300 transition">
+                Download <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              </a>
+            </div>
+
+            <div class="bg-[#080808] p-10 flex flex-col justify-between group">
+              <div>
+                <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mb-8 text-white/80">
+                  <i data-lucide="mail" class="w-4 h-4"></i>
+                </div>
+                <p class="text-[10px] font-bold tracking-[.32em] uppercase text-white/90 mb-4">Desk</p>
+                <p class="text-white/50 text-sm leading-relaxed mb-8">
+                  For official statements, interviews, or urgent corrections.
+                </p>
+              </div>
+              <a href="mailto:press@esqyre.com" class="inline-flex items-center gap-3 text-[10px] font-bold tracking-[.32em] uppercase text-white group-hover:text-gray-300 transition">
+                press@esqyre.com <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+              </a>
+            </div>
+
+            <div class="bg-[#080808] p-10 flex flex-col justify-between group">
+              <div>
+                <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mb-8 text-white/80">
+                  <i data-lucide="file-text" class="w-4 h-4"></i>
+                </div>
+                <p class="text-[10px] font-bold tracking-[.32em] uppercase text-white/90 mb-4">Guideline</p>
+                <p class="text-white/50 text-sm leading-relaxed mb-8">
+                  Use verified copy. Do not publish private customer information.
+                </p>
+              </div>
+              <p class="text-[10px] tracking-[.32em] uppercase text-white/30">
+                Strict Adherence
+              </p>
+            </div>
+
+          </div>
+
+          <div class="mt-8 reveal text-white/30 text-xs tracking-wide">
+            * For urgent corrections, email with “Correction Request” in the subject line.
+          </div>
+
+        </div>
+      </section>
+
+      <section class="relative py-24 md:py-32 bg-black overflow-hidden border-t border-white/10">
+        <div class="absolute inset-0">
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 md:px-12">
+          <div class="max-w-3xl mx-auto text-center reveal">
+            <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">Contact</p>
+
+            <h3 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">
+              Need something verified.
+            </h3>
+
+            <p class="text-white/52 mt-5 text-base md:text-lg leading-relaxed">
+              Press. Partnerships. Corporate. One inbox per lane.
+            </p>
+
+            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+              <a href="mailto:press@esqyre.com" class="inline-flex items-center justify-center gap-3 rounded-full bg-white text-black px-8 py-3.5 text-xs font-bold tracking-[.32em] uppercase hover:bg-white/90 transition-colors">
+                Press <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+              <a href="mailto:partners@esqyre.com" class="inline-flex items-center justify-center gap-3 rounded-full border border-white/18 bg-black/30 px-8 py-3.5 text-xs font-bold tracking-[.32em] uppercase text-white hover:border-white/30 hover:bg-white/[0.06] transition-all">
+                Partners <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+              <a href="mailto:business@esqyre.com" class="inline-flex items-center justify-center gap-3 rounded-full border border-white/18 bg-black/30 px-8 py-3.5 text-xs font-bold tracking-[.32em] uppercase text-white hover:border-white/30 hover:bg-white/[0.06] transition-all">
+                Business <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="bg-black border-t border-white/10 relative z-20">
+        <div class="container mx-auto px-6 md:px-12 pt-20 pb-12">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+              <img src="https://superadmin.esqyre.com/assets/images/esqyre_logo.svg" class="h-7 w-auto invert brightness-0 filter" alt="Esqyre"/>
+              <p class="text-xs text-white/50 mt-6 leading-relaxed max-w-sm">
+                A system for movement. Built on discretion.
+              </p>
+              <div class="mt-10 flex items-center gap-4">
+                <a href="#" class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors">Instagram</a>
+                <span class="text-white/20">/</span>
+                <a href="#" class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors">LinkedIn</a>
+                <span class="text-white/20">/</span>
+                <a href="contact.html" class="text-[11px] tracking-[.32em] uppercase text-white/55 hover:text-white transition-colors">Contact</a>
+              </div>
+            </div>
+            <div class="md:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-10">
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Company</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="Ourstory.html" class="hover:text-white transition-colors">Our Story</a></li>
+                  <li><a href="safety.html" class="hover:text-white transition-colors">Safety</a></li>
+                  <li><a href="careers.html" class="hover:text-white transition-colors">Careers</a></li>
+                  <li><a href="newsroom.html" class="hover:text-white transition-colors">Newsroom</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Services</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="chauffeurs.html" class="hover:text-white transition-colors">Chauffeur</a></li>
+                  <li><a href="cars.html" class="hover:text-white transition-colors">Supercars</a></li>
+                  <li><a href="jets.html" class="hover:text-white transition-colors">Private Aviation</a></li>
+                  <li><a href="villas.html" class="hover:text-white transition-colors">Villas</a></li>
+                  <li><a href="yachts.html" class="hover:text-white transition-colors">Yachts</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-[10px] font-bold tracking-[.32em] text-white/45 uppercase mb-6">Legal</h4>
+                <ul class="space-y-4 text-sm text-white/55">
+                  <li><a href="termsofuse.html" class="hover:text-white transition-colors">Terms of Use</a></li>
+                  <li><a href="privacypolicy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                  <li><a href="cookies.html" class="hover:text-white transition-colors">Cookies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="mt-16 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-[11px] tracking-[.32em] uppercase text-white/40">
+            <p>TIME REDEFINED</p>
+            <p class="mt-4 md:mt-0">© 2025 ESQYRE TECHNOLOGIES INC.</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <div id="appModal" class="app-modal hidden" aria-hidden="true">
+      <div class="app-modal-backdrop" data-app-close></div>
+      <div class="app-modal-card" role="dialog" aria-modal="true" aria-label="Get the Esqyre App">
+        <div class="relative">
+          <div class="absolute inset-0">
+            <img src="https://i.pinimg.com/1200x/ec/11/92/ec1192e63f0ed3b136a426096c54f470.jpg" class="w-full h-full object-cover opacity-25" alt="" />
+            <div class="absolute inset-0 bg-black/70"></div>
+            <div class="vignette"></div>
+            <div class="film-grain"></div>
+          </div>
+          <button class="app-modal-close" data-app-close aria-label="Close">✕</button>
+          <div class="relative z-10 p-10 text-center">
+            <h1 class="title">Get the Esqyre App</h1>
+            <p class="subtitle">Scan the QR code to download the app</p>
+            <div class="qr-wrap" id="qrWrap">
+              <div class="qr-box" aria-label="QR code area">
+                <img src="corporate page/appstore.png" class="qr-image active" alt="Download on App Store" />
+                <img src="corporate page/playstore.png" class="qr-image" alt="Download on Play Store" />
+              </div>
+              <div class="qr-dots" aria-label="QR selector">
+                <button class="qr-dot active" type="button" aria-label="App Store QR"></button>
+                <button class="qr-dot" type="button" aria-label="Play Store QR"></button>
+              </div>
+            </div>
+            <div class="divider">Or get a download link via SMS</div>
+            <div class="sms-row">
+              <select class="country" aria-label="Country code">
+                <option value="+971">+971</option>
+                <option value="+91">+91</option>
+                <option value="+44">+44</option>
+                <option value="+1">+1</option>
+              </select>
+              <input type="tel" class="phone" placeholder="Phone number" />
+              <button class="send" aria-label="Send link">→</button>
+            </div>
+            <p class="inline-confirm hidden" id="smsConfirm">Link sent.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      lucide.createIcons();
+
+      // Navbar scrolled
+      const nav = document.getElementById("mainNav");
+      const setNavState = () => {
+        if (!nav) return;
+        if (window.scrollY > 20) nav.classList.add("nav-scrolled");
+        else nav.classList.remove("nav-scrolled");
+      };
+      window.addEventListener("scroll", setNavState, { passive: true });
+      setNavState();
+
+      // Overlay open/close
+      function openOverlay(id) {
+        document.getElementById(id).classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+        lucide.createIcons();
+      }
+      function closeOverlay(id) {
+        document.getElementById(id).classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          ["exploreOverlay", "partnersOverlay"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el && !el.classList.contains("hidden")) closeOverlay(id);
+          });
+        }
+      });
+
+      // Mobile menu
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
+      const mobileMenuContent = document.getElementById("mobile-menu-content");
+      const mobileCloseButton = document.getElementById("mobile-close-button");
+
+      function openMenu() {
+        if (!mobileMenu) return;
+        mobileMenu.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => {
+          mobileMenuOverlay?.classList.remove("opacity-0");
+          mobileMenuContent?.classList.remove("translate-x-full");
+        }, 10);
+      }
+      function closeMenu() {
+        if (!mobileMenu) return;
+        mobileMenuOverlay?.classList.add("opacity-0");
+        mobileMenuContent?.classList.add("translate-x-full");
+        setTimeout(() => {
+          mobileMenu.classList.add("hidden");
+          document.body.style.overflow = "";
+        }, 300);
+      }
+      mobileMenuButton?.addEventListener("click", openMenu);
+      mobileCloseButton?.addEventListener("click", closeMenu);
+
+      // Reveal (IO + stagger)
+      const revealEls = Array.from(document.querySelectorAll(".reveal"));
+      revealEls.forEach((el, i) => {
+        const d = el.getAttribute("data-delay");
+        if (d) el.style.setProperty("--d", d);
+        else el.style.setProperty("--d", `${Math.min(i * 70, 420)}ms`);
+      });
+
+      if ("IntersectionObserver" in window) {
+        const ro = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("active");
+                ro.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.18, rootMargin: "0px 0px -12% 0px" }
+        );
+        revealEls.forEach((el) => ro.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add("active"));
+      }
+
+      // App modal open/close
+      const appModal = document.getElementById("appModal");
+      const openers = Array.from(document.querySelectorAll("[data-app-modal]"));
+      const closers = Array.from(document.querySelectorAll("[data-app-close]"));
+
+      function openAppModal() {
+        if (!appModal) return;
+        appModal.classList.remove("hidden");
+        appModal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+      function closeAppModal() {
+        if (!appModal) return;
+        appModal.classList.add("hidden");
+        appModal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+      openers.forEach((el) => {
+        el.addEventListener("click", (e) => {
+          e.preventDefault();
+          openAppModal();
+        });
+      });
+      closers.forEach((el) => el.addEventListener("click", closeAppModal));
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeAppModal();
+      });
+
+      // QR rotate
+      const qrWrap = document.getElementById("qrWrap");
+      const qrImages = Array.from(document.querySelectorAll(".qr-image"));
+      const qrDots = Array.from(document.querySelectorAll(".qr-dot"));
+      let currentQR = 0;
+      let qrTimer = null;
+
+      function showQR(index) {
+        qrImages.forEach((img, i) => img.classList.toggle("active", i === index));
+        qrDots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+        currentQR = index;
+      }
+      function startQRRotation() {
+        stopQRRotation();
+        qrTimer = setInterval(() => showQR((currentQR + 1) % qrImages.length), 2000);
+      }
+      function stopQRRotation() {
+        if (qrTimer) clearInterval(qrTimer);
+        qrTimer = null;
+      }
+      qrDots.forEach((dot, i) => {
+        dot.addEventListener("click", () => {
+          showQR(i);
+          startQRRotation();
+        });
+      });
+      const isDesktop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      if (isDesktop && qrWrap) {
+        qrWrap.addEventListener("mouseenter", stopQRRotation);
+        qrWrap.addEventListener("mouseleave", startQRRotation);
+      }
+      showQR(0);
+      startQRRotation();
+
+      // Inline SMS confirmation
+      const sendBtn = document.querySelector(".send");
+      const smsConfirm = document.getElementById("smsConfirm");
+      sendBtn?.addEventListener("click", () => {
+        if (!smsConfirm) return;
+        smsConfirm.classList.remove("hidden");
+        setTimeout(() => smsConfirm.classList.add("hidden"), 2200);
+      });
+
+      // Dynamic editorial swapping (Explore)
+      const exploreImg = document.getElementById("exploreEditorialImg");
+      const exploreTitle = document.getElementById("exploreEditorialTitle");
+      const exploreKicker = document.getElementById("exploreEditorialKicker");
+      const exploreBtn = document.getElementById("exploreEditorialBtn");
+      const exploreBtnText = document.getElementById("exploreEditorialBtnText");
+
+      function setExploreCardFrom(el) {
+        if (!el) return;
+        exploreImg.src = el.dataset.image;
+        exploreTitle.textContent = el.dataset.title;
+        exploreKicker.textContent = el.dataset.kicker;
+        exploreBtn.href = el.dataset.href;
+        exploreBtnText.textContent = el.dataset.action;
+        lucide.createIcons();
+      }
+      const exploreLinks = document.querySelectorAll(".explore-link");
+      if (exploreLinks.length) {
+        setExploreCardFrom(exploreLinks[0]);
+        exploreLinks.forEach((link) => {
+          link.addEventListener("mouseenter", () => setExploreCardFrom(link));
+          link.addEventListener("focus", () => setExploreCardFrom(link));
+        });
+      }
+
+      // Dynamic editorial swapping (Partners)
+      const partnersImg = document.getElementById("partnersEditorialImg");
+      const partnersTitle = document.getElementById("partnersEditorialTitle");
+      const partnersKicker = document.getElementById("partnersEditorialKicker");
+      const partnersBtn = document.getElementById("partnersEditorialBtn");
+      const partnersBtnText = document.getElementById("partnersEditorialBtnText");
+
+      function setPartnersCardFrom(el) {
+        if (!el) return;
+        partnersImg.src = el.dataset.image;
+        partnersTitle.textContent = el.dataset.title;
+        partnersKicker.textContent = el.dataset.kicker;
+        partnersBtn.href = el.dataset.href;
+        partnersBtnText.textContent = el.dataset.action;
+        lucide.createIcons();
+      }
+      const partnerLinks = document.querySelectorAll(".partner-link");
+      if (partnerLinks.length) {
+        setPartnersCardFrom(partnerLinks[0]);
+        partnerLinks.forEach((link) => {
+          link.addEventListener("mouseenter", () => setPartnersCardFrom(link));
+          link.addEventListener("focus", () => setPartnersCardFrom(link));
+        });
+      }
+
+      /* =========================
+         UPDATED NEWSROOM DATA SCRIPT
+         ========================= */
+      const POSTS = [
+        {
+          id: "post-001",
+          title: "Esqyre expands curated access across five categories",
+          excerpt: "A single platform for chauffeur, cars, aviation, yachts, and stays.",
+          date: "2025-11-15",
+          category: "company",
+          location: "dubai",
+          type: "announcement",
+          href: "#",
+        },
+        {
+          id: "post-002",
+          title: "Service standards update: chauffeur experience",
+          excerpt: "Operational refinements focused on discretion, timing, and arrival quality.",
+          date: "2025-10-02",
+          category: "product",
+          location: "uae",
+          type: "announcement",
+          href: "#",
+        },
+        {
+          id: "post-003",
+          title: "Press mention: luxury mobility and modern concierge",
+          excerpt: "Coverage highlights controlled delivery and consistent execution.",
+          date: "2025-09-08",
+          category: "press",
+          location: "global",
+          type: "coverage",
+          href: "#",
+        },
+        {
+          id: "post-004",
+          title: "Corporate suite rollout",
+          excerpt: "Centralized billing, reporting, and team mobility controls.",
+          date: "2025-08-21",
+          category: "product",
+          location: "dubai",
+          type: "press-release",
+          href: "#",
+        },
+      ];
+
+      const newsGrid = document.getElementById("newsGrid");
+      const filterBtns = Array.from(document.querySelectorAll(".news-filter"));
+      const selLocation = document.getElementById("newsLocation");
+      const selType = document.getElementById("newsType");
+
+      let state = { category: "all", location: "all", type: "all" };
+
+      function fmtDate(iso) {
+        try {
+          const d = new Date(iso + "T00:00:00");
+          return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "2-digit" });
+        } catch (_) {
+          return iso;
+        }
+      }
+
+      function matches(post) {
+        const catOk = state.category === "all" || post.category === state.category;
+        const locOk = state.location === "all" || post.location === state.location;
+        const typeOk = state.type === "all" || post.type === state.type;
+        return catOk && locOk && typeOk;
+      }
+
+      function render() {
+        if (!newsGrid) return;
+        const items = POSTS
+          .slice()
+          .sort((a, b) => (a.date < b.date ? 1 : -1))
+          .filter(matches);
+
+        if (!items.length) {
+          newsGrid.innerHTML = `
+            <div class="reveal active py-10 border-b border-white/10">
+              <p class="text-[10px] tracking-[.32em] uppercase text-white/45">No results</p>
+              <p class="text-white/60 mt-3 leading-relaxed">Try changing the filters.</p>
+            </div>
+          `;
+          lucide.createIcons();
+          return;
+        }
+
+        // Updated Render Output to match the new Horizontal Ledger layout
+        newsGrid.innerHTML = items
+          .map((p, index) => {
+            // Adding staggered animation delay
+            const delay = Math.min(index * 70, 420);
+            return `
+              <a href="${p.href}" class="reveal active group block border-b border-white/10 py-10 hover:bg-white/[0.02] transition px-4 -mx-4 rounded-xl" style="transition-delay: ${delay}ms">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                  <div class="md:col-span-3">
+                    <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-2">${fmtDate(p.date)}</p>
+                    <div class="flex gap-2 text-[9px] tracking-[.32em] uppercase text-white/30 group-hover:text-white/50 transition">
+                      <span>${p.category}</span>
+                      <span>/</span>
+                      <span>${p.type}</span>
+                    </div>
+                  </div>
+                  <div class="md:col-span-8">
+                    <h3 class="text-xl md:text-2xl font-medium tracking-tight text-white/90 group-hover:text-white transition">${p.title}</h3>
+                    <p class="text-white/40 mt-2 leading-relaxed text-sm group-hover:text-white/60 transition">${p.excerpt}</p>
+                  </div>
+                  <div class="md:col-span-1 flex justify-start md:justify-end mt-4 md:mt-0">
+                    <div class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-300">
+                      <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            `;
+          })
+          .join("");
+
+        lucide.createIcons();
+      }
+
+      function setPressed(btn) {
+        filterBtns.forEach((b) => b.setAttribute("aria-pressed", "false"));
+        btn.setAttribute("aria-pressed", "true");
+      }
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.category = btn.dataset.filter || "all";
+          setPressed(btn);
+          render();
+        });
+      });
+
+      selLocation?.addEventListener("change", () => {
+        state.location = selLocation.value || "all";
+        render();
+      });
+
+      selType?.addEventListener("change", () => {
+        state.type = selType.value || "all";
+        render();
+      });
+
+      render();
+    </script>
+  </body>
+</html>
