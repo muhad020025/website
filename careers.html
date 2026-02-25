@@ -573,7 +573,6 @@
   </head>
 
   <body class="antialiased overflow-x-hidden selection:bg-white selection:text-black">
-    <!-- Navbar -->
     <nav
       id="mainNav"
       class="fixed top-0 left-0 right-0 z-50 h-24 flex items-center border-b border-white/0 transition-all duration-500"
@@ -604,7 +603,6 @@
       </div>
     </nav>
 
-    <!-- EXPLORE OVERLAY -->
     <div id="exploreOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
       <div class="absolute inset-0">
         <video autoplay muted loop playsinline class="overlay-video">
@@ -714,7 +712,6 @@
       </div>
     </div>
 
-    <!-- PARTNERS OVERLAY -->
     <div id="partnersOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
       <div class="absolute inset-0">
         <video autoplay muted loop playsinline class="overlay-video">
@@ -802,7 +799,6 @@
       </div>
     </div>
 
-    <!-- Mobile Menu -->
     <div id="mobile-menu" class="lg:hidden fixed inset-0 z-[60] hidden">
       <div
         id="mobile-menu-overlay"
@@ -859,116 +855,54 @@
       </div>
     </div>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="lg:hidden fixed inset-0 z-[60] hidden">
-      <div
-        id="mobile-menu-overlay"
-        class="fixed inset-0 bg-black/80 backdrop-blur-sm opacity-0"
-        onclick="closeMenu()"
-      ></div>
-      <div
-        id="mobile-menu-content"
-        class="relative z-[70] bg-black border-l border-white/10 text-white w-4/5 max-w-sm ml-auto h-full p-8 transform translate-x-full transition-transform duration-300"
-      >
-        <div class="flex justify-between items-center mb-12">
-          <span class="text-lg font-bold tracking-[.32em]">MENU</span>
-          <button id="mobile-close-button" onclick="closeMenu()" class="p-2 -m-2">
-            <i data-lucide="x" class="w-6 h-6"></i>
-          </button>
-        </div>
+    <header class="relative h-screen w-full overflow-hidden bg-black flex items-end pb-24 group" data-panel="Hero">
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="https://i.pinimg.com/1200x/41/5f/ac/415fac3db853e45cace1930d3f3959fc.jpg" 
+          class="w-full h-full object-cover opacity-85" 
+          alt="Careers Hero Background"
+        />
 
-        <div class="flex flex-col space-y-8">
-          <button
-            onclick="openOverlay('exploreOverlay'); closeMenu();"
-            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
+        <div class="vignette"></div>
+        <div class="film-grain"></div>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="relative z-10 container mx-auto px-6 md:px-12 w-full">
+        <div class="max-w-4xl reveal active">
+          <p class="text-[11px] tracking-[.32em] uppercase text-white/70 mb-5">
+            Careers
+          </p>
+
+          <h1
+            class="font-medium text-5xl md:text-7xl lg:text-8xl text-white tracking-tight leading-[1.05] mb-10 drop-shadow-lg"
           >
-            Explore
-          </button>
+            BUILD<br />THE STANDARD.
+          </h1>
 
-          <a href="corporate.html" class="text-xl font-medium hover:text-gray-350 transition-colors">
-            For Business
-          </a>
+          <div class="mt-10 flex items-center gap-6 flex-wrap">
+            <a
+              href="#open-roles"
+              class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/90 hover:text-white"
+            >
+              Open Roles <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
 
-          <button
-            onclick="openOverlay('partnersOverlay'); closeMenu();"
-            class="text-xl font-medium hover:text-gray-350 transition-colors text-left"
-          >
-            Partners
-          </button>
-
-          <div class="h-px bg-white/10 my-4"></div>
-
-          <a
-            href="login.html"
-            class="text-sm uppercase tracking-[.32em] text-gray-500 hover:text-white transition-colors"
-            >Login</a
-          >
-
-          <div class="mt-auto pt-8">
             <a
               href="#"
               data-app-modal
-              class="block w-full text-center bg-white text-black py-4 text-xs font-bold tracking-[.32em] uppercase"
-              onclick="closeMenu()"
+              class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white"
             >
-              Get The App
+              Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </a>
           </div>
         </div>
       </div>
-    </div>
-
-<!-- HERO -->
-<header class="relative h-screen w-full overflow-hidden bg-black flex items-end pb-24 group" data-panel="Hero">
-  <div class="absolute inset-0 z-0">
-    <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-85">
-      <source
-        src="https://brand.brex.com/m/41dadabb90420d3c/original/BREX_QW_HERO_45s_1920x1080_H264.mp4"
-        type="video/mp4"
-      />
-    </video>
-
-    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
-    <div class="vignette"></div>
-    <div class="film-grain"></div>
-    <div class="section-divider"></div>
-  </div>
-
-  <div class="relative z-10 container mx-auto px-6 md:px-12 w-full">
-    <div class="max-w-4xl reveal active">
-      <p class="text-[11px] tracking-[.32em] uppercase text-white/70 mb-5">
-        Careers
-      </p>
-
-      <h1
-        class="font-medium text-5xl md:text-7xl lg:text-8xl text-white tracking-tight leading-[1.05] mb-10 drop-shadow-lg"
-      >
-        BUILD<br />THE STANDARD.
-      </h1>
-
-      <div class="mt-10 flex items-center gap-6 flex-wrap">
-        <a
-          href="#open-roles"
-          class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/90 hover:text-white"
-        >
-          Open Roles <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </a>
-
-        <a
-          href="#"
-          data-app-modal
-          class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white"
-        >
-          Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-</header>
+    </header>
 
     <main>
-     <!-- How we Work (Ultra minimal, editorial) -->
-<section class="relative py-20 md:py-28 bg-black border-t border-white/10 overflow-hidden">
+     <section class="relative py-20 md:py-28 bg-black border-t border-white/10 overflow-hidden">
   <div class="absolute inset-0">
     <div class="vignette"></div>
     <div class="film-grain"></div>
@@ -976,7 +910,6 @@
 
   <div class="relative z-10 container mx-auto px-6 md:px-12">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-14 items-start">
-      <!-- Left copy -->
       <div class="lg:col-span-5 reveal">
         <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">How we work</p>
 
@@ -996,7 +929,6 @@
         </div>
       </div>
 
-      <!-- Right principles (no cards, no blocks) -->
       <div class="lg:col-span-7 reveal">
         <div class="space-y-10">
           <div class="flex items-start gap-5">
@@ -1051,7 +983,6 @@
   </div>
 </section>
 
-      <!-- Open roles -->
       <section id="open-roles" class="relative py-20 md:py-24 bg-black border-t border-white/10">
         <div class="absolute inset-0">
           <div class="vignette"></div>
@@ -1066,7 +997,6 @@
               Apply with a short note and links that show your work.
             </p>
 
-            <!-- Filters (Department, Location, Type) -->
             <div class="filterbar">
               <div class="filterpill">
                 <span class="filterlabel">Department</span>
@@ -1089,7 +1019,6 @@
             <div class="countline" id="roleCount">Showing 0 roles</div>
           </div>
 
-          <!-- Roles rendered here -->
           <div id="rolesGrid" class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-6"></div>
 
           <div class="mt-10 reveal">
@@ -1100,7 +1029,6 @@
         </div>
       </section>
 
-      <!-- Hiring process -->
       <section class="relative py-20 md:py-24 bg-black border-t border-white/10">
         <div class="absolute inset-0">
           <div class="vignette"></div>
@@ -1143,7 +1071,6 @@
         </div>
       </section>
 
-      <!-- CTA -->
       <section class="relative py-24 md:py-28 bg-black overflow-hidden border-t border-white/10">
         <div class="absolute inset-0">
           <div class="vignette"></div>
@@ -1186,7 +1113,6 @@
         </div>
       </section>
 
-      <!-- Footer -->
       <footer class="bg-black border-t border-white/10 relative z-20">
         <div class="container mx-auto px-6 md:px-12 pt-20 pb-12">
           <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
@@ -1258,7 +1184,6 @@
       </footer>
     </main>
 
-    <!-- APP DOWNLOAD MODAL -->
     <div id="appModal" class="app-modal hidden" aria-hidden="true">
       <div class="app-modal-backdrop" data-app-close></div>
 

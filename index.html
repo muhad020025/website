@@ -11,10 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- GSAP + ScrollTrigger + Lenis (premium smooth scroll) -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
@@ -71,12 +69,8 @@
     }
 
     /* =========================
-   HERO: 3 videos + clock + dots + small CTA
+   HERO: dots + blended ring timer 
    ========================= */
-    /* =========================
-   HERO: dots + blended ring timer (no separate clock)
-   ========================= */
-
     .hero-dots {
       position: absolute;
       left: 50%;
@@ -94,7 +88,6 @@
       box-shadow: 0 16px 50px rgba(0, 0, 0, 0.55);
     }
 
-    /* wrapper so ring can sit around dot */
     .hero-dot-wrap {
       position: relative;
       width: 10px;
@@ -124,7 +117,6 @@
       transform: scale(1.18);
     }
 
-    /* ring sits behind dot, only visible on active */
     .hero-ring {
       position: absolute;
       left: 50%;
@@ -156,7 +148,6 @@
       stroke-dashoffset: 100;
     }
 
-    /* restartable animation class */
     .hero-ring.is-animating .hero-ring-fg {
       animation: heroProgress 5s linear forwards;
     }
@@ -174,7 +165,7 @@
       }
     }
 
-    /* HERO micro CTA (matches ring + dots vibe) */
+    /* HERO micro CTA */
     .hero-cta {
       display: inline-flex;
       align-items: center;
@@ -196,15 +187,6 @@
       border-color: rgba(255, 255, 255, .22);
       background: rgba(255, 255, 255, .06);
       opacity: 1;
-    }
-
-    /* Replace the slash divider with a subtle dot */
-    .hero-cta-sep {
-      width: 4px;
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, .22);
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, .06) inset;
     }
 
     /* Cinematic Grain + Vignette */
@@ -229,7 +211,7 @@
           rgba(0, 0, 0, 0.75) 100%);
     }
 
-    /* Reveal — now driven by GSAP ScrollTrigger, CSS is fallback */
+    /* Reveal */
     .reveal {
       opacity: 0;
       transform: translateY(32px) scale(0.97);
@@ -244,10 +226,6 @@
       transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
         transform 1.1s cubic-bezier(0.16, 1, 0.3, 1),
         filter 1.1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reveal[data-delay] {
-      transition-delay: var(--d, 0ms);
     }
 
     /* Hairline divider line */
@@ -305,41 +283,6 @@
 
     .cta-pill:hover::before {
       transform: translateX(60%) rotate(12deg);
-    }
-
-    /* Underline CTA link */
-    .cta-link {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      padding-bottom: 3px;
-      opacity: 0.9;
-      transition: opacity 0.3s ease;
-    }
-
-    .cta-link:hover {
-      opacity: 1;
-    }
-
-    .cta-link::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg,
-          rgba(255, 255, 255, 1),
-          rgba(255, 255, 255, 0.2));
-      transform: scaleX(0.22);
-      transform-origin: left;
-      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .cta-link:hover::after,
-    .group:hover .cta-link::after {
-      transform: scaleX(1);
     }
 
     /* Navbar */
@@ -449,17 +392,36 @@
       letter-spacing: -0.01em;
     }
 
-    /* COLLECTION — smooth scroll, no CSS snap */
+    /* =========================
+       ✅ CATEGORY CARDS (Clickable Block Links)
+       ========================= */
     .collection-snap {
-      /* Lenis + GSAP handle smooth scroll — no CSS snap needed */
       position: relative;
     }
 
     .collection-panel {
       position: relative;
       min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px; 
+      background: #000;
+    }
+
+    /* Changed to display block and cursor pointer */
+    .collection-card {
+      position: relative;
+      display: block;
+      cursor: pointer;
+      width: 100%;
+      max-width: 1440px;
+      height: calc(100vh - 80px);
+      min-height: 600px;
+      border-radius: 32px; 
       overflow: hidden;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      background: #080808;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .collection-media {
@@ -474,7 +436,7 @@
       will-change: transform;
     }
 
-    .collection-panel:hover .collection-media {
+    .collection-card:hover .collection-media {
       opacity: 0.9;
     }
 
@@ -492,12 +454,12 @@
     }
 
     .collection-inner {
-      position: relative;
+      position: absolute;
+      inset: 0;
       z-index: 10;
-      height: 100%;
       display: flex;
       align-items: flex-end;
-      padding: 96px 0;
+      padding: 60px 48px;
     }
 
     .collection-kicker {
@@ -512,6 +474,7 @@
       letter-spacing: -0.02em;
       line-height: 1.03;
       font-size: clamp(2.4rem, 5vw, 4.8rem);
+      margin-top: 1rem;
     }
 
     .collection-desc {
@@ -519,6 +482,7 @@
       font-size: 1.05rem;
       line-height: 1.75;
       max-width: 56ch;
+      margin-top: 1.25rem;
     }
 
     .collection-rule {
@@ -532,20 +496,28 @@
       opacity: 0.85;
     }
 
-    /* Chapter badge (reused) */
-    .chapter-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(10px);
-      color: rgba(255, 255, 255, 0.72);
-      font-size: 10px;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
+    /* B2B Specific Styling (Side-by-side in the card) */
+    .b2b-card-inner {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 1fr;
+      padding: 3rem;
+    }
+    
+    @media (min-width: 768px) {
+      .b2b-card-inner {
+        grid-template-columns: 1fr 1fr;
+        padding: 4rem;
+        gap: 2rem;
+      }
+    }
+
+    .b2b-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
 
     /* Progress markers */
@@ -563,8 +535,7 @@
       background: rgba(0, 0, 0, 0.28);
       backdrop-filter: blur(12px);
       box-shadow: 0 16px 50px rgba(0, 0, 0, 0.55);
-      transition: opacity 0.4s ease, background 0.55s ease, border-color 0.55s ease,
-        box-shadow 0.55s ease;
+      transition: opacity 0.4s ease;
     }
 
     @media (min-width: 768px) {
@@ -572,12 +543,6 @@
         display: flex;
         flex-direction: column;
       }
-    }
-
-    .collection-progress.mode-business {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(255, 255, 255, 0.16);
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.62);
     }
 
     .progress-dot {
@@ -600,30 +565,10 @@
       border-radius: 999px;
     }
 
-    .progress-dot:hover {
-      transform: scale(1.15);
-      border-color: rgba(255, 255, 255, 0.55);
-    }
-
     .progress-dot.active {
       background: rgba(255, 255, 255, 0.9);
       border-color: rgba(255, 255, 255, 0.9);
       transform: scale(1.18);
-    }
-
-    .collection-progress.mode-business .progress-dot {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.48);
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
-    }
-
-    .collection-progress.mode-business .progress-dot:hover {
-      border-color: rgba(255, 255, 255, 0.7);
-    }
-
-    .collection-progress.mode-business .progress-dot.active {
-      background: rgba(255, 255, 255, 0.96);
-      border-color: rgba(255, 255, 255, 0.96);
     }
 
     .progress-dot .progress-label {
@@ -643,64 +588,36 @@
       white-space: nowrap;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s ease, transform 0.25s ease, background 0.55s ease,
-        border-color 0.55s ease;
+      transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
-    .progress-dot:hover .progress-label,
-    .progress-dot:focus-visible .progress-label {
+    .progress-dot:hover .progress-label {
       opacity: 1;
       transform: translateY(-50%) translateX(-2px);
     }
 
-    .collection-progress.mode-business .progress-dot .progress-label {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(255, 255, 255, 0.16);
-      color: rgba(255, 255, 255, 0.82);
-    }
-
-    /* =========================
-       ✅ PREMIUM SCROLL ANIMATION (GSAP-driven)
-       ========================= */
-
-    /* Panel media — GSAP controls opacity/scale/filter via inline styles */
-    .collection-media {
-      will-change: transform, opacity, filter;
-      transition: filter 0.6s ease;
-    }
-
-    /* Panel copy — initial state for GSAP to animate FROM */
+    /* GSAP Initial States */
     .collection-panel .collection-kicker,
     .collection-panel .collection-title,
     .collection-panel .collection-desc,
     .collection-panel .collection-rule,
-    .collection-panel .cta-link {
+    .collection-panel .explore-affordance {
       will-change: transform, opacity;
     }
 
-    /* Smooth overscroll */
     html,
     body {
       overscroll-behavior-y: none;
     }
-
-    /* Horizontal rule animated width */
     .collection-rule {
       transform-origin: left;
     }
 
     @media (prefers-reduced-motion: reduce) {
-
-      .progress-dot,
-      .collection-media,
-      .reveal,
-      .collection-progress,
-      .collection-panel .collection-kicker,
-      .collection-panel .collection-title,
-      .collection-panel .collection-desc,
-      .collection-panel .collection-rule,
-      .collection-panel .cta-link,
-      .collection-panel .collection-inner {
+      .progress-dot, .collection-media, .reveal, .collection-progress,
+      .collection-panel .collection-kicker, .collection-panel .collection-title,
+      .collection-panel .collection-desc, .collection-panel .collection-rule,
+      .collection-panel .explore-affordance, .collection-panel .collection-inner {
         transition: none !important;
         transform: none !important;
         filter: none !important;
@@ -711,7 +628,6 @@
 </head>
 
 <body class="antialiased overflow-x-hidden selection:bg-white selection:text-black">
-  <!-- Navbar -->
   <nav id="mainNav"
     class="fixed top-0 left-0 right-0 z-50 h-24 flex items-center border-b border-white/0 transition-all duration-500">
     <div class="absolute inset-0 bg-gradient-to-b from-black/80 to-transparent"></div>
@@ -737,13 +653,10 @@
     </div>
   </nav>
 
-  <!-- EXPLORE OVERLAY -->
   <div id="exploreOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
     <div class="absolute inset-0">
       <video autoplay muted loop playsinline class="overlay-video">
-        <source
-          src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
-          type="video/mp4" />
+        <source src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4" type="video/mp4" />
       </video>
       <div class="absolute inset-0 bg-black/75"></div>
       <div class="vignette"></div>
@@ -760,40 +673,22 @@
 
       <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-12">
         <div class="lg:col-span-6">
-          <a href="chauffeurs.html" class="overlay-item-dynamic explore-link" data-title="Chauffeur"
-            data-kicker="First Class" data-image="https://cd.wheely.com/2x_webp_Artwork_4_3_1_f658d25402.webp"
-            data-action="View Chauffeur" data-href="chauffeurs.html">Chauffeur</a>
-
-          <a href="cars.html" class="overlay-item-dynamic explore-link" data-title="Supercars" data-kicker="Fleet"
-            data-image="https://i.pinimg.com/736x/f6/30/6f/f6306fd83483c23e4cef2d55462444fe.jpg"
-            data-action="View Supercars" data-href="cars.html">Supercars</a>
-
-          <a href="jets.html" class="overlay-item-dynamic explore-link" data-title="Private Aviation"
-            data-kicker="Access" data-image="https://i.pinimg.com/1200x/04/6f/c6/046fc640ad4739d024639501b330dac0.jpg"
-            data-action="Request Charter" data-href="jets.html">Private Aviation</a>
-
-          <a href="villas.html" class="overlay-item-dynamic explore-link" data-title="Villas & Hotels"
-            data-kicker="Stays" data-image="https://i.pinimg.com/736x/ba/28/2e/ba282e6465d684da2cee26b17dc466f0.jpg"
-            data-action="Explore Stays" data-href="villas.html">Stays</a>
-
-          <a href="yachts.html" class="overlay-item-dynamic explore-link" data-title="Yachts" data-kicker="Marine"
-            data-image="https://i.pinimg.com/736x/33/7b/10/337b1006a9ca27aa1bf0d7212df6fa3c.jpg"
-            data-action="Explore Yachts" data-href="yachts.html">Yachts</a>
+          <a href="chauffeurs.html" class="overlay-item-dynamic explore-link" data-title="Chauffeur" data-kicker="First Class" data-image="https://cd.wheely.com/2x_webp_Artwork_4_3_1_f658d25402.webp" data-action="View Chauffeur" data-href="chauffeurs.html">Chauffeur</a>
+          <a href="cars.html" class="overlay-item-dynamic explore-link" data-title="Supercars" data-kicker="Fleet" data-image="https://i.pinimg.com/736x/f6/30/6f/f6306fd83483c23e4cef2d55462444fe.jpg" data-action="View Supercars" data-href="cars.html">Supercars</a>
+          <a href="jets.html" class="overlay-item-dynamic explore-link" data-title="Private Aviation" data-kicker="Access" data-image="https://i.pinimg.com/1200x/04/6f/c6/046fc640ad4739d024639501b330dac0.jpg" data-action="Request Charter" data-href="jets.html">Private Aviation</a>
+          <a href="villas.html" class="overlay-item-dynamic explore-link" data-title="Villas & Hotels" data-kicker="Stays" data-image="https://i.pinimg.com/736x/ba/28/2e/ba282e6465d684da2cee26b17dc466f0.jpg" data-action="Explore Stays" data-href="villas.html">Stays</a>
+          <a href="yachts.html" class="overlay-item-dynamic explore-link" data-title="Yachts" data-kicker="Marine" data-image="https://i.pinimg.com/736x/33/7b/10/337b1006a9ca27aa1bf0d7212df6fa3c.jpg" data-action="Explore Yachts" data-href="yachts.html">Yachts</a>
         </div>
-
         <div class="lg:col-span-6">
           <div class="editorial">
             <div class="relative">
               <img id="exploreEditorialImg" class="editorial-img" alt="Explore Preview" />
               <div class="editorial-overlay"></div>
-
               <div class="absolute bottom-0 left-0 right-0 p-10">
                 <p id="exploreEditorialKicker" class="editorial-kicker"></p>
                 <h3 id="exploreEditorialTitle" class="editorial-title mt-3"></h3>
-
                 <div class="mt-8">
-                  <a id="exploreEditorialBtn" href="#"
-                    class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex">
+                  <a id="exploreEditorialBtn" href="#" class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex">
                     <span id="exploreEditorialBtnText">Explore</span>
                     <i data-lucide="arrow-right" class="w-4 h-4"></i>
                   </a>
@@ -803,18 +698,13 @@
           </div>
         </div>
       </div>
-
-      <div class="pb-10 text-xs tracking-[.32em] uppercase opacity-50">Time Redefined</div>
     </div>
   </div>
 
-  <!-- PARTNERS OVERLAY -->
   <div id="partnersOverlay" class="fixed inset-0 z-[100] hidden bg-black text-white">
     <div class="absolute inset-0">
       <video autoplay muted loop playsinline class="overlay-video">
-        <source
-          src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4"
-          type="video/mp4" />
+        <source src="https://visitqatar.com/content/dam/14-campaign/qatar-calendar/Visit_Qatar_DB_120_1920x1080_DELIVER_V02.mp4" type="video/mp4" />
       </video>
       <div class="absolute inset-0 bg-black/75"></div>
       <div class="vignette"></div>
@@ -831,32 +721,20 @@
 
       <div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pb-12">
         <div class="lg:col-span-6">
-          <a href="partner-overview.html" class="overlay-item-dynamic partner-link" data-title="Partner Overview"
-            data-kicker="Network" data-image="https://i.pinimg.com/1200x/ec/11/92/ec1192e63f0ed3b136a426096c54f470.jpg"
-            data-action="View Overview" data-href="partner-overview.html">Partner Overview</a>
-
-          <a href="partner-apply.html" class="overlay-item-dynamic partner-link" data-title="Apply to List"
-            data-kicker="Curated" data-image="https://esqyre.com/assets/images/assets.png" data-action="Apply Now"
-            data-href="partner-apply.html">Apply to List</a>
-
-          <a href="partner-login.html" class="overlay-item-dynamic partner-link" data-title="Vendor Portal"
-            data-kicker="Operations" data-image="https://esqyre.com/assets/images/help.png" data-action="Open Portal"
-            data-href="partner-login.html">Vendor Portal</a>
+          <a href="partner-overview.html" class="overlay-item-dynamic partner-link" data-title="Partner Overview" data-kicker="Network" data-image="https://i.pinimg.com/1200x/ec/11/92/ec1192e63f0ed3b136a426096c54f470.jpg" data-action="View Overview" data-href="partner-overview.html">Partner Overview</a>
+          <a href="partner-apply.html" class="overlay-item-dynamic partner-link" data-title="Apply to List" data-kicker="Curated" data-image="https://esqyre.com/assets/images/assets.png" data-action="Apply Now" data-href="partner-apply.html">Apply to List</a>
+          <a href="partner-login.html" class="overlay-item-dynamic partner-link" data-title="Vendor Portal" data-kicker="Operations" data-image="https://esqyre.com/assets/images/help.png" data-action="Open Portal" data-href="partner-login.html">Vendor Portal</a>
         </div>
-
         <div class="lg:col-span-6">
           <div class="editorial">
             <div class="relative">
               <img id="partnersEditorialImg" class="editorial-img" alt="Partners Preview" />
               <div class="editorial-overlay"></div>
-
               <div class="absolute bottom-0 left-0 right-0 p-10">
                 <p id="partnersEditorialKicker" class="editorial-kicker"></p>
                 <h3 id="partnersEditorialTitle" class="editorial-title mt-3"></h3>
-
                 <div class="mt-8">
-                  <a id="partnersEditorialBtn" href="#"
-                    class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex">
+                  <a id="partnersEditorialBtn" href="#" class="cta-pill text-xs font-bold tracking-[.32em] uppercase text-white inline-flex">
                     <span id="partnersEditorialBtnText">Explore</span>
                     <i data-lucide="arrow-right" class="w-4 h-4"></i>
                   </a>
@@ -866,17 +744,12 @@
           </div>
         </div>
       </div>
-
-      <div class="pb-10 text-xs tracking-[.32em] uppercase opacity-50">Time Redefined</div>
     </div>
   </div>
 
-  <!-- Mobile Menu -->
   <div id="mobile-menu" class="lg:hidden fixed inset-0 z-[60] hidden">
-    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm opacity-0" onclick="closeMenu()">
-    </div>
-    <div id="mobile-menu-content"
-      class="relative z-[70] bg-black border-l border-white/10 text-white w-4/5 max-w-sm ml-auto h-full p-8 transform translate-x-full transition-transform duration-300">
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm opacity-0" onclick="closeMenu()"></div>
+    <div id="mobile-menu-content" class="relative z-[70] bg-black border-l border-white/10 text-white w-4/5 max-w-sm ml-auto h-full p-8 transform translate-x-full transition-transform duration-300">
       <div class="flex justify-between items-center mb-12">
         <span class="text-lg font-bold tracking-[.32em]">MENU</span>
         <button id="mobile-close-button" onclick="closeMenu()" class="p-2 -m-2">
@@ -885,56 +758,29 @@
       </div>
 
       <div class="flex flex-col space-y-8">
-        <button onclick="openOverlay('exploreOverlay'); closeMenu();"
-          class="text-xl font-medium hover:text-gray-350 transition-colors text-left">
-          Explore
-        </button>
-
+        <button onclick="openOverlay('exploreOverlay'); closeMenu();" class="text-xl font-medium hover:text-gray-350 transition-colors text-left">Explore</button>
         <a href="corporate.html" class="text-xl font-medium hover:text-gray-350 transition-colors">Corporate</a>
-
-        <button onclick="openOverlay('partnersOverlay'); closeMenu();"
-          class="text-xl font-medium hover:text-gray-350 transition-colors text-left">
-          Partners
-        </button>
-
+        <button onclick="openOverlay('partnersOverlay'); closeMenu();" class="text-xl font-medium hover:text-gray-350 transition-colors text-left">Partners</button>
         <div class="h-px bg-white/10 my-4"></div>
-
-        <a href="login.html"
-          class="text-sm uppercase tracking-[.32em] text-gray-500 hover:text-white transition-colors">Login</a>
-
+        <a href="login.html" class="text-sm uppercase tracking-[.32em] text-gray-500 hover:text-white transition-colors">Login</a>
         <div class="mt-auto pt-8">
-          <a href="app-download.html"
-            class="block w-full text-center bg-white text-black py-4 text-xs font-bold tracking-[.32em] uppercase">
-            Get The App
-          </a>
+          <a href="app-download.html" class="block w-full text-center bg-white text-black py-4 text-xs font-bold tracking-[.32em] uppercase">Get The App</a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- HERO (3 chapters / 3 videos) -->
   <header id="hero" class="relative h-screen w-full overflow-hidden bg-black flex items-end pb-24 group">
     <div class="absolute inset-0 z-0">
-      <!-- Video 1 -->
-      <video id="heroVideo0" class="hero-video absolute inset-0 w-full h-full object-cover opacity-85" autoplay muted
-        playsinline preload="auto">
+      <video id="heroVideo0" class="hero-video absolute inset-0 w-full h-full object-cover opacity-85" autoplay muted playsinline preload="auto">
         <source src="Velocity Black.mp4" type="video/mp4" />
       </video>
-
-      <!-- Video 2 -->
-      <video id="heroVideo1"
-        class="hero-video absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none" muted playsinline
-        preload="auto">
+      <video id="heroVideo1" class="hero-video absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none" muted playsinline preload="auto">
         <source src="https://cd.wheely.com/PAP_Video_C_2caee2bf28.mp4#t=0.001" type="video/mp4" />
       </video>
-
-      <!-- Video 3 -->
-      <video id="heroVideo2"
-        class="hero-video absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none" muted playsinline
-        preload="auto">
+      <video id="heroVideo2" class="hero-video absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none" muted playsinline preload="auto">
         <source src="https://cd.wheely.com/2025_Jun_Wheely_CFAD_Update_C_3082ff09b7.mp4#t=0.001" type="video/mp4" />
       </video>
-
       <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
       <div class="vignette"></div>
       <div class="film-grain"></div>
@@ -946,52 +792,35 @@
         <h1 id="heroTitle" class="font-medium text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.08] mb-5">
           Curated Access
         </h1>
-
         <p id="heroSub" class="text-white/60 text-base md:text-lg leading-relaxed max-w-[44ch] mx-auto">
           Chauffeur, cars, aviation, yachts, stays — one platform.
         </p>
       </div>
     </div>
 
-    <!-- Center-bottom: clock + dots + SMALL CTA -->
     <div class="absolute left-1/2 bottom-10 -translate-x-1/2 z-20 flex flex-col items-center gap-3">
       <button id="heroIndicator" type="button" class="hero-indicator" aria-label="Hero progress / next">
-        <svg class="hero-ring" viewBox="0 0 44 44" aria-hidden="true">
-          <circle class="hero-ring-bg" cx="22" cy="22" r="18"></circle>
-          <circle class="hero-ring-fg" cx="22" cy="22" r="18"></circle>
-        </svg>
+        <svg class="hero-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="hero-ring-bg" cx="22" cy="22" r="18"></circle><circle class="hero-ring-fg" cx="22" cy="22" r="18"></circle></svg>
       </button>
-
       <div class="flex items-center gap-3">
         <button class="hero-dot active" type="button" aria-label="Go to chapter 1" data-hero-dot="0"></button>
         <button class="hero-dot" type="button" aria-label="Go to chapter 2" data-hero-dot="1"></button>
         <button class="hero-dot" type="button" aria-label="Go to chapter 3" data-hero-dot="2"></button>
       </div>
-
       <div class="mt-2 flex items-center gap-4">
-        <a href="app-download.html"
-          class="hero-cta text-[10px] font-bold tracking-[.32em] uppercase text-white/90 hover:text-white">
-          Enter the Platform →
-        </a>
-
+        <a href="app-download.html" class="hero-cta text-[10px] font-bold tracking-[.32em] uppercase text-white/90 hover:text-white">Enter the Platform →</a>
         <span class="text-white/25 text-[10px] tracking-[.32em]">/</span>
-
-        <a href="#collection"
-          class="hero-cta text-[10px] font-bold tracking-[.32em] uppercase text-white/75 hover:text-white">
-          See How It Works →
-        </a>
+        <a href="#collection" class="hero-cta text-[10px] font-bold tracking-[.32em] uppercase text-white/75 hover:text-white">See How It Works →</a>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- Progress Markers -->
     <div id="collectionProgress" class="collection-progress" aria-label="Collection navigation"></div>
 
-    <!-- ✅ COLLECTION + BUSINESS -->
     <section id="collection" class="relative bg-black collection-snap">
-      <!-- Intro -->
-      <div class="container mx-auto px-6 md:px-12 pt-24 pb-10">
+      
+      <div class="container mx-auto px-6 md:px-12 pt-24 pb-4">
         <div class="max-w-3xl reveal" data-delay="0ms">
           <p class="text-[10px] tracking-[.32em] uppercase text-white/45 mb-6">Collection</p>
           <h2 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">
@@ -1003,226 +832,184 @@
         </div>
       </div>
 
-      <!-- Chauffeur -->
-      <section class="collection-panel group" data-panel="Chauffeur">
-        <img src="https://i.pinimg.com/1200x/ec/11/92/ec1192e63f0ed3b136a426096c54f470.jpg" class="collection-media"
-          alt="Chauffeur" />
-        <div class="collection-overlay"></div>
-        <div class="vignette"></div>
-        <div class="film-grain"></div>
+      <section class="collection-panel group/panel" data-panel="Chauffeur">
+        <a href="chauffeurs.html" class="collection-card group/card">
+          <img src="https://i.pinimg.com/1200x/ec/11/92/ec1192e63f0ed3b136a426096c54f470.jpg" class="collection-media" alt="Chauffeur" />
+          <div class="collection-overlay"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
 
-        <div class="collection-inner">
-          <div class="container mx-auto px-6 md:px-12">
+          <div class="collection-inner">
             <div class="max-w-3xl reveal">
               <div class="collection-kicker">First Class</div>
               <h3 class="collection-title mt-4">Chauffeur</h3>
               <p class="collection-desc mt-5">Quiet arrivals. Executive pace. Always composed.</p>
-
               <div class="collection-rule"></div>
-
-              <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                <a href="chauffeurs.html" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
-                  View Chauffeur <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-                <a href="app-download.html"
-                  class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/75 hover:text-white">
-                  Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
+              
+              <div class="explore-affordance mt-8 flex items-center gap-4 text-white/60 group-hover/card:text-white transition-colors duration-500">
+                <span class="text-[10px] font-bold tracking-[.32em] uppercase">Explore Service</span>
+                <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover/card:bg-white group-hover/card:text-black group-hover/card:border-white transition-all duration-500">
+                   <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </a>
       </section>
 
-      <!-- Supercars -->
-      <section class="collection-panel group" data-panel="Supercars">
-        <img src="homepagecar.png" class="collection-media" alt="Supercars" />
-        <div class="collection-overlay"></div>
-        <div class="vignette"></div>
-        <div class="film-grain"></div>
+      <section class="collection-panel group/panel" data-panel="Supercars">
+        <a href="cars.html" class="collection-card group/card">
+          <img src="homepagecar.png" class="collection-media" alt="Supercars" />
+          <div class="collection-overlay"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
 
-        <div class="collection-inner">
-          <div class="container mx-auto px-6 md:px-12">
+          <div class="collection-inner">
             <div class="max-w-3xl reveal">
               <div class="collection-kicker">Fleet</div>
               <h3 class="collection-title mt-4">Supercars</h3>
               <p class="collection-desc mt-5">Iconic forms. Clean spec. Immediate presence.</p>
-
               <div class="collection-rule"></div>
-
-              <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                <a href="cars.html" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
-                  View Supercars <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-                <a href="app-download.html"
-                  class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/75 hover:text-white">
-                  Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
+              
+              <div class="explore-affordance mt-8 flex items-center gap-4 text-white/60 group-hover/card:text-white transition-colors duration-500">
+                <span class="text-[10px] font-bold tracking-[.32em] uppercase">Explore Fleet</span>
+                <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover/card:bg-white group-hover/card:text-black group-hover/card:border-white transition-all duration-500">
+                   <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </a>
       </section>
 
-      <!-- Aviation -->
-      <section class="collection-panel group" data-panel="Aviation">
-        <img src="https://i.pinimg.com/1200x/6e/25/02/6e250203e1f4dab0ec3c4454159ea2ec.jpg" class="collection-media"
-          alt="Private Aviation" />
-        <div class="collection-overlay"></div>
-        <div class="vignette"></div>
-        <div class="film-grain"></div>
+      <section class="collection-panel group/panel" data-panel="Aviation">
+        <a href="jets.html" class="collection-card group/card">
+          <img src="https://i.pinimg.com/1200x/6e/25/02/6e250203e1f4dab0ec3c4454159ea2ec.jpg" class="collection-media" alt="Private Aviation" />
+          <div class="collection-overlay"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
 
-        <div class="collection-inner">
-          <div class="container mx-auto px-6 md:px-12">
+          <div class="collection-inner">
             <div class="max-w-3xl reveal">
               <div class="collection-kicker">Access</div>
               <h3 class="collection-title mt-4">Private Aviation</h3>
               <p class="collection-desc mt-5">Depart quietly. Land ready. Time stays yours.</p>
-
               <div class="collection-rule"></div>
-
-              <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                <a href="jets.html" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
-                  Request Charter <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-                <a href="app-download.html"
-                  class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/75 hover:text-white">
-                  Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
+              
+              <div class="explore-affordance mt-8 flex items-center gap-4 text-white/60 group-hover/card:text-white transition-colors duration-500">
+                <span class="text-[10px] font-bold tracking-[.32em] uppercase">Request Charter</span>
+                <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover/card:bg-white group-hover/card:text-black group-hover/card:border-white transition-all duration-500">
+                   <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </a>
       </section>
 
-      <!-- Yachts -->
-      <section class="collection-panel group" data-panel="Yachts">
-        <img src="https://i.pinimg.com/1200x/e3/5c/12/e35c12ba58bb28f54df005ab9a929286.jpg" class="collection-media"
-          alt="Yachts" />
-        <div class="collection-overlay"></div>
-        <div class="vignette"></div>
-        <div class="film-grain"></div>
+      <section class="collection-panel group/panel" data-panel="Yachts">
+        <a href="yachts.html" class="collection-card group/card">
+          <img src="https://i.pinimg.com/1200x/e3/5c/12/e35c12ba58bb28f54df005ab9a929286.jpg" class="collection-media" alt="Yachts" />
+          <div class="collection-overlay"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
 
-        <div class="collection-inner">
-          <div class="container mx-auto px-6 md:px-12">
+          <div class="collection-inner">
             <div class="max-w-3xl reveal">
               <div class="collection-kicker">Marine</div>
               <h3 class="collection-title mt-4">Yachts</h3>
               <p class="collection-desc mt-5">Open water. Private deck. Slow luxury.</p>
-
               <div class="collection-rule"></div>
-
-              <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                <a href="yachts.html" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
-                  Explore Yachts <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-                <a href="app-download.html"
-                  class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/75 hover:text-white">
-                  Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
+              
+              <div class="explore-affordance mt-8 flex items-center gap-4 text-white/60 group-hover/card:text-white transition-colors duration-500">
+                <span class="text-[10px] font-bold tracking-[.32em] uppercase">Explore Marine</span>
+                <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover/card:bg-white group-hover/card:text-black group-hover/card:border-white transition-all duration-500">
+                   <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </a>
       </section>
 
-      <!-- Stays -->
-      <section class="collection-panel group" data-panel="Stays">
-        <img src="https://i.pinimg.com/1200x/b2/19/30/b2193008d8b8025f86873d5b08035275.jpg" class="collection-media"
-          alt="Stays" />
-        <div class="collection-overlay"></div>
-        <div class="vignette"></div>
-        <div class="film-grain"></div>
+      <section class="collection-panel group/panel" data-panel="Stays">
+        <a href="villas.html" class="collection-card group/card">
+          <img src="https://i.pinimg.com/1200x/b2/19/30/b2193008d8b8025f86873d5b08035275.jpg" class="collection-media" alt="Stays" />
+          <div class="collection-overlay"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
 
-        <div class="collection-inner">
-          <div class="container mx-auto px-6 md:px-12">
+          <div class="collection-inner">
             <div class="max-w-3xl reveal">
               <div class="collection-kicker">Stays</div>
               <h3 class="collection-title mt-4">Villas & Hotels</h3>
               <p class="collection-desc mt-5">Private space. Calm design. Full privacy.</p>
-
               <div class="collection-rule"></div>
-
-              <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                <a href="villas.html" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
-                  Explore Stays <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-                <a href="app-download.html"
-                  class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/75 hover:text-white">
-                  Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
+              
+              <div class="explore-affordance mt-8 flex items-center gap-4 text-white/60 group-hover/card:text-white transition-colors duration-500">
+                <span class="text-[10px] font-bold tracking-[.32em] uppercase">Explore Stays</span>
+                <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover/card:bg-white group-hover/card:text-black group-hover/card:border-white transition-all duration-500">
+                   <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </a>
       </section>
 
-      <!-- ✅ CORPORATE (SNAP PANEL) -->
-      <section class="collection-panel group" data-panel="Corporate" data-mode="business">
-        <img src="corporate page/heropagebusiness.png" class="collection-media" alt="Corporate Suite" />
-        <div class="collection-overlay"></div>
-        <div class="vignette"></div>
-        <div class="film-grain"></div>
+      <section class="collection-panel group/panel" data-panel="Corporate">
+        <a href="corporate.html" class="collection-card group/card">
+          <img src="corporate page/heropagebusiness.png" class="collection-media" alt="Corporate Suite" />
+          <div class="collection-overlay"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
 
-        <div class="collection-inner">
-          <div class="container mx-auto px-6 md:px-12">
-            <div class="max-w-3xl reveal">
-              <div class="collection-kicker">Business</div>
-              <h3 class="collection-title mt-4">Esqyre For Business</h3>
-              <p class="collection-desc mt-5">
-                Centralized mobility for teams with billing control and reporting built-in.
-              </p>
-
-              <div class="collection-rule"></div>
-
-              <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                <a href="corporate.html" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
-                  Open Corporate <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-                <a href="app-download.html"
-                  class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/75 hover:text-white">
-                  Get The App <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-              </div>
-            </div>
+          <div class="b2b-card-inner">
+             <div class="b2b-content md:pb-12 reveal">
+               <div class="collection-kicker">Business</div>
+               <h3 class="collection-title mt-4">Esqyre For Business</h3>
+               <p class="collection-desc mt-5">Centralized mobility for teams with billing control and reporting built-in.</p>
+             </div>
+             
+             <div class="b2b-content md:items-end md:text-right reveal">
+               <div class="explore-affordance mt-8 flex items-center gap-4 text-white/60 group-hover/card:text-white transition-colors duration-500">
+                 <span class="text-[10px] font-bold tracking-[.32em] uppercase">Open Suite</span>
+                 <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover/card:bg-white group-hover/card:text-black group-hover/card:border-white transition-all duration-500">
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                 </div>
+               </div>
+             </div>
           </div>
-        </div>
+        </a>
       </section>
 
-      <!-- ✅ PARTNERS (SNAP PANEL) -->
-      <section class="collection-panel group" data-panel="Partners" data-mode="business">
-        <img src="partner home.png" class="collection-media" alt="Partners" />
-        <div class="collection-overlay"></div>
-        <div class="vignette"></div>
-        <div class="film-grain"></div>
+      <section class="collection-panel group/panel" data-panel="Partners">
+        <a href="partners.html" class="collection-card group/card">
+          <img src="partner home.png" class="collection-media" alt="Partners" />
+          <div class="collection-overlay"></div>
+          <div class="vignette"></div>
+          <div class="film-grain"></div>
 
-        <div class="collection-inner">
-          <div class="container mx-auto px-6 md:px-12">
-            <div class="max-w-3xl reveal">
-              <div class="collection-kicker">Operators</div>
-              <h3 class="collection-title mt-4">Partner with Esqyre</h3>
-              <p class="collection-desc mt-5">
-                A curated network for operators who deliver consistently every time.
-              </p>
-
-              <div class="collection-rule"></div>
-
-              <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                <a href="partners.html" class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white">
-                  Apply to List <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-                <a href="partner-login.html"
-                  class="cta-link text-xs font-bold tracking-[.32em] uppercase text-white/75 hover:text-white">
-                  Vendor Portal <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-              </div>
-            </div>
+          <div class="b2b-card-inner">
+             <div class="b2b-content md:pb-12 reveal">
+               <div class="collection-kicker">Operators</div>
+               <h3 class="collection-title mt-4">Partner with Esqyre</h3>
+               <p class="collection-desc mt-5">A curated network for operators who deliver consistently every time.</p>
+             </div>
+             
+             <div class="b2b-content md:items-end md:text-right reveal">
+               <div class="explore-affordance mt-8 flex items-center gap-4 text-white/60 group-hover/card:text-white transition-colors duration-500">
+                 <span class="text-[10px] font-bold tracking-[.32em] uppercase">Apply To List</span>
+                 <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover/card:bg-white group-hover/card:text-black group-hover/card:border-white transition-all duration-500">
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                 </div>
+               </div>
+             </div>
           </div>
-        </div>
+        </a>
       </section>
     </section>
 
-    <!-- Pre-footer CTA -->
     <section class="relative py-24 md:py-28 bg-black overflow-hidden border-t border-white/10">
       <div class="absolute inset-0">
         <div class="absolute inset-0"></div>
@@ -1261,7 +1048,6 @@
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-black border-t border-white/10 relative z-20">
       <div class="container mx-auto px-6 md:px-12 pt-20 pb-12">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
@@ -1554,9 +1340,10 @@
 
     const collectionSection = document.getElementById("collection");
     const progress = document.getElementById("collectionProgress");
-    const businessDivider = document.getElementById("businessDivider");
 
     const allPanels = Array.from(document.querySelectorAll("#collection .collection-panel"));
+    
+    // Filter the array if needed
     const panels = allPanels.filter((p) => p.dataset.progress !== "false");
 
     // ---------- Lenis smooth scroll ----------
@@ -1591,7 +1378,7 @@
     // ---------- Reveal animations (GSAP-powered) ----------
     const revealEls = Array.from(document.querySelectorAll(".reveal"));
     revealEls.forEach((el, i) => {
-      const delay = parseFloat(el.getAttribute("data-delay")) / 1000 || i * 0.06;
+      const delay = parseFloat(el.getAttribute("data-delay")) / 1000 || 0;
       gsap.fromTo(el,
         { y: 32, opacity: 0, scale: 0.97, filter: "blur(4px)" },
         {
@@ -1648,25 +1435,17 @@
       });
     }
 
-    function setProgressMode(isBusiness) {
-      if (!progress) return;
-      progress.classList.toggle("mode-business", !!isBusiness);
-    }
-
-    function setProgressModeForPanel(panel) {
-      const isBusiness = panel?.dataset?.mode === "business";
-      setProgressMode(isBusiness);
-    }
-
     // Show/hide progress rail
     if (collectionSection && progress) {
       ScrollTrigger.create({
         trigger: collectionSection,
         start: "top 25%",
-        end: "bottom 35%",
+        end: "bottom 15%",
         onToggle: (self) => {
-          progress.style.opacity = self.isActive ? "1" : "0";
-          progress.style.pointerEvents = self.isActive ? "auto" : "none";
+          progress.style.display = self.isActive ? "flex" : "none";
+          setTimeout(() => {
+            progress.style.opacity = self.isActive ? "1" : "0";
+          }, 10);
         },
       });
     }
@@ -1680,14 +1459,14 @@
       const title = panel.querySelector(".collection-title");
       const desc = panel.querySelector(".collection-desc");
       const rule = panel.querySelector(".collection-rule");
-      const links = panel.querySelectorAll(".cta-link");
+      const affordance = panel.querySelector(".explore-affordance");
 
-      // --- Parallax: media moves slower than scroll (cinematic) ---
+      // --- Parallax: media moves slower than scroll ---
       if (media) {
         gsap.fromTo(media,
-          { yPercent: -8, scale: 1.12 },
+          { yPercent: -5, scale: 1.08 },
           {
-            yPercent: 8, scale: 1.04,
+            yPercent: 5, scale: 1.0,
             ease: "none",
             scrollTrigger: {
               trigger: panel,
@@ -1706,14 +1485,8 @@
           start: "top 65%",
           end: "top 15%",
           toggleActions: "play none none reverse",
-          onEnter: () => {
-            setActiveDot(idx);
-            setProgressModeForPanel(panel);
-          },
-          onEnterBack: () => {
-            setActiveDot(idx);
-            setProgressModeForPanel(panel);
-          },
+          onEnter: () => setActiveDot(idx),
+          onEnterBack: () => setActiveDot(idx),
         }
       });
 
@@ -1727,7 +1500,7 @@
       }
 
       // Staggered text reveal
-      const copyEls = [kicker, title, desc, rule, ...links].filter(Boolean);
+      const copyEls = [kicker, title, desc, rule, affordance].filter(Boolean);
       copyEls.forEach((el, i) => {
         tl.fromTo(el,
           { y: 28 + i * 4, opacity: 0, filter: "blur(3px)" },
@@ -1764,33 +1537,9 @@
       });
     }
 
-    // ---------- Business divider mode ----------
-    if (businessDivider && "IntersectionObserver" in window) {
-      const dio = new IntersectionObserver(
-        (entries) => {
-          const e = entries[0];
-          if (!e) return;
-          if (e.isIntersecting && e.intersectionRatio >= 0.35) {
-            setProgressMode(true);
-          } else {
-            const activeIdx = Math.max(
-              0,
-              Array.from(progress.querySelectorAll(".progress-dot")).findIndex((d) =>
-                d.classList.contains("active")
-              )
-            );
-            setProgressModeForPanel(panels[activeIdx] || panels[0]);
-          }
-        },
-        { root: null, threshold: [0.2, 0.35, 0.5, 0.65] }
-      );
-      dio.observe(businessDivider);
-    }
-
     // Initial states
     if (panels.length) {
       setActiveDot(0);
-      setProgressModeForPanel(panels[0]);
     }
 
   </script>
